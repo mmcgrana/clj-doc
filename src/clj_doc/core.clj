@@ -8,25 +8,19 @@
   [ns-syms]
   (doseq [ns-sym ns-syms] (use ns-sym)))
 
-(defn collect-tuples [ns-syms]
-  "Returns a seq of [ns-sym var-sym var-meta] tuples corresponding to the given
-  namespace symbols."
+(defn collect-var-tuples
+  "Returns a seq of [ns-sym var-sym var-meta+] tuples corresponding to the given
+  namespace symbols, where the var-meta+ tuples contain the regular var meta
+  as well as source code data."
+  [ns-syms src-dirs]
   (mapcat
     (fn [ns-sym]
-      (map
-        (fn [[var-sym the-var]] (vector ns-sym var-sym (meta the-var)))
-        (ns-publics ns-sym)))
+      (map (fn [[var-sym the-var]]
+             (let [var-meta  (meta the-var)
+                   var-meta+ (merge var-meta (source-info var-meta src-dirs))]
+               [ns-sym var-sym var-meta+]))
+           (ns-publics ns-sym)))
     ns-syms))
-
-(defn process-tuples
-  "Return a seq of tuples corresponding to the given seq but with the
-  metadata augmented with source information."
-  [tuples src-dirs]
-  (map
-    (fn [tuple]
-      (let [var-meta (get tuple 2)]
-        (assoc tuple 2 (merge var-meta (source-info var-meta src-dirs)))))
-    tuples))
 
 (defn generate
   "Generate documation for the namespaces named by the given symbols, 
@@ -35,9 +29,7 @@
   relative to the doc root dir, the second a list of relative path, contents
   pairs for which to write corresponding files."
   [ns-syms src-dirs generator]
-  (let [tuples  (collect-tuples ns-syms)
-        ptuples (process-tuples tuples src-dirs)]
-    (generator ns-syms ptuples)))
+  (generator ns-syms (collect-var-tuples ns-syms src-dirs)))
 
 (defn generate-and-write
   "Generate and write into the given doc-dir the documation for the namespaces 

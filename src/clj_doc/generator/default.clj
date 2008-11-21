@@ -123,6 +123,9 @@
                 (h source))]]]))]))
 
 (defn generate [ns-syms var-tuples]
+  "Generate the HTML documation. Returns a 2-tuple, the first containing
+  relative paths of directories to ensure exists, the second of (relative path,
+  contents pairs) representing to files to write at specified locations."
   (let [sorted-var-tuples
           (sort-by (fn [[ns-sym var-sym var-meta]] [var-sym ns-sym]) var-tuples)
         index-contents

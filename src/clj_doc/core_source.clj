@@ -11,6 +11,8 @@
     (:file var-meta)))
 
 (defn- get-raw-source
+  "Returns the string corresponding to the form in the file at the given path
+  and at the given line."
   [abs-path line]
   (when abs-path
      (with-open [rdr (java.io.LineNumberReader.
@@ -57,6 +59,8 @@
       raw-source)))
 
 (defn- get-source
+  "Returns a string of the source of the form at the given path and line, but
+  without and metadata-defining code."
   [abs-path line]
   (if-let [raw-source (get-raw-source abs-path line)]
     (without-dup-meta raw-source)))
