@@ -1,0 +1,76 @@
+#content {
+  margin: 1em;
+}
+
+#docs {
+  margin-left: 17.5em;
+}
+
+#search {
+  background: #99bbee;
+  width: 16em;
+  float: left;
+  padding: .5em;
+}
+
+#search-box {
+  padding-bottom: .5em;
+}
+
+#search-box input{
+  width: 13em;
+  font-size: 1.2em;
+}
+
+#search-results li.var-link {
+  font-size: 1.1em;
+  line-height: 1.3em;
+}
+
+#search-results li.var-link a {
+  display: block;
+  cursor: pointer;
+  color: black;
+  text-decoration: none;
+  padding-left: .2em;
+}
+
+#search-results li.var-link a span.namespace {
+  margin-left: .3em;
+  color: #666666;
+}
+
+#search-results li.var-link a:hover {
+  background: #5588dd;
+}
+
+#docs div.doc-item {
+  border: 2px solid #77bb33;
+  padding: .5em;
+}
+
+#docs h2.doc-item-name {
+  font-size: 2em;
+}
+
+#docs h2.doc-item-name span.namespace {
+  margin-left: .3em;
+  color: #c2c2c2;
+}
+
+#docs ul.var-arglists {
+  margin-bottom: .5em;
+}
+
+#docs ul.var-arglists span.var-name {
+  font-style: italic;
+}
+
+#docs .var-docstring p {
+  margin-bottom: .5em;
+}
+
+#docs div.highlight {
+  padding: .5em 0;
+  border: 1px dotted black;
+}

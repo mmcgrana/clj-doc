@@ -1,0 +1,8 @@
+paths=/Users/mmcgrana/Desktop/remote/clojure/clojure.jar
+paths=$paths:/Users/mmcgrana/Desktop/remote/clojure-contrib/clojure-contrib.jar
+paths=$paths:/Users/mmcgrana/Desktop/git/clj-html/src/
+paths=$paths:/Users/mmcgrana/Desktop/git/clj-html-helpers/src/
+paths=$paths:/Users/mmcgrana/Desktop/git/clj-doc/src/
+paths=$paths:/Users/mmcgrana/Desktop/raw/jline/jline-0.9.94.jar
+
+java -cp $paths jline.ConsoleRunner clojure.lang.Repl
