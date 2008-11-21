@@ -61,7 +61,7 @@
 
 (defn- index-template
   "Returns an html page for the main doc index."
-  [var-tuples]
+  [ns-syms var-tuples]
   (let [duped-vars-syms (duped (map second var-tuples))]
     (html
       (doctype :xhtml-transitional)
@@ -88,7 +88,11 @@
             [:div#docs
               [:div.doc-item
                 [:h2.doc-item-name "clj-doc"]
-                "Search by var name to the left."]]]]])))
+                [:p "Documented:"]
+                [:ul#documenting
+                  (domap-str [ns-sym ns-syms]
+                    (html [:li (h (str ns-sym))]))]
+                [:p "Search by var name to the left."]]]]]])))
 
 (defn- snippet-template
   "Returns an html snippet for the documentation div for the given var tuple."
@@ -118,11 +122,11 @@
                 (str "; " (:path var-info) ":" (:line var-info) "\n"
                 (h source))]]]))]))
 
-(defn generate [var-tuples]
+(defn generate [ns-syms var-tuples]
   (let [sorted-var-tuples
           (sort-by (fn [[ns-sym var-sym var-meta]] [var-sym ns-sym]) var-tuples)
         index-contents
-          [index-path (index-template sorted-var-tuples)]
+          [index-path (index-template ns-syms sorted-var-tuples)]
         snippets-contents
           (map (fn [tuple] [(snippet-path (tuple 0) (tuple 1))
                             (snippet-template tuple)])

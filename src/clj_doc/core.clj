@@ -37,7 +37,7 @@
   [ns-syms src-dirs generator]
   (let [tuples  (collect-tuples ns-syms)
         ptuples (process-tuples tuples src-dirs)]
-    (generator ptuples)))
+    (generator ns-syms ptuples)))
 
 (defn generate-and-write
   "Generate and write into the given doc-dir the documation for the namespaces 

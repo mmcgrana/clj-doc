@@ -74,3 +74,12 @@
   padding: .5em 0;
   border: 1px dotted black;
 }
+
+#docs #documenting {
+  padding-bottom: .5em;
+}
+
+#docs ul#documenting li {
+  list-style-type: disc;
+  margin-left: 1em;
+}
