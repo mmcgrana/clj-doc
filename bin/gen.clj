@@ -7,5 +7,6 @@
     clojure.contrib.str-utils)
   `("/Users/mmcgrana/Desktop/remote/clojure/src/clj",
     "/Users/mmcgrana/Desktop/remote/clojure-contrib/src")
-  clj-doc.generator.default/generate
-  "/Users/mmcgrana/Desktop/git/clj-doc/doc")
+  #(clj-doc.generator.default/generate  %1 %2
+    {:title "clj-doc: Clojure Library Documentation"})
+  "/Users/mmcgrana/Desktop/clj-doc")

@@ -1,33 +1,29 @@
-// Show in the main doc div the documentation for the function with id.
-function showVar(snippetUrl) {
-  $("#docs").load(snippetUrl);
+function showDocItem(snippetUrl) {
+  $("#doc-items").load(snippetUrl);
 }
 
-// Enable live searching of var names list.
-function liveFuzzyFind() {
-  var searchField =    $("#search-field");
-  var container =      $("#search-results");
-  var rows =           $("ul > li", container);
-  var noResults =      $("#no-results", container);
+function liveFuzzyFinder() {
+  var searchField =    $("#search-box-vars input");
+  var rows =           $("#listings ul li");
+  var noResults =      $("#no-results");
   var varNamesIndex =  {};
   
   rows.each(function() {
     var row = $(this);
-    var link = $("a:first", row);
-    var varName = row.children().html();
-    varNamesIndex[varName] =   [row, link];
+    var varName = row.html();
+    varNamesIndex[varName] = row;
   });
   
   var finder = function(searched) {
     var searchedRe = new RegExp(searched, "i");
     var anyFound = false;
     
-    jQuery.each(varNamesIndex, function(varName, tuple) {
+    jQuery.each(varNamesIndex, function(varName, row) {
       if (searchedRe.test(varName)) {
-        tuple[0].show();
+        row.show();
         anyFound = true;
       } else {
-        tuple[0].hide();
+        row.hide();
       }
     });
     
@@ -43,5 +39,5 @@ function liveFuzzyFind() {
 }
 
 $(document).ready(function() {
-  liveFuzzyFind();
+  liveFuzzyFinder();
 });

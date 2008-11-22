@@ -33,6 +33,7 @@
 
 (defvar- start-metamap-line-p #"^\s*#")
 (defvar- end-metamap-line-p   #"^.*}\s*$")
+(defvar- start-doc-line-p     #"^\s*\"")
 (defvar- start-nonmeta-line-p #"^\s*(\[)|(\(\[)")
 
 (defn- without-dup-meta
@@ -43,6 +44,8 @@
   => first line, next line after line ending with }
   If docstring on second line
   => first line, next line starting with [ ([      
+  If neither metamap or docstring on second line
+  => whole source
   
   Note that if the source is exactly one line long it will be returned as-is."
   [raw-source]
@@ -53,9 +56,13 @@
     (if second-line
       (str-join "\n"
         (cons first-line
-          (if (re-find start-metamap-line-p second-line)
-            (take-after    #(re-find end-metamap-line-p %) rest-lines)
-            (take-starting #(re-find start-nonmeta-line-p %) rest-lines))))
+          (cond
+            (re-find start-metamap-line-p second-line)
+              (take-after    #(re-find end-metamap-line-p %) rest-lines)
+            (re-find start-doc-line-p second-line)
+              (take-starting #(re-find start-nonmeta-line-p %) rest-lines)
+            :else
+              rest-lines)))
       raw-source)))
 
 (defn- get-source

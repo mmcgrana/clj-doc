@@ -14,40 +14,34 @@
          `("javascripts/default.js" "javascripts/jquery-1.2.6.js"
            "stylesheets/reset-min.css" "stylesheets/default.css"))))
 
-(defvar- subdirs '("javascripts" "stylesheets" "snippets"))
+(defvar- subdirs '("javascripts" "stylesheets" "vars" "namespaces"))
 
 (defvar- index-path "index.html")
 
 (defvar- ns-var-ids (ref {}))
 
+(defvar- hstr (comp h str))
+
 (defn- ns-var-id
   "Returns the CSS-safe id to use to represent the var names by the given
   namespace and var name strings."
   [ns-sym var-sym]
-  (ref-map-fetch ns-var-ids [ns-sym var-sym] (gensym "var-")))
+  (ref-map-fetch ns-var-ids [ns-sym var-sym] (gensym "doc-")))
 
-(defn- snippet-path
+(defn- var-path
   [ns-sym var-sym]
-  (file-join "snippets" (str (ns-var-id ns-sym var-sym) ".html")))
+  (file-join "vars" (str (ns-var-id ns-sym var-sym) ".html")))
 
-(defn- ns-var-link
-  "Returns an html link named after the given namespace and var strings that,
-  when clicked, will show the corresponding documention."
-  [ns-sym var-sym needs-namespace]
-  (html
-    [:li.var-link
-      [:a {:href "#"
-           :onclick (str "showVar('" (snippet-path ns-sym var-sym) "')")}
-        (h (str var-sym))
-        (when needs-namespace
-          (html [:span.namespace "(" (h (str ns-sym)) ")"]))]]))
+(defn- show-doc-js
+  [ns-sym var-sym]
+  (str "showDocItem('" (var-path ns-sym var-sym) "')" ))
 
 (defn- var-argform
   "Returns an html snippet corresponding to the argform for the given function
   or macro var string and arguments list."
   [var-sym arglist]
   (let [arglist-strs (map str arglist)
-        front-elem   (str "(<span class=\"var-name\">" (h (str var-sym)) "</span> ")
+        front-elem   (html "(" [:span.var-name (hstr var-sym)] ")")
         middle-elems (str-join " " (map h (butlast arglist-strs)))
         last-elem    (str " " (h (last arglist-strs)) ")")]
     (str front-elem middle-elems last-elem)))
@@ -61,31 +55,33 @@
 
 (defn- index-template
   "Returns an html page for the main doc index."
-  [ns-syms var-tuples]
+  [ns-syms var-tuples options]
   (let [duped-vars-syms (duped (map second var-tuples))]
     (html
       (doctype :xhtml-transitional)
       [:html {:xmlns "http://www.w3.org/1999/xhtml"}
         [:head
           [:meta {:http-equiv "Content-Type" :content "text/html;charset=utf-8"}]
-          [:title "clj-doc"]
+          [:title (or (:title options) "clj-doc")]
           (include-js
             "javascripts/jquery-1.2.6.js" "javascripts/default.js")
           (include-css
-            "stylesheets/reset-min.css" "stylesheets/default.css"
-            "stylesheets/highlight.css")]
+            "stylesheets/reset-min.css" "stylesheets/default.css")]
         [:body
           [:div#content
-            [:div#search
-              [:div#search-box
-                [:input#search-field {:type "text"}]]
-              [:div#search-results
-                [:ul
-                  [:li#no-results.var-link
-                    "(no matches)"]
-                  (domap-str [[ns-sym var-sym var-info] var-tuples]
-                    (ns-var-link ns-sym var-sym (duped-vars-syms var-sym)))]]]
-            [:div#docs
+            [:div#listings
+              [:div#search-box-vars [:input {:type "text"}]]
+              [:ul
+                [:li#no-results.listing-link.display-none "(no matches)"]
+                (domap-str [[ns-sym var-sym _] var-tuples]
+                  (html
+                    [:li.listing-link
+                      {:href "#" :onclick (show-doc-js ns-sym var-sym)}
+                      (hstr var-sym)
+                      (if (duped-vars-syms var-sym)
+                         (html [:span.disambig-namespace
+                                 "(" (hstr ns-sym) ")"]))]))]]
+            [:div#doc-items
               [:div.doc-item
                 [:h2.doc-item-name "clj-doc"]
                 [:p "Documented:"]
@@ -94,15 +90,13 @@
                     (html [:li (h (str ns-sym))]))]
                 [:p "Search by var name to the left."]]]]]])))
 
-(defn- snippet-template
+(defn- var-template
   "Returns an html snippet for the documentation div for the given var tuple."
   [[ns-sym var-sym var-info]]
-  (print ".") (flush)
   (html
     [:div.doc-item {:id (ns-var-id ns-sym var-sym)}
-      [:h2.doc-item-name
-        (h (str var-sym))
-        [:span.namespace "(" (h (str ns-sym)) ")"]]
+      [:h2.doc-item-name (hstr var-sym)
+        [:span.namespace "(" (hstr ns-sym) ")"]]
       (if (:macro var-info)
         (html [:p.macro "Macro"]))
       (if-let [arglists (:arglists var-info)]
@@ -112,26 +106,25 @@
               (html [:li (var-argform var-sym arglist)]))]))
       (if-let [doc (:doc var-info)]
         (html
-          [:div.var-docstring
-            (var-docstring doc)]))
+          [:div.var-docstring (var-docstring doc)]))
       (if-let [source (force (:source var-info))]
         (html
           [:div.var-source
-            [:div.highlight
-              [:pre
-                (str "; " (:path var-info) ":" (:line var-info) "\n"
-                (h source))]]]))]))
+            [:pre (str "; " (:path var-info) ":" (:line var-info) "\n"
+                       (h source))]]))]))
 
-(defn generate [ns-syms var-tuples]
+(defn generate [ns-syms var-tuples options]
   "Generate the HTML documation. Returns a 2-tuple, the first containing
   relative paths of directories to ensure exists, the second of (relative path,
   contents pairs) representing to files to write at specified locations."
   (let [sorted-var-tuples
           (sort-by (fn [[ns-sym var-sym var-meta]] [var-sym ns-sym]) var-tuples)
         index-contents
-          [index-path (index-template ns-syms sorted-var-tuples)]
-        snippets-contents
-          (map (fn [tuple] [(snippet-path (tuple 0) (tuple 1))
-                            (snippet-template tuple)])
+          [index-path (index-template ns-syms sorted-var-tuples options)]
+        var-contents
+          (map (fn [[ns-sym var-sym _ :as tuple]]
+                 (print ".") (flush)
+                 [(var-path ns-sym var-sym) (var-template tuple)])
                sorted-var-tuples)]
-    [subdirs `(~index-contents ~@static-contents ~@snippets-contents)]))
+    [subdirs
+     `(~index-contents ~@static-contents ~@var-contents)]))
