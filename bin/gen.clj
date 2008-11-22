@@ -9,4 +9,4 @@
     "/Users/mmcgrana/Desktop/remote/clojure-contrib/src")
   #(clj-doc.generator.default/generate  %1 %2
     {:title "clj-doc: Clojure Library Documentation"})
-  "/Users/mmcgrana/Desktop/clj-doc")
+  "/Users/mmcgrana/Desktop/doc-1116")
