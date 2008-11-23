@@ -1,7 +1,4 @@
-(ns clj-doc.core
-  (:use [clojure.contrib.seq-utils :only (flatten)]
-        [clojure.contrib.def       :only (defvar-)]
-        [clojure.contrib.str-utils :only (re-split str-join)]))
+(in-ns 'clj-doc.core)
 
 (defn- path-by-meta
   "Returns the qualified path of a file based on the given ns."

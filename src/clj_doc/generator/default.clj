@@ -4,9 +4,8 @@
         [clj-html.helpers             :only (doctype include-js include-css h)]
         [clojure.contrib.duck-streams :only (spit)]
         [clojure.contrib.str-utils    :only (str-join re-split)]
-        [clojure.contrib.def          :only (defvar-)])
+        [clojure.contrib.def          :only (defvar- defmacro-)])
   (:load "default_util"))
-
 
 (defvar- static-contents
   (let [root "/Users/mmcgrana/Desktop/git/clj-doc/src/clj_doc/generator/default-assets"]

@@ -1,7 +1,4 @@
-(ns clj-doc.core
-  (:use     [clojure.contrib.def       :only (defmacro-)]
-            [clojure.contrib.str-utils :only (str-join)]
-            [clojure.contrib.seq-utils :only (flatten)]))
+(in-ns 'clj-doc.core)
 
 (defn- take-starting
   "Returns a lazy seq of items in coll start with the first element for which

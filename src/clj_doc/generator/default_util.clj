@@ -1,5 +1,4 @@
-(ns clj-doc.generator.default
-  (:use [clojure.contrib.def :only (defmacro-)]))
+(in-ns 'clj-doc.generator.default)
 
 (defn- duped
   "Returns a set of elements of the given coll that appear in the coll two or

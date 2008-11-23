@@ -1,5 +1,8 @@
 (ns clj-doc.core
-  (:use [clojure.contrib.duck-streams :only (spit)])
+  (:use [clojure.contrib.def          :only (defvar- defmacro-)]
+        [clojure.contrib.str-utils    :only (re-split str-join)]
+        [clojure.contrib.seq-utils    :only (flatten)]
+        [clojure.contrib.duck-streams :only (spit)])
   (:load "core_util" "core_source"))
 
 (defn ensure-used
