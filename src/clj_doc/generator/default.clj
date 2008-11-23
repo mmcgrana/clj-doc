@@ -93,13 +93,15 @@
 (defn- license-notice
   []
   (html
-    [:p.license
-      "The use and distribution terms for this software are covered by the "
-      [:a {:href "http://www.opensource.org/licenses/cpl1.0.php"}
-        "Common Public License 1.0"] ", which can be found in the file CPL.TXT 
-      at the root of this distribution. By using this software in any fashion, 
-      you are agreeing to be bound by the terms of this license. You must not 
-      remove this notice, or any other, from this software."]))
+    [:div.license
+      [:p "Copyright (c) Rich Hickey. All rights reserved."]
+      [:p "The use and distribution terms for this software are covered by the "
+          [:a {:href "http://www.opensource.org/licenses/cpl1.0.php"}
+            "Common Public License 1.0"] ", which can be found in the file
+          CPL.TXT at the root of this distribution. By using this software in
+          any fashion, you are agreeing to be bound by the terms of this 
+          license. You must not remove this notice, or any other, from this 
+          software."]]))
 
 (defn- var-template
   "Returns an html snippet for the documentation div for the given var tuple."
