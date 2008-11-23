@@ -74,6 +74,15 @@
   border: 1px dotted black;
 }
 
+#doc-items p.license {
+  color: #898886;
+  padding-top: 1em;
+}
+
+#doc-items p.license a {
+  color: #99bbee;
+}
+
 #documenting li {
   list-style-type: disc;
   margin-left: 1em;

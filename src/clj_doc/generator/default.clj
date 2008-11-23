@@ -41,7 +41,7 @@
   or macro var string and arguments list."
   [var-sym arglist]
   (let [arglist-strs (map str arglist)
-        front-elem   (html "(" [:span.var-name (hstr var-sym)] ")")
+        front-elem   (html "(" [:span.var-name (hstr var-sym)] " ")
         middle-elems (str-join " " (map h (butlast arglist-strs)))
         last-elem    (str " " (h (last arglist-strs)) ")")]
     (str front-elem middle-elems last-elem)))
@@ -90,6 +90,17 @@
                     (html [:li (h (str ns-sym))]))]
                 [:p "Search by var name to the left."]]]]]])))
 
+(defn- license-notice
+  []
+  (html
+    [:p.license
+      "The use and distribution terms for this software are covered by the "
+      [:a {:href "http://www.opensource.org/licenses/cpl1.0.php"}
+        "Common Public License 1.0"] ", which can be found in the file CPL.TXT 
+      at the root of this distribution. By using this software in any fashion, 
+      you are agreeing to be bound by the terms of this license. You must not 
+      remove this notice, or any other, from this software."]))
+
 (defn- var-template
   "Returns an html snippet for the documentation div for the given var tuple."
   [[ns-sym var-sym var-info]]
@@ -111,7 +122,8 @@
         (html
           [:div.var-source
             [:pre (str "; " (:path var-info) ":" (:line var-info) "\n"
-                       (h source))]]))]))
+                       (h source))]]))
+      (license-notice)]))
 
 (defn generate [ns-syms var-tuples options]
   "Generate the HTML documation. Returns a 2-tuple, the first containing
