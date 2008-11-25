@@ -25,9 +25,9 @@
   then returns it if it does not allready. Assumes val is never nil."
   [ref-sym key-form val-form]
   `(let [key# ~key-form]
-     (if-let [val# ((deref ~ref-sym) key#)]
-       val#
-       (dosync
-         (let [new-val# ~val-form]
-           (alter ~ref-sym assoc key# new-val#)
-           new-val#)))))
+    (dosync
+      (if-let [val# (get (deref ~ref-sym) key#)]
+        val#
+        (let [new-val# ~val-form]
+          (alter ~ref-sym assoc key# new-val#)
+          new-val#)))))
