@@ -122,7 +122,7 @@
       (if-let [source (force (:source var-info))]
         (html
           [:div.var-source
-            [:pre (str "; " (:path var-info) ":" (:line var-info) "\n"
+            [:pre (str "; " (:file var-info) ":" (:line var-info) "\n"
                        (h source))]]))
       (license-notice)]))
 

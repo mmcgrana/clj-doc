@@ -1,3 +1,5 @@
-h3. clj-doc
+h3. clj-doc: Clojure HTML documentation generator.
 
-Experimental Clojure HTML documentation generator.
+To generate combined docs for Clojure and Clojure Contrib:
+
+java -cp /path/to/clojure.jar:/path/to/clojure.contrib.jar clojure.main bin/clojure_gen.clj /path/to/output
