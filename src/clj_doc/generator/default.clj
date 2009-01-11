@@ -1,6 +1,7 @@
 (ns clj-doc.generator.default
   (:import (java.io File))
-  (:use [clj-html.core                :only (html map-str domap-str)]
+  (:use [clj-html.core                :only (html)]
+        [clj-html.utils               :only (map-str domap-str)]
         [clj-html.helpers             :only (doctype include-js include-css h)]
         [clojure.contrib.duck-streams :only (spit)]
         [clojure.contrib.str-utils    :only (str-join re-split)]
