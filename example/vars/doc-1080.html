@@ -1,0 +1,8 @@
+<div class="doc-item" id="doc-1080"><h2 class="doc-item-name">defmacro-<span class="namespace">(clojure.contrib.def)</span></h2><p class="macro">Macro</p><ul class="var-arglists"><li>(<span class="var-name">defmacro-</span> name &amp; decls)</li></ul><div class="var-docstring"><p>Same as defmacro but yields a private definition</p></div><div class="var-source"><pre>; def.clj:35
+(defmacro defmacro-
+  [name &amp; decls]
+  (list* `defmacro (with-meta name (assoc (meta name) :private true)) decls))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
+          epl-v10.html at the root of this distribution. By using this software
+          in any fashion, you are agreeing to be bound by the terms of this 
+          license. You must not remove this notice, or any other, from this 
+          software.</p></div></div>

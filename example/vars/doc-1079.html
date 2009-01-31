@@ -1,0 +1,19 @@
+<div class="doc-item" id="doc-1079"><h2 class="doc-item-name">defmacro<span class="namespace">(clojure.core)</span></h2><p class="macro">Macro</p><ul class="var-arglists"><li>(<span class="var-name">defmacro</span> name doc-string? attr-map? [params*] body)</li><li>(<span class="var-name">defmacro</span> name doc-string? attr-map? ([params*] body) + attr-map?)</li></ul><div class="var-docstring"><p>Like defn, but the resulting function name is declared as a
+  macro and will be used as a macro by the compiler when it is
+  called.</p></div><div class="var-source"><pre>; core.clj:268
+(def
+
+ #^{:doc &quot;Like defn, but the resulting function name is declared as a
+  macro and will be used as a macro by the compiler when it is
+  called.&quot;
+    :arglists '([name doc-string? attr-map? [params*] body]
+                [name doc-string? attr-map? ([params*] body)+ attr-map?])}
+ defmacro (fn [name &amp; args]
+            (list 'do
+                  (cons `defn (cons name args))
+                  (list '. (list 'var name) '(setMacro))
+                  (list 'var name))))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
+          epl-v10.html at the root of this distribution. By using this software
+          in any fashion, you are agreeing to be bound by the terms of this 
+          license. You must not remove this notice, or any other, from this 
+          software.</p></div></div>

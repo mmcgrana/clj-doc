@@ -1,0 +1,15 @@
+<div class="doc-item" id="doc-1409"><h2 class="doc-item-name">slurp<span class="namespace">(clojure.core)</span></h2><ul class="var-arglists"><li>(<span class="var-name">slurp</span>  f)</li></ul><div class="var-docstring"><p>Reads the file named by f into a string and returns it.</p></div><div class="var-source"><pre>; core.clj:2866
+(defn slurp
+  [#^String f]
+  (with-open [r (new java.io.BufferedReader (new java.io.FileReader f))]
+    (let [sb (new StringBuilder)]
+      (loop [c (. r (read))]
+        (if (neg? c)
+          (str sb)
+          (do
+            (. sb (append (char c)))
+            (recur (. r (read)))))))))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
+          epl-v10.html at the root of this distribution. By using this software
+          in any fashion, you are agreeing to be bound by the terms of this 
+          license. You must not remove this notice, or any other, from this 
+          software.</p></div></div>

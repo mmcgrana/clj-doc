@@ -1,0 +1,12 @@
+<div class="doc-item" id="doc-1402"><h2 class="doc-item-name">set-validator!<span class="namespace">(clojure.core)</span></h2><ul class="var-arglists"><li>(<span class="var-name">set-validator!</span> iref validator-fn)</li></ul><div class="var-docstring"><p>Sets the validator-fn for a var/ref/agent/atom. validator-fn must be nil or a
+  side-effect-free fn of one argument, which will be passed the intended
+  new state on any state change. If the new state is unacceptable, the
+  validator-fn should return false or throw an exception. If the current state (root
+  value if var) is not acceptable to the new validator, an exception
+  will be thrown and the validator will not be changed.</p></div><div class="var-source"><pre>; core.clj:1260
+(defn set-validator!
+  [#^clojure.lang.IRef iref validator-fn] (. iref (setValidator validator-fn)))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
+          epl-v10.html at the root of this distribution. By using this software
+          in any fashion, you are agreeing to be bound by the terms of this 
+          license. You must not remove this notice, or any other, from this 
+          software.</p></div></div>

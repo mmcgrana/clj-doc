@@ -1,0 +1,12 @@
+<div class="doc-item" id="doc-1411"><h2 class="doc-item-name">some<span class="namespace">(clojure.core)</span></h2><ul class="var-arglists"><li>(<span class="var-name">some</span> pred coll)</li></ul><div class="var-docstring"><p>Returns the first logical true value of (pred x) for any x in coll,
+  else nil.  One common idiom is to use a set as pred, for example
+  this will return true if :fred is in the sequence, otherwise nil:
+  (some #{:fred} coll)</p></div><div class="var-source"><pre>; core.clj:1401
+(defn some
+  [pred coll]
+    (when (seq coll)
+      (or (pred (first coll)) (recur pred (rest coll)))))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
+          epl-v10.html at the root of this distribution. By using this software
+          in any fashion, you are agreeing to be bound by the terms of this 
+          license. You must not remove this notice, or any other, from this 
+          software.</p></div></div>

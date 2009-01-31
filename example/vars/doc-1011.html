@@ -1,0 +1,12 @@
+<div class="doc-item" id="doc-1011"><h2 class="doc-item-name">assoc-in<span class="namespace">(clojure.core)</span></h2><ul class="var-arglists"><li>(<span class="var-name">assoc-in</span> m [k &amp; ks] v)</li></ul><div class="var-docstring"><p>Associates a value in a nested associative structure, where ks is a
+  sequence of keys and v is the new value and returns a new nested structure.
+  If any levels do not exist, hash-maps will be created.</p></div><div class="var-source"><pre>; core.clj:3643
+(defn assoc-in
+  [m [k &amp; ks] v]
+  (if ks
+    (assoc m k (assoc-in (get m k) ks v))
+    (assoc m k v)))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
+          epl-v10.html at the root of this distribution. By using this software
+          in any fashion, you are agreeing to be bound by the terms of this 
+          license. You must not remove this notice, or any other, from this 
+          software.</p></div></div>

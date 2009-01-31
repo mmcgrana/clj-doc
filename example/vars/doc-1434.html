@@ -1,0 +1,13 @@
+<div class="doc-item" id="doc-1434"><h2 class="doc-item-name">swap!<span class="namespace">(clojure.core)</span></h2><ul class="var-arglists"><li>(<span class="var-name">swap!</span> atom f)</li><li>(<span class="var-name">swap!</span> atom f x)</li><li>(<span class="var-name">swap!</span> atom f x y)</li><li>(<span class="var-name">swap!</span> atom f x y &amp; args)</li></ul><div class="var-docstring"><p>Atomically swaps the value of atom to be:
+  (apply f current-value-of-atom args). Note that f may be called
+  multiple times, and thus should be free of side effects.  Returns
+  the value that was swapped in.</p></div><div class="var-source"><pre>; core.clj:1239
+(defn swap!
+  ([#^clojure.lang.Atom atom f] (.swap atom f))
+  ([#^clojure.lang.Atom atom f x] (.swap atom f x))
+  ([#^clojure.lang.Atom atom f x y] (.swap atom f x y))
+  ([#^clojure.lang.Atom atom f x y &amp; args] (.swap atom f x y args)))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
+          epl-v10.html at the root of this distribution. By using this software
+          in any fashion, you are agreeing to be bound by the terms of this 
+          license. You must not remove this notice, or any other, from this 
+          software.</p></div></div>

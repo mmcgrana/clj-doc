@@ -1,0 +1,10 @@
+<div class="doc-item" id="doc-1449"><h2 class="doc-item-name">throw-if-not<span class="namespace">(clojure.contrib.except)</span></h2><ul class="var-arglists"><li>(<span class="var-name">throw-if-not</span> test &amp; args)</li></ul><div class="var-docstring"><p>Throws an Exception or Error if test is false. args are those documented
+  for throwf.</p></div><div class="var-source"><pre>; except.clj:44
+(defn throw-if-not
+  [test &amp; args]
+  (when-not test
+    (throw (throwable args))))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
+          epl-v10.html at the root of this distribution. By using this software
+          in any fashion, you are agreeing to be bound by the terms of this 
+          license. You must not remove this notice, or any other, from this 
+          software.</p></div></div>

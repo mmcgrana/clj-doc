@@ -1,0 +1,60 @@
+<div class="doc-item" id="doc-1370"><h2 class="doc-item-name">repl<span class="namespace">(clojure.main)</span></h2><ul class="var-arglists"><li>(<span class="var-name">repl</span> &amp; options)</li></ul><div class="var-docstring"><p>Generic, reusable, read-eval-print loop. Reads from *in* and writes to
+  *out*. *in* must either be an instance of LineNumberingPushbackReader or
+  duplicate its behavior of both supporting .unread and collapsing CR, LF,
+  and CRLF into a single \newline. Options are sequential keyword-value
+  pairs. Available options and their defaults:</p><p>- :init, function of no arguments, initialization hook
+       default: #()</p><p>- :need-prompt, function of no arguments, called before each
+       read-eval-print except the first, the user will be prompted if it
+       returns true.
+       default: (if (instance? LineNumberingPushbackReader *in*)
+                  #(.atLineStart *in*)
+                  #(identity true))</p><p>- :prompt, function of no arguments, prompts for more input.
+       default: #(printf &quot;%s=&gt; &quot; (ns-name *ns*))</p><p>- :flush, function of no arguments, flushes output
+       default: flush</p><p>- :read, function of no arguments, returns the next object read from
+       the input
+       default: read</p><p>- :eval, funtion of one argument, returns the evaluation of its
+       argument
+       default: eval</p><p>- :print, function of one argument, prints its argument to the output
+       default: prn</p><p>- :caught, function of one argument, a throwable, called when
+       read, eval, or print throws an exception or error
+       default: #(.println *err* (repl-exception %))</p></div><div class="var-source"><pre>; main.clj:88
+(defn repl
+  [&amp; options]
+  (let [{:keys [init need-prompt prompt flush read eval print caught]
+         :or {init        #()
+              need-prompt (if (instance? LineNumberingPushbackReader *in*)
+                            #(.atLineStart *in*)
+                            #(identity true))
+              prompt      #(printf &quot;%s=&gt; &quot; (ns-name *ns*))
+              flush       flush
+              read        read
+              eval        eval
+              print       prn
+              caught      #(.println *err* (repl-exception %))}}
+        (apply hash-map options)]
+    (with-bindings
+      (init)
+      (prompt)
+      (flush)
+      (loop [where (skip-whitespace *in*)]
+        (when-not (= where :stream-end)
+          (when (= where :body)
+            (try
+             (let [input (read)]
+               (skip-if-eol *in*)
+               (let [value (eval input)]
+                 (print value)
+                 (set! *3 *2)
+                 (set! *2 *1)
+                 (set! *1 value)))
+             (catch Throwable e
+               (caught e)
+               (set! *e e))))
+          (when (need-prompt)
+            (prompt)
+            (flush))
+          (recur (skip-whitespace *in*)))))))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
+          epl-v10.html at the root of this distribution. By using this software
+          in any fashion, you are agreeing to be bound by the terms of this 
+          license. You must not remove this notice, or any other, from this 
+          software.</p></div></div>

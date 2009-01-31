@@ -20,19 +20,19 @@
   (str-join java.io.File/separator segments))
 
 (defmacro-
-  ref-map-fetch
-  "Returns the val in the ref if it exists, or computes the val, adds it, and
-  then returns it if it does not allready. Assumes val is never nil."
-  [ref-sym key-form val-form]
+  atom-map-fetch
+  "Returns the val in the atom's map if it exists, or computes the val, adds it,
+  and then returns it if it does not allready. Assumes the val is never nil."
+  [atom-sym key-form val-form]
   `(let [key# ~key-form]
-    (dosync
-      (if-let [val# (get (deref ~ref-sym) key#)]
-        val#
-        (let [new-val# ~val-form]
-          (alter ~ref-sym assoc key# new-val#)
-          new-val#)))))
+    (if-let [val# (get (deref ~atom-sym) key#)]
+      val#
+      (let [new-val# ~val-form]
+        (swap! ~atom-sym assoc key# new-val#)
+        new-val#))))
 
-(defn classpath-slurp
+(defn- classpath-slurp
+  "Returns the text for the asset file in the classpath."
   [asset-path]
   (let [cl (RT/baseLoader)]
     (with-open [asset-strm (.getResourceAsStream cl asset-path)]

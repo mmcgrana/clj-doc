@@ -1,0 +1,19 @@
+<div class="doc-item" id="doc-1076"><h2 class="doc-item-name">defalias<span class="namespace">(clojure.contrib.def)</span></h2><p class="macro">Macro</p><ul class="var-arglists"><li>(<span class="var-name">defalias</span> name orig)</li><li>(<span class="var-name">defalias</span> name orig doc)</li></ul><div class="var-docstring"><p>Defines an alias for a var: a new var with the same root binding (if
+  any) and similar metadata. The metadata of the alias is its initial
+  metadata (as provided by def) merged into the metadata of the original.</p></div><div class="var-source"><pre>; def.clj:62
+(defmacro defalias
+  ([name orig]
+     `(do
+        (alter-meta!
+         (if (.hasRoot (var ~orig))
+           (def ~name (.getRoot (var ~orig)))
+           (def ~name))
+         conj
+         (apply dissoc (meta (var ~orig)) (keys (meta (var ~name)))))
+        (var ~name)))
+  ([name orig doc]
+     (list `defalias (with-meta name (assoc (meta name) :doc doc)) orig)))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
+          epl-v10.html at the root of this distribution. By using this software
+          in any fashion, you are agreeing to be bound by the terms of this 
+          license. You must not remove this notice, or any other, from this 
+          software.</p></div></div>

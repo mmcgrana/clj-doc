@@ -1,0 +1,10 @@
+<div class="doc-item" id="doc-1184"><h2 class="doc-item-name">indexed<span class="namespace">(clojure.contrib.seq-utils)</span></h2><ul class="var-arglists"><li>(<span class="var-name">indexed</span>  s)</li></ul><div class="var-docstring"><p>Returns a lazy sequence of [index, item] pairs, where items come
+  from 's' and indexes count up from zero.</p><p>(indexed '(a b c d))  =&gt;  ([0 a] [1 b] [2 c] [3 d])</p></div><div class="var-source"><pre>; seq_utils.clj:50
+(defn indexed
+  (indexed '(a b c d))  =&gt;  ([0 a] [1 b] [2 c] [3 d])&quot;
+  [s]
+  (map vector (iterate inc 0) s))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
+          epl-v10.html at the root of this distribution. By using this software
+          in any fashion, you are agreeing to be bound by the terms of this 
+          license. You must not remove this notice, or any other, from this 
+          software.</p></div></div>

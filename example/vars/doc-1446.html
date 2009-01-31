@@ -1,0 +1,12 @@
+<div class="doc-item" id="doc-1446"><h2 class="doc-item-name">the-ns<span class="namespace">(clojure.core)</span></h2><ul class="var-arglists"><li>(<span class="var-name">the-ns</span>  x)</li></ul><div class="var-docstring"><p>If passed a namespace, returns it. Else, when passed a symbol,
+  returns the namespace named by it, throwing an exception if not
+  found.</p></div><div class="var-source"><pre>; core.clj:2265
+(defn #^clojure.lang.Namespace the-ns
+  [x]
+  (if (instance? clojure.lang.Namespace x)
+    x
+    (or (find-ns x) (throw (Exception. (str &quot;No namespace: &quot; x &quot; found&quot;))))))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
+          epl-v10.html at the root of this distribution. By using this software
+          in any fashion, you are agreeing to be bound by the terms of this 
+          license. You must not remove this notice, or any other, from this 
+          software.</p></div></div>

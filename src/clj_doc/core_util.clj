@@ -1,7 +1,7 @@
 (in-ns 'clj-doc.core)
 
 (defn- take-starting
-  "Returns a lazy seq of items in coll start with the first element for which
+  "Returns a lazy seq of items in coll starting with the first element for which
   pred returns true"
   [pred coll]
   (drop-while #(not (pred %)) coll))
@@ -11,13 +11,6 @@
   element for which pred returns true."
   [pred coll]
   (rest (take-starting pred coll)))
-
-(defn- select
-  "Like (some f coll), but returns the found element from the seq and not the logical
-  true that flagged it as such."
-  [f coll]
-  (when (seq coll)
-    (if (f (first coll)) (first coll) (recur f (rest coll)))))
 
 (defn- file-join
   "Join the given seq-able path segments according to the platform's

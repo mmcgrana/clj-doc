@@ -1,0 +1,9 @@
+<div class="doc-item" id="doc-1391"><h2 class="doc-item-name">select<span class="namespace">(clojure.set)</span></h2><ul class="var-arglists"><li>(<span class="var-name">select</span> pred xset)</li></ul><div class="var-docstring"><p>Returns a set of the elements for which pred is true</p></div><div class="var-source"><pre>; set.clj:26
+(defn select
+  [pred xset]
+    (reduce (fn [s k] (if (pred k) s (disj s k)))
+            xset xset))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
+          epl-v10.html at the root of this distribution. By using this software
+          in any fashion, you are agreeing to be bound by the terms of this 
+          license. You must not remove this notice, or any other, from this 
+          software.</p></div></div>

@@ -1,0 +1,53 @@
+<div class="doc-item" id="doc-1068"><h2 class="doc-item-name">content-handler<span class="namespace">(clojure.xml)</span></h2><div class="var-source"><pre>; xml.clj:24
+(def content-handler
+  (let [push-content (fn [e c]
+                       (assoc e :content (conj (or (:content e) []) c)))
+        push-chars (fn []
+                     (when (and (= *state* :chars)
+                                (some (complement #(. Character (isWhitespace %))) (str *sb*)))
+                       (set! *current* (push-content *current* (str *sb*)))))]
+    (new clojure.lang.XMLHandler
+         (proxy [ContentHandler] []
+           (startElement [uri local-name q-name #^Attributes atts]
+             (let [attrs (fn [ret i]
+                           (if (neg? i)
+                             ret
+                             (recur (assoc ret 
+                                           (. clojure.lang.Keyword (intern (symbol (. atts (getQName i)))))
+                                           (. atts (getValue i)))
+                                    (dec i))))
+                   e (struct element 
+                             (. clojure.lang.Keyword (intern (symbol q-name)))
+                             (when (pos? (. atts (getLength)))
+                               (attrs {} (dec (. atts (getLength))))))]
+               (push-chars)
+               (set! *stack* (conj *stack* *current*))
+               (set! *current* e)
+               (set! *state* :element))
+             nil)
+           (endElement [uri local-name q-name]
+             (push-chars)
+             (set! *current* (push-content (peek *stack*) *current*))
+             (set! *stack* (pop *stack*))
+             (set! *state* :between)
+             nil)
+           (characters [ch start length]
+             (when-not (= *state* :chars)
+               (set! *sb* (new StringBuilder)))
+             (let [#^StringBuilder sb *sb*]
+               (. sb (append ch start length))
+               (set! *state* :chars))
+             nil)
+           (setDocumentLocator [locator])
+           (startDocument [])
+           (endDocument [])
+           (startPrefixMapping [prefix uri])
+           (endPrefixMapping [prefix])
+           (ignorableWhitespace [ch start length])
+           (processingInstruction [target data])
+           (skippedEntity [name])
+           ))))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
+          epl-v10.html at the root of this distribution. By using this software
+          in any fashion, you are agreeing to be bound by the terms of this 
+          license. You must not remove this notice, or any other, from this 
+          software.</p></div></div>

@@ -1,0 +1,15 @@
+<div class="doc-item" id="doc-1502"><h2 class="doc-item-name">zipmap<span class="namespace">(clojure.core)</span></h2><ul class="var-arglists"><li>(<span class="var-name">zipmap</span> keys vals)</li></ul><div class="var-docstring"><p>Returns a map with the keys mapped to the corresponding vals.</p></div><div class="var-source"><pre>; core.clj:1571
+(defn zipmap
+  [keys vals]
+    (loop [map {}
+           ks (seq keys)
+           vs (seq vals)]
+      (if (and ks vs)
+        (recur (assoc map (first ks) (first vs))
+               (rest ks)
+               (rest vs))
+        map)))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
+          epl-v10.html at the root of this distribution. By using this software
+          in any fashion, you are agreeing to be bound by the terms of this 
+          license. You must not remove this notice, or any other, from this 
+          software.</p></div></div>

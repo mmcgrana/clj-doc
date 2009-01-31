@@ -1,0 +1,19 @@
+<div class="doc-item" id="doc-1338"><h2 class="doc-item-name">re-gsub<span class="namespace">(clojure.contrib.str-utils)</span></h2><ul class="var-arglists"><li>(<span class="var-name">re-gsub</span> regex replacement string)</li></ul><div class="var-docstring"><p>Replaces all instances of 'pattern' in 'string' with
+  'replacement'.  Like Ruby's 'String#gsub'.
+  
+  If (ifn? replacment) is true, the replacement is called with the
+  match.
+  </p></div><div class="var-source"><pre>; str_utils.clj:46
+(defn re-gsub 
+  [#^java.util.regex.Pattern regex replacement #^String string]
+  (if (ifn? replacement)
+    (let [parts (vec (re-partition regex string))]
+      (apply str
+             (reduce (fn [parts match-idx]
+                       (update-in parts [match-idx] replacement))
+                     parts (range 1 (count parts) 2))))
+    (.. regex (matcher string) (replaceAll replacement))))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
+          epl-v10.html at the root of this distribution. By using this software
+          in any fashion, you are agreeing to be bound by the terms of this 
+          license. You must not remove this notice, or any other, from this 
+          software.</p></div></div>

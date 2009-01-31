@@ -1,0 +1,11 @@
+<div class="doc-item" id="doc-1429"><h2 class="doc-item-name">struct-map<span class="namespace">(clojure.core)</span></h2><ul class="var-arglists"><li>(<span class="var-name">struct-map</span> s &amp; inits)</li></ul><div class="var-docstring"><p>Returns a new structmap instance with the keys of the
+  structure-basis. keyvals may contain all, some or none of the basis
+  keys - where values are not supplied they will default to nil.
+  keyvals can also contain keys not in the basis.</p></div><div class="var-source"><pre>; core.clj:2181
+(defn struct-map
+  [s &amp; inits]
+    (. clojure.lang.PersistentStructMap (create s inits)))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
+          epl-v10.html at the root of this distribution. By using this software
+          in any fashion, you are agreeing to be bound by the terms of this 
+          license. You must not remove this notice, or any other, from this 
+          software.</p></div></div>

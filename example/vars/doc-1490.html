@@ -1,0 +1,19 @@
+<div class="doc-item" id="doc-1490"><h2 class="doc-item-name">with-local-vars<span class="namespace">(clojure.core)</span></h2><p class="macro">Macro</p><ul class="var-arglists"><li>(<span class="var-name">with-local-vars</span> name-vals-vec &amp; body)</li></ul><div class="var-docstring"><p>varbinding=&gt; symbol init-expr</p><p>Executes the exprs in a context in which the symbols are bound to
+  vars with per-thread bindings to the init-exprs.  The symbols refer
+  to the var objects themselves, and must be accessed with var-get and
+  var-set</p></div><div class="var-source"><pre>; core.clj:2391
+(defmacro with-local-vars
+  [name-vals-vec &amp; body]
+  (assert-args with-local-vars
+     (vector? name-vals-vec) &quot;a vector for its binding&quot;
+     (even? (count name-vals-vec)) &quot;an even number of forms in binding vector&quot;)
+  `(let [~@(interleave (take-nth 2 name-vals-vec)
+                       (repeat '(. clojure.lang.Var (create))))]
+     (. clojure.lang.Var (pushThreadBindings (hash-map ~@name-vals-vec)))
+     (try
+      ~@body
+      (finally (. clojure.lang.Var (popThreadBindings))))))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
+          epl-v10.html at the root of this distribution. By using this software
+          in any fashion, you are agreeing to be bound by the terms of this 
+          license. You must not remove this notice, or any other, from this 
+          software.</p></div></div>

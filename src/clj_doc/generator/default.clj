@@ -22,7 +22,7 @@
 
 (defvar- index-path "index.html")
 
-(defvar- ns-var-ids (ref {}))
+(defvar- ns-var-ids (atom {}))
 
 (defvar- hstr (comp h str))
 
@@ -30,7 +30,7 @@
   "Returns the CSS-safe id to use to represent the var names by the given
   namespace and var name strings."
   [ns-sym var-sym]
-  (ref-map-fetch ns-var-ids [ns-sym var-sym] (gensym "doc-")))
+  (atom-map-fetch ns-var-ids [ns-sym var-sym] (gensym "doc-")))
 
 (defn- var-path
   [ns-sym var-sym]

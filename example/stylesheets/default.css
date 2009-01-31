@@ -1,0 +1,97 @@
+#content {
+  margin: 1em;
+}
+
+#listings {
+  background: #99bbee;
+  width: 16em;
+  float: left;
+  padding: .5em;
+}
+
+#search-box-vars {
+  padding-bottom: .5em;
+}
+
+#search-box-vars input {
+  width: 13em;
+  font-size: 1.2em;
+}
+
+#listings li.listing-link {
+  font-size: 1.1em;
+  line-height: 1.3em;
+  padding-left: .2em;
+}
+
+#listings li.listing-link:hover {
+  cursor: pointer;
+  background: #5588dd;
+}
+
+#no-results {
+  cursor: default;
+  background: #99bbee;
+}
+
+#listings li.listing-link span.namespace {
+  margin-left: .3em;
+  color: #666666;
+}
+
+#doc-items {
+  margin-left: 17.5em;
+}
+
+#doc-items div.doc-item {
+  border: 2px solid #77bb33;
+  padding: .5em;
+}
+
+#doc-items h2.doc-item-name {
+  font-size: 2em;
+}
+
+#doc-items h2.doc-item-name span.namespace {
+  margin-left: .3em;
+  color: #c2c2c2;
+}
+
+#doc-items ul.var-arglists {
+  margin-bottom: .5em;
+}
+
+#doc-items ul.var-arglists span.var-name {
+  font-style: italic;
+}
+
+#doc-items div.var-docstring p {
+  margin-bottom: .5em;
+}
+
+#doc-items div.var-source {
+  padding: .5em 0;
+  border: 1px dotted black;
+}
+
+#doc-items div.license {
+  color: #898886;
+  padding-top: 1em;
+}
+
+#doc-items div.license a {
+  color: #99bbee;
+}
+
+#documenting li {
+  list-style-type: disc;
+  margin-left: 1em;
+}
+
+#documenting {
+  padding-bottom: .5em;
+}
+
+.display-none {
+  display: none;
+}

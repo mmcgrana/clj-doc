@@ -1,0 +1,27 @@
+<div class="doc-item" id="doc-1292"><h2 class="doc-item-name">pmap<span class="namespace">(clojure.core)</span></h2><ul class="var-arglists"><li>(<span class="var-name">pmap</span> f coll)</li><li>(<span class="var-name">pmap</span> f coll &amp; colls)</li></ul><div class="var-docstring"><p>Like map, except f is applied in parallel. Semi-lazy in that the
+  parallel computation stays ahead of the consumption, but doesn't
+  realize the entire result unless required. Only useful for
+  computationally intensive functions where the time of f dominates
+  the coordination overhead.</p></div><div class="var-source"><pre>; core.clj:3720
+(defn pmap
+  ([f coll]
+   (let [n (inc (.. Runtime getRuntime availableProcessors))
+         agents (doall (map #(agent (f %)) (take n coll)))
+         wget (fn [a] (await1 a) @a)
+         step (fn step [[x &amp; xs :as s]
+                        [a &amp; as :as acycle]]
+                  (if s
+                    (let [v (wget a)]
+                      (send a (fn [_] (f x)))
+                      (lazy-cons v (step xs as)))
+                    (map wget (take (count agents) acycle))))]
+     (step (drop n coll) (cycle agents))))
+  ([f coll &amp; colls]
+   (let [step (fn step [cs]
+                  (when (every? seq cs)
+                    (lazy-cons (map first cs) (step (map rest cs)))))]
+     (pmap #(apply f %) (step (cons coll colls))))))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
+          epl-v10.html at the root of this distribution. By using this software
+          in any fashion, you are agreeing to be bound by the terms of this 
+          license. You must not remove this notice, or any other, from this 
+          software.</p></div></div>

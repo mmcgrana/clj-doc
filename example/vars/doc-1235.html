@@ -1,0 +1,31 @@
+<div class="doc-item" id="doc-1235"><h2 class="doc-item-name">main<span class="namespace">(clojure.main)</span></h2><ul class="var-arglists"><li>(<span class="var-name">main</span> &amp; args)</li></ul><div class="var-docstring"><p>Usage: java -cp clojure.jar clojure.main [init-opt*] [main-opt] [arg*]</p><p>With no options or args, runs an interactive Read-Eval-Print Loop</p><p>init options:
+    -i, --init path   Load a file or resource
+    -e, --eval string Evaluate expressions in string; print non-nil values</p><p>main options:
+    -r, --repl        Run a repl
+    path              Run a script from from a file or resource
+    -                 Run a script from standard input
+    -h, -?, --help    Print this help message and exit</p><p>operation:</p><p>- Establishes thread-local bindings for commonly set!-able vars
+    - Enters the user namespace
+    - Binds *command-line-args* to a seq of strings containing command line
+      args that appear after any main option
+    - Runs all init options in order
+    - Runs a repl or script if requested</p><p>The init options may be repeated and mixed freely, but must appear before
+  any main option. The appearance of any eval option before running a repl
+  suppresses the usual repl greeting message: &quot;Clojure&quot;.</p><p>Paths may be absolute or relative in the filesystem or relative to
+  classpath. Classpath-relative paths have prefix of @ or @/</p></div><div class="var-source"><pre>; main.clj:258
+(defn main
+  [&amp; args]
+  (try
+   (if args
+     (loop [[opt arg &amp; more :as args] args inits []]
+       (if (init-dispatch opt)
+         (recur more (conj inits [opt arg]))
+         ((main-dispatch opt) args inits)))
+     (repl-opt nil nil))
+   (catch Exception e
+     (.printStackTrace e *err*)))
+  (flush))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
+          epl-v10.html at the root of this distribution. By using this software
+          in any fashion, you are agreeing to be bound by the terms of this 
+          license. You must not remove this notice, or any other, from this 
+          software.</p></div></div>

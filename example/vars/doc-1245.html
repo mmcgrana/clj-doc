@@ -1,0 +1,12 @@
+<div class="doc-item" id="doc-1245"><h2 class="doc-item-name">memfn<span class="namespace">(clojure.core)</span></h2><p class="macro">Macro</p><ul class="var-arglists"><li>(<span class="var-name">memfn</span> name &amp; args)</li></ul><div class="var-docstring"><p>Expands into code that creates a fn that expects to be passed an
+  object and any args and calls the named instance method on the
+  object passing the args. Use when you want to treat a Java method as
+  a first-class fn.</p></div><div class="var-source"><pre>; core.clj:2029
+(defmacro memfn
+  [name &amp; args]
+  `(fn [target# ~@args]
+     (. target# (~name ~@args))))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
+          epl-v10.html at the root of this distribution. By using this software
+          in any fashion, you are agreeing to be bound by the terms of this 
+          license. You must not remove this notice, or any other, from this 
+          software.</p></div></div>

@@ -1,0 +1,16 @@
+<div class="doc-item" id="doc-1468"><h2 class="doc-item-name">up<span class="namespace">(clojure.zip)</span></h2><ul class="var-arglists"><li>(<span class="var-name">up</span>  loc)</li></ul><div class="var-docstring"><p>Returns the loc of the parent of the node at this loc, or nil if at
+  the top</p></div><div class="var-source"><pre>; zip.clj:99
+(defn up
+  [loc]
+    (let [[node {l :l, ppath :ppath, pnodes :pnodes r :r, changed? :changed?, :as path}] loc]
+      (when pnodes
+        (let [pnode (peek pnodes)]
+          (with-meta (if changed?
+                       [(make-node loc pnode (concat l (cons node r))) 
+                        (and ppath (assoc ppath :changed? true))]
+                       [pnode ppath])
+                     ^loc)))))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
+          epl-v10.html at the root of this distribution. By using this software
+          in any fashion, you are agreeing to be bound by the terms of this 
+          license. You must not remove this notice, or any other, from this 
+          software.</p></div></div>

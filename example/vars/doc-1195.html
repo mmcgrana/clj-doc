@@ -1,0 +1,17 @@
+<div class="doc-item" id="doc-1195"><h2 class="doc-item-name">intern<span class="namespace">(clojure.core)</span></h2><ul class="var-arglists"><li>(<span class="var-name">intern</span> ns name)</li><li>(<span class="var-name">intern</span> ns name val)</li></ul><div class="var-docstring"><p>Finds or creates a var named by the symbol name in the namespace
+  ns (which can be a symbol or a namespace), setting its root binding
+  to val if supplied. The namespace must exist. The var will adopt any
+  metadata from the name symbol.  Returns the var.</p></div><div class="var-source"><pre>; core.clj:3780
+(defn intern
+  ([ns #^clojure.lang.Symbol name]
+     (let [v (clojure.lang.Var/intern (the-ns ns) name)]
+       (when ^name (.setMeta v ^name))
+       v))
+  ([ns name val]
+     (let [v (clojure.lang.Var/intern (the-ns ns) name val)]
+       (when ^name (.setMeta v ^name))
+       v)))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
+          epl-v10.html at the root of this distribution. By using this software
+          in any fashion, you are agreeing to be bound by the terms of this 
+          license. You must not remove this notice, or any other, from this 
+          software.</p></div></div>

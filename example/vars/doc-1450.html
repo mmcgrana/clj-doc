@@ -1,0 +1,13 @@
+<div class="doc-item" id="doc-1450"><h2 class="doc-item-name">throwf<span class="namespace">(clojure.contrib.except)</span></h2><ul class="var-arglists"><li>(<span class="var-name">throwf</span> &amp; args)</li></ul><div class="var-docstring"><p>Throws an Exception or Error with an optional message formatted using
+  clojure/format. All arguments are optional:</p><p>class? format? format-args*</p><p>- class defaults to Exception, if present it must name a kind of
+    Throwable
+  - format is a format string for clojure/format
+  - format-args are objects that correspond to format specifiers in
+    format.</p></div><div class="var-source"><pre>; except.clj:23
+(defn throwf
+  [&amp; args]
+  (throw (throwable args)))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
+          epl-v10.html at the root of this distribution. By using this software
+          in any fashion, you are agreeing to be bound by the terms of this 
+          license. You must not remove this notice, or any other, from this 
+          software.</p></div></div>

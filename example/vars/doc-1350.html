@@ -1,0 +1,22 @@
+<div class="doc-item" id="doc-1350"><h2 class="doc-item-name">reader<span class="namespace">(clojure.contrib.duck-streams)</span></h2><div class="var-docstring"><p>Attempts to coerce its argument into an open
+  java.io.BufferedReader.  Argument may be an instance of Reader,
+  BufferedReader, InputStream, File, URI, URL, or String.</p><p>If argument is a String, it tries to resolve it first as a URI, then
+  as a local file name.  URIs with a 'file' protocol are converted to
+  local file names.  Uses *default-encoding* as the text encoding.</p><p>Should be used inside with-open to ensure the Reader is properly
+  closed.</p></div><div class="var-source"><pre>; duck_streams.clj:65
+(defmulti #^{:tag BufferedReader
+             :doc &quot;Attempts to coerce its argument into an open
+  java.io.BufferedReader.  Argument may be an instance of Reader,
+  BufferedReader, InputStream, File, URI, URL, or String.
+
+  If argument is a String, it tries to resolve it first as a URI, then
+  as a local file name.  URIs with a 'file' protocol are converted to
+  local file names.  Uses *default-encoding* as the text encoding.
+
+  Should be used inside with-open to ensure the Reader is properly
+  closed.&quot;}
+  reader class)</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
+          epl-v10.html at the root of this distribution. By using this software
+          in any fashion, you are agreeing to be bound by the terms of this 
+          license. You must not remove this notice, or any other, from this 
+          software.</p></div></div>

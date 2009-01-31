@@ -4,7 +4,7 @@ h1. clj-doc: Clojure HTML documentation generator.
 
 h2. Example Docs
 
-You can see example docs generated from recent recent Clojure and Clojure Contrib sources by opening @examples/index.html@ in your browser.
+You can see example docs generated from recent recent Clojure and Clojure Contrib sources by opening @example/index.html@ in your browser.
 
 h2. Setup
 

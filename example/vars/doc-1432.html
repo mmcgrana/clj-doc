@@ -1,0 +1,14 @@
+<div class="doc-item" id="doc-1432"><h2 class="doc-item-name">subvec<span class="namespace">(clojure.core)</span></h2><ul class="var-arglists"><li>(<span class="var-name">subvec</span> v start)</li><li>(<span class="var-name">subvec</span> v start end)</li></ul><div class="var-docstring"><p>Returns a persistent vector of the items in vector from
+  start (inclusive) to end (exclusive).  If end is not supplied,
+  defaults to (count vector). This operation is O(1) and very fast, as
+  the resulting vector shares structure with the original and no
+  trimming is done.</p></div><div class="var-source"><pre>; core.clj:1982
+(defn subvec
+  ([v start]
+   (subvec v start (count v)))
+  ([v start end]
+   (. clojure.lang.RT (subvec v start end))))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
+          epl-v10.html at the root of this distribution. By using this software
+          in any fashion, you are agreeing to be bound by the terms of this 
+          license. You must not remove this notice, or any other, from this 
+          software.</p></div></div>

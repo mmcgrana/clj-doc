@@ -1,0 +1,10 @@
+<div class="doc-item" id="doc-971"><h2 class="doc-item-name">..<span class="namespace">(clojure.core)</span></h2><p class="macro">Macro</p><ul class="var-arglists"><li>(<span class="var-name">..</span> x form)</li><li>(<span class="var-name">..</span> x form &amp; more)</li></ul><div class="var-docstring"><p>form =&gt; fieldName-symbol or (instanceMethodName-symbol args*)</p><p>Expands into a member access (.) of the first member on the first
+  argument, followed by the next member on the result, etc. For
+  instance:</p><p>(.. System (getProperties) (get &quot;os.name&quot;))</p><p>expands to:</p><p>(. (. System (getProperties)) (get &quot;os.name&quot;))</p><p>but is easier to write, read, and understand.</p></div><div class="var-source"><pre>; core.clj:986
+(defmacro ..
+  ([x form] `(. ~x ~form))
+  ([x form &amp; more] `(.. (. ~x ~form) ~@more)))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
+          epl-v10.html at the root of this distribution. By using this software
+          in any fashion, you are agreeing to be bound by the terms of this 
+          license. You must not remove this notice, or any other, from this 
+          software.</p></div></div>

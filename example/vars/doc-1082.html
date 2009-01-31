@@ -1,0 +1,37 @@
+<div class="doc-item" id="doc-1082"><h2 class="doc-item-name">defmulti<span class="namespace">(clojure.core)</span></h2><p class="macro">Macro</p><ul class="var-arglists"><li>(<span class="var-name">defmulti</span> name docstring? attr-map? dispatch-fn &amp; options)</li></ul><div class="var-docstring"><p>Creates a new multimethod with the associated dispatch function.
+  The docstring and attribute-map are optional.</p><p>Options are key-value pairs and may be one of:
+    :default    the default dispatch value, defaults to :default</p></div><div class="var-source"><pre>; core.clj:1014
+(defmacro defmulti
+  {:arglists '([name docstring? attr-map? dispatch-fn &amp; options])}
+  [mm-name &amp; options]
+  (let [docstring   (if (string? (first options))
+                      (first options)
+                      nil)
+        options     (if (string? (first options))
+                      (rest options)
+                      options)
+        m           (if (map? (first options))
+                      (first options)
+                      {})
+        options     (if (map? (first options))
+                      (rest options)
+                      options)
+        dispatch-fn (first options)
+        options     (rest options)
+        m           (assoc m :tag 'clojure.lang.MultiFn)
+        m           (if docstring
+                      (assoc m :doc docstring)
+                      m)
+        m           (if (meta mm-name)
+                      (conj (meta mm-name) m)
+                      m)]
+    (when (= (count options) 1)
+      (throw (Exception. &quot;The syntax for defmulti has changed. Example: (defmulti name dispatch-fn :default dispatch-value)&quot;)))
+    (let [options (apply hash-map options)
+          default (get options :default :default)]
+      `(def ~(with-meta mm-name m)
+         (new clojure.lang.MultiFn ~dispatch-fn ~default)))))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
+          epl-v10.html at the root of this distribution. By using this software
+          in any fashion, you are agreeing to be bound by the terms of this 
+          license. You must not remove this notice, or any other, from this 
+          software.</p></div></div>

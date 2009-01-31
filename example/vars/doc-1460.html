@@ -1,0 +1,8 @@
+<div class="doc-item" id="doc-1460"><h2 class="doc-item-name">unchecked-inc<span class="namespace">(clojure.core)</span></h2><ul class="var-arglists"><li>(<span class="var-name">unchecked-inc</span>  x)</li></ul><div class="var-docstring"><p>Returns a number one greater than x, an int or long.
+  Note - uses a primitive operator subject to overflow.</p></div><div class="var-source"><pre>; core.clj:692
+(defn unchecked-inc
+  [x] (. clojure.lang.Numbers (unchecked_inc x)))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
+          epl-v10.html at the root of this distribution. By using this software
+          in any fashion, you are agreeing to be bound by the terms of this 
+          license. You must not remove this notice, or any other, from this 
+          software.</p></div></div>

@@ -1,0 +1,17 @@
+<div class="doc-item" id="doc-1424"><h2 class="doc-item-name">str<span class="namespace">(clojure.core)</span></h2><ul class="var-arglists"><li>(<span class="var-name">str</span>  )</li><li>(<span class="var-name">str</span>  x)</li><li>(<span class="var-name">str</span> x &amp; ys)</li></ul><div class="var-docstring"><p>With no args, returns the empty string. With one arg x, returns
+  x.toString().  (str nil) returns the empty string. With more than
+  one arg, returns the concatenation of the str values of the args.</p></div><div class="var-source"><pre>; core.clj:313
+(defn str
+  ([] &quot;&quot;)
+  ([#^Object x]
+   (if (nil? x) &quot;&quot; (. x (toString))))
+  ([x &amp; ys]
+     ((fn [#^StringBuilder sb more]
+          (if more
+            (recur (. sb  (append (str (first more)))) (rest more))
+            (str sb)))
+      (new StringBuilder #^String (str x)) ys)))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
+          epl-v10.html at the root of this distribution. By using this software
+          in any fashion, you are agreeing to be bound by the terms of this 
+          license. You must not remove this notice, or any other, from this 
+          software.</p></div></div>

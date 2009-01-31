@@ -1,0 +1,8 @@
+<div class="doc-item" id="doc-1143"><h2 class="doc-item-name">find-symbols<span class="namespace">(clojure.contrib.template)</span></h2><ul class="var-arglists"><li>(<span class="var-name">find-symbols</span>  form)</li></ul><div class="var-docstring"><p>Recursively finds all symbols in form.</p></div><div class="var-source"><pre>; template.clj:77
+(defn find-symbols
+  [form]
+  (distinct (filter symbol? (tree-seq coll? seq form))))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
+          epl-v10.html at the root of this distribution. By using this software
+          in any fashion, you are agreeing to be bound by the terms of this 
+          license. You must not remove this notice, or any other, from this 
+          software.</p></div></div>

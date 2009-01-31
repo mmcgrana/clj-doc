@@ -1,0 +1,45 @@
+<div class="doc-item" id="doc-1267"><h2 class="doc-item-name">ns<span class="namespace">(clojure.core)</span></h2><p class="macro">Macro</p><ul class="var-arglists"><li>(<span class="var-name">ns</span> name &amp; references)</li></ul><div class="var-docstring"><p>Sets *ns* to the namespace named by name (unevaluated), creating it
+  if needed.  references can be zero or more of: (:refer-clojure ...)
+  (:require ...) (:use ...) (:import ...) (:load ...) (:gen-class)
+  with the syntax of refer-clojure/require/use/import/load/gen-class
+  respectively, except the arguments are unevaluated and need not be
+  quoted. (:gen-class ...), when supplied, defaults to :name
+  corresponding to the ns name, :main true, :impl-ns same as ns, and
+  :init-impl-ns true. All options of gen-class are
+  supported. The :gen-class directive is ignored when not
+  compiling. If :gen-class is not supplied, when compiled only an
+  nsname__init.class will be generated. If :refer-clojure is not used, a
+  default (refer 'clojure) is used.  Use of ns is preferred to
+  individual calls to in-ns/require/use/import:</p><p>(ns foo.bar
+    (:refer-clojure :exclude [ancestors printf])
+    (:require (clojure.contrib sql sql.tests))
+    (:use (my.lib this that))
+    (:import (java.util Date Timer Random)
+              (java.sql Connection Statement)))</p></div><div class="var-source"><pre>; core.clj:3342
+(defmacro ns
+  [name &amp; references]
+  (let [process-reference
+        (fn [[kname &amp; args]]
+          `(~(symbol &quot;clojure.core&quot; (clojure.core/name kname))
+             ~@(map #(list 'quote %) args)))
+        docstring  (when (string? (first references)) (first references))
+        references (if docstring (rest references) references)
+        name (if docstring
+               (with-meta name (assoc (meta name)
+                                      :doc docstring))
+               name)
+        gen-class-clause (first (filter #(= :gen-class (first %)) references))
+        gen-class-call
+          (when gen-class-clause
+            (list* `gen-class :name (.replace (str name) \- \_) :impl-ns name :main true (rest gen-class-clause)))
+        references (remove #(= :gen-class (first %)) references)]
+    `(do
+       (clojure.core/in-ns '~name)
+       ~@(when gen-class-call (list gen-class-call))
+       ~@(when (and (not= name 'clojure.core) (not-any? #(= :refer-clojure (first %)) references))
+           `((clojure.core/refer '~'clojure.core)))
+       ~@(map process-reference references))))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
+          epl-v10.html at the root of this distribution. By using this software
+          in any fashion, you are agreeing to be bound by the terms of this 
+          license. You must not remove this notice, or any other, from this 
+          software.</p></div></div>

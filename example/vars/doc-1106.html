@@ -1,0 +1,17 @@
+<div class="doc-item" id="doc-1106"><h2 class="doc-item-name">doc<span class="namespace">(clojure.core)</span></h2><p class="macro">Macro</p><ul class="var-arglists"><li>(<span class="var-name">doc</span>  name)</li></ul><div class="var-docstring"><p>Prints documentation for a var or special form given its name</p></div><div class="var-source"><pre>; core.clj:2813
+(defmacro doc
+  [name]
+  (cond
+   (special-form-anchor `~name)
+   `(print-special-doc '~name &quot;Special Form&quot; (special-form-anchor '~name))
+   (syntax-symbol-anchor `~name)
+   `(print-special-doc '~name &quot;Syntax Symbol&quot; (syntax-symbol-anchor '~name))
+   :else
+    (let [nspace (find-ns name)]
+      (if nspace
+        `(print-namespace-doc ~nspace)
+        `(print-doc (var ~name))))))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
+          epl-v10.html at the root of this distribution. By using this software
+          in any fashion, you are agreeing to be bound by the terms of this 
+          license. You must not remove this notice, or any other, from this 
+          software.</p></div></div>

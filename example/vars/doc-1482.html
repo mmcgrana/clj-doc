@@ -1,0 +1,20 @@
+<div class="doc-item" id="doc-1482"><h2 class="doc-item-name">walk<span class="namespace">(clojure.contrib.walk)</span></h2><ul class="var-arglists"><li>(<span class="var-name">walk</span> inner outer form)</li></ul><div class="var-docstring"><p>Traverses form, an arbitrary data structure.  inner and outer are
+  functions.  Applies inner to each element of form, building up a
+  data structure of the same type, then applies outer to the result.
+  Recognizes all Clojure data structures except sorted-map-by.
+  Consumes seqs as with doall.</p></div><div class="var-source"><pre>; walk.clj:35
+(defn walk
+  [inner outer form]
+  (cond
+   (list? form) (outer (apply list (map inner form)))
+   (seq? form) (outer (doall (map inner form)))
+   (vector? form) (outer (vec (map inner form)))
+   (map? form) (outer (into (outer (if (sorted? form) (sorted-map) {}))
+                            (map inner form)))
+   (set? form) (outer (into (outer (if (sorted? form) (sorted-set) #{}))
+                            (map inner form)))
+   :else (outer form)))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
+          epl-v10.html at the root of this distribution. By using this software
+          in any fashion, you are agreeing to be bound by the terms of this 
+          license. You must not remove this notice, or any other, from this 
+          software.</p></div></div>

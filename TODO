@@ -1,9 +1,4 @@
-Use latest utils available in clojure and clojure-contrib
-Remove dependencies on local environment
-Nice README
-Make useful for public consumption
-Make it easier to generate docs for custom set of libs
+Perhaps additional abstraction for generating docs from custom lib sets
 Document generator interface
-See if we can trim utils
 Fix licensing text - needs to be customizable
-Perhaps separate namespaces for utils
+Probably does not work on windows
