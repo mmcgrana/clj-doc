@@ -1,4 +1,4 @@
-h1. clj-doc: Clojure HTML documentation generator.
+h1. clj-doc: Clojure HTML documentation generator
 
 @clj-doc@ generates HTML documentation for Clojure source code. The generated docs are searchable via JavaScript and include inline source snippets for the code that defined each var.
 

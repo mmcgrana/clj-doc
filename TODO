@@ -2,3 +2,4 @@ Perhaps additional abstraction for generating docs from custom lib sets
 Document generator interface
 Fix licensing text - needs to be customizable
 Probably does not work on windows
+Better handling of namespaces - perhaps ns index, show ns docstrings
