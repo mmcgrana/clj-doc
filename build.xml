@@ -1,0 +1,16 @@
+<project name="clj-doc" default="jar">
+  <property name="jarfile" location="clj-doc.jar"/>
+
+  <target name="clean">
+    <delete file="${jarfile}"/>
+  </target>
+
+  <target name="jar">
+    <jar jarfile="${jarfile}">
+      <path location="LICENSE"/>
+      <fileset dir="./src" includes="clj_doc/**/*.clj"/>
+      <fileset dir="./src" includes="clj_doc/**/*.css"/>
+      <fileset dir="./src" includes="clj_doc/**/*.js"/>
+    </jar>
+  </target>
+</project>

@@ -1,8 +1,8 @@
 (require 'clj-doc.core 'clj-doc.generator.default)
 
-(def clojure-libs '(core set xml zip))
+(def clojure-libs '(core set xml zip main))
 (def contrib-libs '(cond condt def duck-streams except fcase
-                    gen-interface import-static javadoc lazy-seqs
+                    import-static javadoc lazy-seqs
                     lazy-xml mmap ns-utils repl-ln repl-utils
                     seq-utils shell-out sql str-utils template test-is trace
                     walk zip-filter))

@@ -19,13 +19,6 @@
   (when (seq coll)
     (if (f (first coll)) (first coll) (recur f (rest coll)))))
 
-(defn- find-in-dirs [#^String path dirs]
-  "Returns the absolute path of the first file in among the tree-seqs of dirs
-  that end in the given path."
-  (select #(.endsWith % path)
-         (map #(.getAbsolutePath %)
-              (flatten (map #(file-seq (java.io.File. %)) dirs)))))
-
 (defn- file-join
   "Join the given seq-able path segments according to the platform's
   File.separator."

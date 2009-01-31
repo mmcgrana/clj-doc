@@ -1,5 +1,30 @@
-h3. clj-doc: Clojure HTML documentation generator.
+h1. clj-doc: Clojure HTML documentation generator.
 
-To generate combined docs for Clojure and Clojure Contrib:
+@clj-doc@ generates HTML documentation for Clojure source code. The generated docs are searchable via JavaScript and include inline source snippets for the code that defined each var.
 
-java -cp /path/to/clojure.jar:/path/to/clojure.contrib.jar clojure.main bin/clojure_gen.clj /path/to/output
+h2. Example Docs
+
+You can see example docs generated from recent recent Clojure and Clojure Contrib sources by opening @examples/index.html@ in your browser.
+
+h2. Setup
+
+To generate your own docs, you will need the following dependencies:
+
+* "clojure.jar":http://clojure.jar
+* "clojure-contrib.jar":http://clojure.org
+* "clj-html.jar":http://github.com/mmcgrana/clj-html
+* "clj-html-helpers.jar":http://github.com/mmcgrana/clj-html-helpers
+
+You will also need @clj-doc.jar@, which you can produce by invoking @ant@.
+
+h2. Basic Usage
+
+You can use the built-in @clojure_gen.clj@ script to generate HTML docs for Clojure and the main libraries in Clojure-Contrib:
+
+<pre><code>
+cd clj-doc
+clj bin/clojure_gen.clj /path/to/output
+open /path/to/output/index.html
+</code></pre>
+
+To generate docs for a different set of libs, create your own script based on @clojure_gen.clj@. Note that any libs that you are documenting will need to be in your classpath, in addition to the dependencies of @clj-doc@ itself.

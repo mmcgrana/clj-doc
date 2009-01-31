@@ -31,3 +31,9 @@
         (let [new-val# ~val-form]
           (alter ~ref-sym assoc key# new-val#)
           new-val#)))))
+
+(defn classpath-slurp
+  [asset-path]
+  (let [cl (RT/baseLoader)]
+    (with-open [asset-strm (.getResourceAsStream cl asset-path)]
+      (slurp* asset-strm))))

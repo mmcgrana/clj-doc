@@ -1,18 +1,22 @@
 (ns clj-doc.generator.default
-  (:import (java.io File))
-  (:use [clj-html.core                :only (html)]
-        [clj-html.utils               :only (map-str domap-str)]
-        [clj-html.helpers             :only (doctype include-js include-css h)]
-        [clojure.contrib.duck-streams :only (spit)]
-        [clojure.contrib.str-utils    :only (str-join re-split)]
-        [clojure.contrib.def          :only (defvar- defmacro-)])
-  (:load "default_util"))
+  (:import
+    (java.io File)
+    (clojure.lang RT))
+  (:use
+    [clj-html.core                :only (html)]
+    [clj-html.utils               :only (map-str domap-str)]
+    [clj-html.helpers             :only (doctype include-js include-css h)]
+    [clojure.contrib.duck-streams :only (spit slurp*)]
+    [clojure.contrib.str-utils    :only (str-join re-split)]
+    [clojure.contrib.def          :only (defvar- defmacro-)])
+  (:load
+    "default_util"))
 
 (defvar- static-contents
-  (let [root "/Users/mmcgrana/Desktop/git/clj-doc/src/clj_doc/generator/default-assets"]
-    (map (fn [path] [path (slurp (file-join root path))])
+  (let [assets-base "clj_doc/generator/default-assets/"]
+    (map (fn [path]  [path (classpath-slurp (str assets-base path))])
          `("javascripts/default.js" "javascripts/jquery-1.2.6.js"
-           "stylesheets/reset-min.css" "stylesheets/default.css"))))
+            "stylesheets/reset-min.css" "stylesheets/default.css"))))
 
 (defvar- subdirs '("javascripts" "stylesheets" "vars" "namespaces"))
 
@@ -96,10 +100,10 @@
     [:div.license
       [:p "Copyright (c) Rich Hickey. All rights reserved."]
       [:p "The use and distribution terms for this software are covered by the "
-          [:a {:href "http://www.opensource.org/licenses/cpl1.0.php"}
-            "Common Public License 1.0"] ", which can be found in the file
-          CPL.TXT at the root of this distribution. By using this software in
-          any fashion, you are agreeing to be bound by the terms of this 
+          [:a {:href "http://opensource.org/licenses/eclipse-1.0.php"}
+            "Eclipse Public License 1.0"] ", which can be found in the file
+          epl-v10.html at the root of this distribution. By using this software
+          in any fashion, you are agreeing to be bound by the terms of this 
           license. You must not remove this notice, or any other, from this 
           software."]]))
 
