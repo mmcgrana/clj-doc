@@ -22,8 +22,7 @@ h2. Basic Usage
 You can use the built-in @clojure_gen.clj@ script to generate HTML docs for Clojure and the main libraries in Clojure-Contrib:
 
 <pre><code>
-cd clj-doc
-clj bin/clojure_gen.clj /path/to/output
+clj clj-doc/bin/clojure_gen.clj /path/to/output
 open /path/to/output/index.html
 </code></pre>
 
