@@ -1,7 +1,13 @@
-<div class="doc-item" id="doc-1179"><h2 class="doc-item-name">in-case-test<span class="namespace">(clojure.contrib.fcase)</span></h2><ul class="var-arglists"><li>(<span class="var-name">in-case-test</span> test-seq case-value)</li></ul><div class="var-source"><pre>; fcase.clj:87
-(defn in-case-test [test-seq case-value]
-  (some (fn [item] (= item case-value))
-        test-seq))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
+<div class="doc-item" id="doc-1179"><h2 class="doc-item-name">group-by<span class="namespace">(clojure.contrib.seq-utils)</span></h2><ul class="var-arglists"><li>(<span class="var-name">group-by</span> f coll)</li></ul><div class="var-docstring"><p>Returns a sorted map of the elements of coll keyed by the result of
+  f on each element. The value at each key will be a vector of the
+  corresponding elements, in the order they appeared in coll.</p></div><div class="var-source"><pre>; seq_utils.clj:60
+(defn group-by 
+  [f coll]
+  (reduce
+   (fn [ret x]
+     (let [k (f x)]
+       (assoc ret k (conj (get ret k []) x))))
+   (sorted-map) coll))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
           epl-v10.html at the root of this distribution. By using this software
           in any fashion, you are agreeing to be bound by the terms of this 
           license. You must not remove this notice, or any other, from this 

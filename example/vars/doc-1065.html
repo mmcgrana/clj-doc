@@ -1,8 +1,12 @@
-<div class="doc-item" id="doc-1065"><h2 class="doc-item-name">construct-proxy<span class="namespace">(clojure.core)</span></h2><ul class="var-arglists"><li>(<span class="var-name">construct-proxy</span> c &amp; ctor-args)</li></ul><div class="var-docstring"><p>Takes a proxy class and any arguments for its superclass ctor and
-  creates and returns an instance of the proxy.</p></div><div class="var-source"><pre>; core_proxy.clj:217
-(defn construct-proxy
-  [c &amp; ctor-args]
-    (. Reflector (invokeConstructor c (to-array ctor-args))))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
+<div class="doc-item" id="doc-1065"><h2 class="doc-item-name">complement<span class="namespace">(clojure.core)</span></h2><ul class="var-arglists"><li>(<span class="var-name">complement</span>  f)</li></ul><div class="var-docstring"><p>Takes a fn f and returns a fn that takes the same arguments as f,
+  has the same effects, if any, and returns the opposite truth value.</p></div><div class="var-source"><pre>; core.clj:847
+(defn complement
+  [f] 
+  (fn 
+    ([] (not (f)))
+    ([x] (not (f x)))
+    ([x y] (not (f x y)))
+    ([x y &amp; zs] (not (apply f x y zs)))))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
           epl-v10.html at the root of this distribution. By using this software
           in any fashion, you are agreeing to be bound by the terms of this 
           license. You must not remove this notice, or any other, from this 

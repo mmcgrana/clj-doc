@@ -1,13 +1,7 @@
-<div class="doc-item" id="doc-1078"><h2 class="doc-item-name">definline<span class="namespace">(clojure.core)</span></h2><p class="macro">Macro</p><ul class="var-arglists"><li>(<span class="var-name">definline</span> name &amp; decl)</li></ul><div class="var-docstring"><p>Experimental - like defmacro, except defines a named function whose
-  body is the expansion, calls to which may be expanded inline as if
-  it were a macro. Cannot be used with variadic (&amp;) args.</p></div><div class="var-source"><pre>; core.clj:3031
-(defmacro definline
-  [name &amp; decl]
-  (let [[pre-args [args expr]] (split-with (comp not vector?) decl)]
-    `(do
-       (defn ~name ~@pre-args ~args ~(apply (eval (list `fn args expr)) args))
-       (alter-meta! (var ~name) assoc :inline (fn ~args ~expr))
-       (var ~name))))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
+<div class="doc-item" id="doc-1078"><h2 class="doc-item-name">count<span class="namespace">(clojure.core)</span></h2><ul class="var-arglists"><li>(<span class="var-name">count</span>  coll)</li></ul><div class="var-docstring"><p>Returns the number of items in the collection. (count nil) returns
+  0.  Also works on strings, arrays, and Java Collections and Maps</p></div><div class="var-source"><pre>; core.clj:869
+(defn count
+  [coll] (. clojure.lang.RT (count coll)))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
           epl-v10.html at the root of this distribution. By using this software
           in any fashion, you are agreeing to be bound by the terms of this 
           license. You must not remove this notice, or any other, from this 

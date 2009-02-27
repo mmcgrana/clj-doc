@@ -1,6 +1,9 @@
-<div class="doc-item" id="doc-1417"><h2 class="doc-item-name">sorted?<span class="namespace">(clojure.core)</span></h2><ul class="var-arglists"><li>(<span class="var-name">sorted?</span>  coll)</li></ul><div class="var-docstring"><p>Returns true if coll implements Sorted</p></div><div class="var-source"><pre>; core.clj:3699
-(defn sorted?
-  [coll] (instance? clojure.lang.Sorted coll))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
+<div class="doc-item" id="doc-1417"><h2 class="doc-item-name">send-off<span class="namespace">(clojure.core)</span></h2><ul class="var-arglists"><li>(<span class="var-name">send-off</span> a f &amp; args)</li></ul><div class="var-docstring"><p>Dispatch a potentially blocking action to an agent. Returns the
+  agent immediately. Subsequently, in a separate thread, the state of
+  the agent will be set to the value of:</p><p>(apply action-fn state-of-agent args)</p></div><div class="var-source"><pre>; core.clj:1197
+(defn send-off
+  [#^clojure.lang.Agent a f &amp; args]
+    (. a (dispatch f args true)))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
           epl-v10.html at the root of this distribution. By using this software
           in any fashion, you are agreeing to be bound by the terms of this 
           license. You must not remove this notice, or any other, from this 

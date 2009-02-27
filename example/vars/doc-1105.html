@@ -1,16 +1,11 @@
-<div class="doc-item" id="doc-1105"><h2 class="doc-item-name">doall<span class="namespace">(clojure.core)</span></h2><ul class="var-arglists"><li>(<span class="var-name">doall</span>  coll)</li><li>(<span class="var-name">doall</span> n coll)</li></ul><div class="var-docstring"><p>When lazy sequences are produced via functions that have side
-  effects, any effects other than those needed to produce the first
-  element in the seq do not occur until the seq is consumed. doall can
-  be used to force any effects. Walks through the successive rests of
-  the seq, retains the head and returns it, thus causing the entire
-  seq to reside in memory at one time.</p></div><div class="var-source"><pre>; core.clj:1675
-(defn doall
-  ([coll]
-   (dorun coll)
-   coll)
-  ([n coll]
-   (dorun n coll)
-   coll))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
+<div class="doc-item" id="doc-1105"><h2 class="doc-item-name">deref<span class="namespace">(clojure.core)</span></h2><ul class="var-arglists"><li>(<span class="var-name">deref</span>  ref)</li></ul><div class="var-docstring"><p>Also reader macro: @ref/@agent/@var/@atom/@delay/@future. Within a transaction,
+  returns the in-transaction-value of ref, else returns the
+  most-recently-committed value of ref. When applied to a var, agent
+  or atom, returns its current state. When applied to a delay, forces
+  it if not already forced. When applied to a future, will block if
+  computation not complete</p></div><div class="var-source"><pre>; core.clj:1291
+(defn deref
+  [#^clojure.lang.IDeref ref] (.deref ref))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
           epl-v10.html at the root of this distribution. By using this software
           in any fashion, you are agreeing to be bound by the terms of this 
           license. You must not remove this notice, or any other, from this 

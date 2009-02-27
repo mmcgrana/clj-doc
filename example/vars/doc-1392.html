@@ -1,15 +1,10 @@
-<div class="doc-item" id="doc-1392"><h2 class="doc-item-name">select-keys<span class="namespace">(clojure.core)</span></h2><ul class="var-arglists"><li>(<span class="var-name">select-keys</span> map keyseq)</li></ul><div class="var-docstring"><p>Returns a map containing only those entries in map whose key is in keys</p></div><div class="var-source"><pre>; core.clj:926
-(defn select-keys
-  [map keyseq]
-    (loop [ret {} keys (seq keyseq)]
-      (if keys
-        (let [entry (. clojure.lang.RT (find map (first keys)))]
-          (recur
-           (if entry
-             (conj ret entry)
-             ret)
-           (rest keys)))
-        ret)))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
+<div class="doc-item" id="doc-1392"><h2 class="doc-item-name">repl-exception<span class="namespace">(clojure.main)</span></h2><ul class="var-arglists"><li>(<span class="var-name">repl-exception</span>  throwable)</li></ul><div class="var-docstring"><p>Returns CompilerExceptions in tact, but only the root cause of other
+  throwables</p></div><div class="var-source"><pre>; main.clj:100
+(defn repl-exception
+  [throwable]
+  (if (instance? Compiler$CompilerException throwable)
+    throwable
+    (root-cause throwable)))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
           epl-v10.html at the root of this distribution. By using this software
           in any fashion, you are agreeing to be bound by the terms of this 
           license. You must not remove this notice, or any other, from this 

@@ -1,16 +1,11 @@
-<div class="doc-item" id="doc-1119"><h2 class="doc-item-name">econdt<span class="namespace">(clojure.contrib.condt)</span></h2><p class="macro">Macro</p><ul class="var-arglists"><li>(<span class="var-name">econdt</span> expr &amp; clauses)</li></ul><div class="var-docstring"><p>Like condt but throws Exception if no tests match.</p></div><div class="var-source"><pre>; condt.clj:45
-(defmacro econdt
-  [expr &amp; clauses]
-  (let [test-fn-sym (gensym &quot;test_&quot;)
-        f (fn this [c]
-              (cond
-               (empty? c) '(throw (Exception. &quot;Nothing matched in econdt.&quot;))
-               (= 1 (count c)) (throw (IllegalStateException. &quot;Odd number of clauses in econdt.&quot;))
-               :else (list 'if (list test-fn-sym (first c))
-                           (second c)
-                           (this (rrest c)))))]
-    `(let [~test-fn-sym (clojure.contrib.template/template ~expr)]
-       ~(f clauses))))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
+<div class="doc-item" id="doc-1119"><h2 class="doc-item-name">dosync<span class="namespace">(clojure.core)</span></h2><p class="macro">Macro</p><ul class="var-arglists"><li>(<span class="var-name">dosync</span> &amp; exprs)</li></ul><div class="var-docstring"><p>Runs the exprs (in an implicit do) in a transaction that encompasses
+  exprs and any nested calls.  Starts a transaction if none is already
+  running on this thread. Any uncaught exception will abort the
+  transaction and flow out of dosync. The exprs may be run more than
+  once, but any effects on Refs will be atomic.</p></div><div class="var-source"><pre>; core.clj:3039
+(defmacro dosync
+  [&amp; exprs]
+  `(sync nil ~@exprs))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
           epl-v10.html at the root of this distribution. By using this software
           in any fashion, you are agreeing to be bound by the terms of this 
           license. You must not remove this notice, or any other, from this 

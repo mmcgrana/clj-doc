@@ -1,8 +1,13 @@
-<div class="doc-item" id="doc-1319"><h2 class="doc-item-name">prn-str<span class="namespace">(clojure.core)</span></h2><ul class="var-arglists"><li>(<span class="var-name">prn-str</span> &amp; xs)</li></ul><div class="var-docstring"><p>prn to a string, returning it</p></div><div class="var-source"><pre>; core.clj:2654
-(defn prn-str
-  [&amp; xs]
-  (with-out-str
-   (apply prn xs)))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
+<div class="doc-item" id="doc-1319"><h2 class="doc-item-name">prev<span class="namespace">(clojure.zip)</span></h2><ul class="var-arglists"><li>(<span class="var-name">prev</span>  loc)</li></ul><div class="var-docstring"><p>Moves to the previous loc in the hierarchy, depth-first. If already
+  at the root, returns nil.</p></div><div class="var-source"><pre>; zip.clj:209
+(defn prev
+  [loc]
+    (if-let [lloc (left loc)]
+      (loop [loc lloc]
+        (if (branch? loc)
+          (recur (-&gt; loc down rightmost))
+          loc))
+      (up loc)))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
           epl-v10.html at the root of this distribution. By using this software
           in any fashion, you are agreeing to be bound by the terms of this 
           license. You must not remove this notice, or any other, from this 

@@ -1,6 +1,16 @@
-<div class="doc-item" id="doc-1025"><h2 class="doc-item-name">bit-clear<span class="namespace">(clojure.core)</span></h2><ul class="var-arglists"><li>(<span class="var-name">bit-clear</span> x n)</li></ul><div class="var-docstring"><p>Clear bit at index n</p></div><div class="var-source"><pre>; core.clj:801
-(defn bit-clear
-  [x n] (. clojure.lang.Numbers clearBit x n))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
+<div class="doc-item" id="doc-1025"><h2 class="doc-item-name">await<span class="namespace">(clojure.core)</span></h2><ul class="var-arglists"><li>(<span class="var-name">await</span> &amp; agents)</li></ul><div class="var-docstring"><p>Blocks the current thread (indefinitely!) until all actions
+  dispatched thus far, from this thread or agent, to the agent(s) have
+  occurred.</p></div><div class="var-source"><pre>; core.clj:1790
+(defn await
+  [&amp; agents]
+  (io! &quot;await in transaction&quot;
+    (when *agent*
+      (throw (new Exception &quot;Can't await in agent action&quot;)))
+    (let [latch (new java.util.concurrent.CountDownLatch (count agents))
+          count-down (fn [agent] (. latch (countDown)) agent)]
+      (doseq [agent agents]
+        (send agent count-down))
+      (. latch (await)))))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
           epl-v10.html at the root of this distribution. By using this software
           in any fashion, you are agreeing to be bound by the terms of this 
           license. You must not remove this notice, or any other, from this 

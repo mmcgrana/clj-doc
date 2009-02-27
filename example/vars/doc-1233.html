@@ -1,8 +1,6 @@
-<div class="doc-item" id="doc-1233"><h2 class="doc-item-name">macroexpand-1<span class="namespace">(clojure.core)</span></h2><ul class="var-arglists"><li>(<span class="var-name">macroexpand-1</span>  form)</li></ul><div class="var-docstring"><p>If form represents a macro form, returns its expansion,
-  else returns form.</p></div><div class="var-source"><pre>; core.clj:2155
-(defn macroexpand-1
-  [form]
-    (. clojure.lang.Compiler (macroexpand1 form)))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
+<div class="doc-item" id="doc-1233"><h2 class="doc-item-name">list?<span class="namespace">(clojure.core)</span></h2><ul class="var-arglists"><li>(<span class="var-name">list?</span>  x)</li></ul><div class="var-docstring"><p>Returns true if x implements IPersistentList</p></div><div class="var-source"><pre>; core.clj:3762
+(defn list?
+  [x] (instance? clojure.lang.IPersistentList x))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
           epl-v10.html at the root of this distribution. By using this software
           in any fashion, you are agreeing to be bound by the terms of this 
           license. You must not remove this notice, or any other, from this 

@@ -1,27 +1,18 @@
-<div class="doc-item" id="doc-1357"><h2 class="doc-item-name">refer<span class="namespace">(clojure.core)</span></h2><ul class="var-arglists"><li>(<span class="var-name">refer</span> ns-sym &amp; filters)</li></ul><div class="var-docstring"><p>refers to all public vars of ns, subject to filters.
-  filters can include at most one each of:</p><p>:exclude list-of-symbols
-  :only list-of-symbols
-  :rename map-of-fromsymbol-tosymbol</p><p>For each public interned var in the namespace named by the symbol,
-  adds a mapping from the name of the var to the var to the current
-  namespace.  Throws an exception if name is already mapped to
-  something else in the current namespace. Filters can be used to
-  select a subset, via inclusion or exclusion, or to provide a mapping
-  to a symbol different from the var's name, in order to prevent
-  clashes. Use :use in the ns macro in preference to calling this directly.</p></div><div class="var-source"><pre>; core.clj:2307
-(defn refer
-  [ns-sym &amp; filters]
-    (let [ns (or (find-ns ns-sym) (throw (new Exception (str &quot;No namespace: &quot; ns-sym))))
-          fs (apply hash-map filters)
-          nspublics (ns-publics ns)
-          rename (or (:rename fs) {})
-          exclude (set (:exclude fs))
-          to-do (or (:only fs) (keys nspublics))]
-      (doseq [sym to-do]
-        (when-not (exclude sym)
-          (let [v (nspublics sym)]
-            (when-not v
-              (throw (new java.lang.IllegalAccessError (str sym &quot; is not public&quot;))))
-            (. *ns* (refer (or (rename sym) sym) v)))))))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
+<div class="doc-item" id="doc-1357"><h2 class="doc-item-name">re-gsub<span class="namespace">(clojure.contrib.str-utils)</span></h2><ul class="var-arglists"><li>(<span class="var-name">re-gsub</span> regex replacement string)</li></ul><div class="var-docstring"><p>Replaces all instances of 'pattern' in 'string' with
+  'replacement'.  Like Ruby's 'String#gsub'.
+  
+  If (ifn? replacment) is true, the replacement is called with the
+  match.
+  </p></div><div class="var-source"><pre>; str_utils.clj:47
+(defn re-gsub 
+  [#^java.util.regex.Pattern regex replacement #^String string]
+  (if (ifn? replacement)
+    (let [parts (vec (re-partition regex string))]
+      (apply str
+             (reduce (fn [parts match-idx]
+                       (update-in parts [match-idx] replacement))
+                     parts (range 1 (count parts) 2))))
+    (.. regex (matcher string) (replaceAll replacement))))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
           epl-v10.html at the root of this distribution. By using this software
           in any fashion, you are agreeing to be bound by the terms of this 
           license. You must not remove this notice, or any other, from this 

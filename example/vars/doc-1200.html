@@ -1,6 +1,11 @@
-<div class="doc-item" id="doc-1200"><h2 class="doc-item-name">ints<span class="namespace">(clojure.core)</span></h2><ul class="var-arglists"><li>(<span class="var-name">ints</span>  xs)</li></ul><div class="var-docstring"><p>Casts to int[]</p></div><div class="var-source"><pre>; core.clj:3104
-(definline ints
-  [xs] `(. clojure.lang.Numbers ints ~xs))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
+<div class="doc-item" id="doc-1200"><h2 class="doc-item-name">insert-right<span class="namespace">(clojure.zip)</span></h2><ul class="var-arglists"><li>(<span class="var-name">insert-right</span> loc item)</li></ul><div class="var-docstring"><p>Inserts the item as the right sibling of the node at this loc,
+  without moving</p></div><div class="var-source"><pre>; zip.clj:162
+(defn insert-right
+  [loc item]
+    (let [[node {r :r :as path}] loc]
+      (if (nil? path)
+        (throw (new Exception &quot;Insert at top&quot;))
+        (with-meta [node (assoc path :r (cons item r) :changed? true)] ^loc))))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
           epl-v10.html at the root of this distribution. By using this software
           in any fashion, you are agreeing to be bound by the terms of this 
           license. You must not remove this notice, or any other, from this 

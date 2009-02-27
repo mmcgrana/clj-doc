@@ -1,8 +1,10 @@
-<div class="doc-item" id="doc-1325"><h2 class="doc-item-name">proxy-super<span class="namespace">(clojure.core)</span></h2><p class="macro">Macro</p><ul class="var-arglists"><li>(<span class="var-name">proxy-super</span> meth &amp; args)</li></ul><div class="var-docstring"><p>Use to call a superclass method in the body of a proxy method. 
-  Note, expansion captures 'this</p></div><div class="var-source"><pre>; core_proxy.clj:304
-(defmacro proxy-super 
-  [meth &amp; args]
- `(proxy-call-with-super (fn [] (. ~'this ~meth ~@args))  ~'this ~(name meth)))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
+<div class="doc-item" id="doc-1325"><h2 class="doc-item-name">print-ctor<span class="namespace">(clojure.core)</span></h2><ul class="var-arglists"><li>(<span class="var-name">print-ctor</span> o print-args w)</li></ul><div class="var-source"><pre>; core_print.clj:79
+(defn print-ctor [o print-args #^Writer w]
+  (.write w &quot;#=(&quot;)
+  (.write w (.getName #^Class (class o)))
+  (.write w &quot;. &quot;)
+  (print-args o w)
+  (.write w &quot;)&quot;))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
           epl-v10.html at the root of this distribution. By using this software
           in any fashion, you are agreeing to be bound by the terms of this 
           license. You must not remove this notice, or any other, from this 

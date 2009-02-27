@@ -1,9 +1,6 @@
-<div class="doc-item" id="doc-1253"><h2 class="doc-item-name">min-key<span class="namespace">(clojure.core)</span></h2><ul class="var-arglists"><li>(<span class="var-name">min-key</span> k x)</li><li>(<span class="var-name">min-key</span> k x y)</li><li>(<span class="var-name">min-key</span> k x y &amp; more)</li></ul><div class="var-docstring"><p>Returns the x for which (k x), a number, is least.</p></div><div class="var-source"><pre>; core.clj:2891
-(defn min-key
-  ([k x] x)
-  ([k x y] (if (&lt; (k x) (k y)) x y))
-  ([k x y &amp; more]
-   (reduce #(min-key k %1 %2) (min-key k x y) more)))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
+<div class="doc-item" id="doc-1253"><h2 class="doc-item-name">map-invert<span class="namespace">(clojure.set)</span></h2><ul class="var-arglists"><li>(<span class="var-name">map-invert</span>  m)</li></ul><div class="var-docstring"><p>Returns the map with the vals mapped to the keys.</p></div><div class="var-source"><pre>; set.clj:95
+(defn map-invert
+  [m] (reduce (fn [m [k v]] (assoc m v k)) {} m))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
           epl-v10.html at the root of this distribution. By using this software
           in any fashion, you are agreeing to be bound by the terms of this 
           license. You must not remove this notice, or any other, from this 

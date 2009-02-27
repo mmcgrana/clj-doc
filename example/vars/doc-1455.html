@@ -1,16 +1,8 @@
-<div class="doc-item" id="doc-1455"><h2 class="doc-item-name">tree-seq<span class="namespace">(clojure.core)</span></h2><ul class="var-arglists"><li>(<span class="var-name">tree-seq</span> branch? children root)</li></ul><div class="var-docstring"><p>Returns a lazy sequence of the nodes in a tree, via a depth-first walk.
-   branch? must be a fn of one arg that returns true if passed a node
-   that can have children (but may not).  children must be a fn of one
-   arg that returns a sequence of the children. Will only be called on
-   nodes for which branch? returns true. Root is the root node of the
-  tree.</p></div><div class="var-source"><pre>; core.clj:2827
- (defn tree-seq
-   [branch? children root]
-   (let [walk (fn walk [node]
-                (lazy-cons node
-                  (when (branch? node)
-                    (mapcat walk (children node)))))]
-     (walk root)))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
+<div class="doc-item" id="doc-1455"><h2 class="doc-item-name">subs<span class="namespace">(clojure.core)</span></h2><ul class="var-arglists"><li>(<span class="var-name">subs</span> s start)</li><li>(<span class="var-name">subs</span> s start end)</li></ul><div class="var-docstring"><p>Returns the substring of s beginning at start inclusive, and ending
+  at end (defaults to length of string), exclusive.</p></div><div class="var-source"><pre>; core.clj:2991
+(defn subs
+  ([#^String s start] (. s (substring start)))
+  ([#^String s start end] (. s (substring start end))))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
           epl-v10.html at the root of this distribution. By using this software
           in any fashion, you are agreeing to be bound by the terms of this 
           license. You must not remove this notice, or any other, from this 

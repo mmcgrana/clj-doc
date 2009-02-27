@@ -1,10 +1,32 @@
-<div class="doc-item" id="doc-1217"><h2 class="doc-item-name">line-seq<span class="namespace">(clojure.core)</span></h2><ul class="var-arglists"><li>(<span class="var-name">line-seq</span>  rdr)</li></ul><div class="var-docstring"><p>Returns the lines of text from rdr as a lazy sequence of strings.
-  rdr must implement java.io.BufferedReader.</p></div><div class="var-source"><pre>; core.clj:1583
-(defn line-seq
-  [#^java.io.BufferedReader rdr]
-    (let [line  (. rdr (readLine))]
-      (when line
-        (lazy-cons line (line-seq rdr)))))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
+<div class="doc-item" id="doc-1217"><h2 class="doc-item-name">join<span class="namespace">(clojure.set)</span></h2><ul class="var-arglists"><li>(<span class="var-name">join</span> xrel yrel)</li><li>(<span class="var-name">join</span> xrel yrel km)</li></ul><div class="var-docstring"><p>When passed 2 rels, returns the rel corresponding to the natural
+  join. When passed an additional keymap, joins on the corresponding
+  keys.</p></div><div class="var-source"><pre>; set.clj:99
+(defn join
+  ([xrel yrel] ;natural join
+   (if (and (seq xrel) (seq yrel))
+     (let [ks (intersection (set (keys (first xrel))) (set (keys (first yrel))))
+           [r s] (if (&lt;= (count xrel) (count yrel))
+                   [xrel yrel]
+                   [yrel xrel])
+           idx (index r ks)]
+       (reduce (fn [ret x]
+                 (let [found (idx (select-keys x ks))]
+                   (if found
+                     (reduce #(conj %1 (merge %2 x)) ret found)
+                     ret)))
+               #{} s))
+     #{}))
+  ([xrel yrel km] ;arbitrary key mapping
+   (let [[r s k] (if (&lt;= (count xrel) (count yrel))
+                   [xrel yrel (map-invert km)]
+                   [yrel xrel km])
+         idx (index r (vals k))]
+     (reduce (fn [ret x]
+               (let [found (idx (rename-keys (select-keys x (keys k)) k))]
+                 (if found
+                   (reduce #(conj %1 (merge %2 x)) ret found)
+                   ret)))
+             #{} s))))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
           epl-v10.html at the root of this distribution. By using this software
           in any fashion, you are agreeing to be bound by the terms of this 
           license. You must not remove this notice, or any other, from this 

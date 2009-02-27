@@ -1,7 +1,7 @@
-<div class="doc-item" id="doc-1483"><h2 class="doc-item-name">when<span class="namespace">(clojure.core)</span></h2><p class="macro">Macro</p><ul class="var-arglists"><li>(<span class="var-name">when</span> test &amp; body)</li></ul><div class="var-docstring"><p>Evaluates test. If logical true, evaluates body in an implicit do.</p></div><div class="var-source"><pre>; core.clj:283
-(defmacro when
-  [test &amp; body]
-  (list 'if test (cons 'do body)))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
+<div class="doc-item" id="doc-1483"><h2 class="doc-item-name">unchecked-add<span class="namespace">(clojure.core)</span></h2><ul class="var-arglists"><li>(<span class="var-name">unchecked-add</span> x y)</li></ul><div class="var-docstring"><p>Returns the sum of x and y, both int or long.
+  Note - uses a primitive operator subject to overflow.</p></div><div class="var-source"><pre>; core.clj:720
+(defn unchecked-add
+  [x y] (. clojure.lang.Numbers (unchecked_add x y)))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
           epl-v10.html at the root of this distribution. By using this software
           in any fashion, you are agreeing to be bound by the terms of this 
           license. You must not remove this notice, or any other, from this 

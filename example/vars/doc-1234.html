@@ -1,7 +1,21 @@
-<div class="doc-item" id="doc-1234"><h2 class="doc-item-name">macroexpand-all<span class="namespace">(clojure.contrib.walk)</span></h2><ul class="var-arglists"><li>(<span class="var-name">macroexpand-all</span>  form)</li></ul><div class="var-docstring"><p>Recursively performs all possible macroexpansions in form.</p></div><div class="var-source"><pre>; walk.clj:118
-(defn macroexpand-all
-  [form]
-  (prewalk (fn [x] (if (list? x) (macroexpand x) x)) form))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
+<div class="doc-item" id="doc-1234"><h2 class="doc-item-name">load<span class="namespace">(clojure.core)</span></h2><ul class="var-arglists"><li>(<span class="var-name">load</span> &amp; paths)</li></ul><div class="var-docstring"><p>Loads Clojure code from resources in classpath. A path is interpreted as
+  classpath-relative if it begins with a slash or relative to the root
+  directory for the current namespace otherwise.</p></div><div class="var-source"><pre>; core.clj:3695
+(defn load
+  [&amp; paths]
+  (doseq [#^String path paths]
+    (let [#^String path (if (.startsWith path &quot;/&quot;)
+                          path
+                          (str (root-directory (ns-name *ns*)) \/ path))]
+      (when *loading-verbosely*
+        (printf &quot;(clojure.core/load \&quot;%s\&quot;)\n&quot; path)
+        (flush))
+;      (throw-if (*pending-paths* path)
+;                &quot;cannot load '%s' again while it is loading&quot;
+;                path)
+      (when-not (*pending-paths* path)
+        (binding [*pending-paths* (conj *pending-paths* path)]
+          (clojure.lang.RT/load  (.substring path 1)))))))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
           epl-v10.html at the root of this distribution. By using this software
           in any fashion, you are agreeing to be bound by the terms of this 
           license. You must not remove this notice, or any other, from this 

@@ -1,7 +1,8 @@
-<div class="doc-item" id="doc-1463"><h2 class="doc-item-name">unchecked-remainder<span class="namespace">(clojure.core)</span></h2><ul class="var-arglists"><li>(<span class="var-name">unchecked-remainder</span> x y)</li></ul><div class="var-docstring"><p>Returns the remainder of division of x by y, both int or long.
-  Note - uses a primitive operator subject to truncation.</p></div><div class="var-source"><pre>; core.clj:734
-(defn unchecked-remainder
-  [x y] (. clojure.lang.Numbers (unchecked_remainder x y)))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
+<div class="doc-item" id="doc-1463"><h2 class="doc-item-name">syntax-symbol-anchor<span class="namespace">(clojure.core)</span></h2><ul class="var-arglists"><li>(<span class="var-name">syntax-symbol-anchor</span>  x)</li></ul><div class="var-docstring"><p>Returns the anchor tag on http://clojure.org/special_forms for the
+  special form that uses syntax symbol x, or nil</p></div><div class="var-source"><pre>; core.clj:2905
+(defn syntax-symbol-anchor
+  [x]
+  ({'&amp; 'fn 'catch 'try 'finally 'try} x))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
           epl-v10.html at the root of this distribution. By using this software
           in any fashion, you are agreeing to be bound by the terms of this 
           license. You must not remove this notice, or any other, from this 

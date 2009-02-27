@@ -1,7 +1,17 @@
-<div class="doc-item" id="doc-1120"><h2 class="doc-item-name">edit<span class="namespace">(clojure.zip)</span></h2><ul class="var-arglists"><li>(<span class="var-name">edit</span> loc f &amp; args)</li></ul><div class="var-docstring"><p>Replaces the node at this loc with the value of (f node args)</p></div><div class="var-source"><pre>; zip.clj:161
-(defn edit
-  [loc f &amp; args]
-    (replace loc (apply f (node loc) args)))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
+<div class="doc-item" id="doc-1120"><h2 class="doc-item-name">dotimes<span class="namespace">(clojure.core)</span></h2><p class="macro">Macro</p><ul class="var-arglists"><li>(<span class="var-name">dotimes</span> bindings &amp; body)</li></ul><div class="var-docstring"><p>bindings =&gt; name n</p><p>Repeatedly executes body (presumably for side-effects) with name
+  bound to integers from 0 through n-1.</p></div><div class="var-source"><pre>; core.clj:1824
+(defmacro dotimes
+  [bindings &amp; body]
+  (assert-args dotimes
+     (vector? bindings) &quot;a vector for its binding&quot;
+     (= 2 (count bindings)) &quot;exactly 2 forms in binding vector&quot;)
+  (let [i (first bindings)
+        n (second bindings)]
+    `(let [n# (int ~n)]
+       (loop [~i (int 0)]
+         (when (&lt; ~i n#)
+           ~@body
+           (recur (unchecked-inc ~i)))))))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
           epl-v10.html at the root of this distribution. By using this software
           in any fashion, you are agreeing to be bound by the terms of this 
           license. You must not remove this notice, or any other, from this 

@@ -1,11 +1,7 @@
-<div class="doc-item" id="doc-1308"><h2 class="doc-item-name">print-doc<span class="namespace">(clojure.core)</span></h2><ul class="var-arglists"><li>(<span class="var-name">print-doc</span>  v)</li></ul><div class="var-source"><pre>; core.clj:2766
-(defn print-doc [v]
-  (println &quot;-------------------------&quot;)
-  (println (str (ns-name (:ns ^v)) &quot;/&quot; (:name ^v)))
-  (prn (:arglists ^v))
-  (when (:macro ^v)
-    (println &quot;Macro&quot;))
-  (println &quot; &quot; (:doc ^v)))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
+<div class="doc-item" id="doc-1308"><h2 class="doc-item-name">peek<span class="namespace">(clojure.core)</span></h2><ul class="var-arglists"><li>(<span class="var-name">peek</span>  coll)</li></ul><div class="var-docstring"><p>For a list or queue, same as first, for a vector, same as, but much
+  more efficient than, last. If the collection is empty, returns nil.</p></div><div class="var-source"><pre>; core.clj:875
+(defn peek
+  [coll] (. clojure.lang.RT (peek coll)))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
           epl-v10.html at the root of this distribution. By using this software
           in any fashion, you are agreeing to be bound by the terms of this 
           license. You must not remove this notice, or any other, from this 

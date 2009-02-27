@@ -1,12 +1,6 @@
-<div class="doc-item" id="doc-1503"><h2 class="doc-item-name">zipper<span class="namespace">(clojure.zip)</span></h2><ul class="var-arglists"><li>(<span class="var-name">zipper</span> branch? children make-node root)</li></ul><div class="var-docstring"><p>Creates a new zipper structure. </p><p>branch? is a fn that, given a node, returns true if can have
-  children, even if it currently doesn't.</p><p>children is a fn that, given a branch node, returns a seq of its
-  children.</p><p>make-node is a fn that, given an existing node and a seq of
-  children, returns a new branch node with the supplied children.
-  root is the root node.</p></div><div class="var-source"><pre>; zip.clj:15
-(defn zipper
-  [branch? children make-node root]
-    #^{:zip/branch? branch? :zip/children children :zip/make-node make-node} 
-    [root nil])</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
+<div class="doc-item" id="doc-1503"><h2 class="doc-item-name">var?<span class="namespace">(clojure.core)</span></h2><ul class="var-arglists"><li>(<span class="var-name">var?</span>  v)</li></ul><div class="var-docstring"><p>Returns true if v is of type clojure.lang.Var</p></div><div class="var-source"><pre>; core.clj:2975
+(defn var?
+  [v] (instance? clojure.lang.Var v))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
           epl-v10.html at the root of this distribution. By using this software
           in any fashion, you are agreeing to be bound by the terms of this 
           license. You must not remove this notice, or any other, from this 

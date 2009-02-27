@@ -1,13 +1,12 @@
-<div class="doc-item" id="doc-1410"><h2 class="doc-item-name">slurp*<span class="namespace">(clojure.contrib.duck-streams)</span></h2><ul class="var-arglists"><li>(<span class="var-name">slurp*</span>  f)</li></ul><div class="var-docstring"><p>Like clojure.core/slurp but opens f with reader.</p></div><div class="var-source"><pre>; duck_streams.clj:176
-(defn slurp*
-  [f]
-  (with-open [#^BufferedReader r (reader f)]
-      (let [sb (StringBuilder.)]
-        (loop [c (.read r)]
-          (if (neg? c)
-            (str sb)
-            (do (.append sb (char c))
-                (recur (.read r))))))))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
+<div class="doc-item" id="doc-1410"><h2 class="doc-item-name">rotations<span class="namespace">(clojure.contrib.seq-utils)</span></h2><ul class="var-arglists"><li>(<span class="var-name">rotations</span>  x)</li></ul><div class="var-docstring"><p>Returns a lazy seq of all rotations of a seq</p></div><div class="var-source"><pre>; seq_utils.clj:119
+(defn rotations
+  [x]
+  (if (seq x)
+    (map
+     (fn [n _]
+       (lazy-cat (drop n x) (take n x)))
+     (iterate inc 0) x)
+    (list nil)))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
           epl-v10.html at the root of this distribution. By using this software
           in any fashion, you are agreeing to be bound by the terms of this 
           license. You must not remove this notice, or any other, from this 

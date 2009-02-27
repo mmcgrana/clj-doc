@@ -1,15 +1,6 @@
-<div class="doc-item" id="doc-1298"><h2 class="doc-item-name">pr<span class="namespace">(clojure.core)</span></h2><ul class="var-arglists"><li>(<span class="var-name">pr</span>  )</li><li>(<span class="var-name">pr</span>  x)</li><li>(<span class="var-name">pr</span> x &amp; more)</li></ul><div class="var-docstring"><p>Prints the object(s) to the output stream that is the current value
-  of *out*.  Prints the object(s), separated by spaces if there is
-  more than one.  By default, pr and prn print in a way that objects
-  can be read by the reader</p></div><div class="var-source"><pre>; core.clj:1912
-(defn pr
-  ([] nil)
-  ([x]
-     (pr-on x *out*))
-  ([x &amp; more]
-   (pr x)
-   (. *out* (append \space))
-   (apply pr more)))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
+<div class="doc-item" id="doc-1298"><h2 class="doc-item-name">odd?<span class="namespace">(clojure.core)</span></h2><ul class="var-arglists"><li>(<span class="var-name">odd?</span>  n)</li></ul><div class="var-docstring"><p>Returns true if n is odd, throws an exception if n is not an integer</p></div><div class="var-source"><pre>; core.clj:840
+(defn odd?
+  [n] (not (even? n)))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
           epl-v10.html at the root of this distribution. By using this software
           in any fashion, you are agreeing to be bound by the terms of this 
           license. You must not remove this notice, or any other, from this 

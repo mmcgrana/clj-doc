@@ -1,7 +1,9 @@
-<div class="doc-item" id="doc-1099"><h2 class="doc-item-name">difference<span class="namespace">(clojure.set)</span></h2><ul class="var-arglists"><li>(<span class="var-name">difference</span> xset yset)</li></ul><div class="var-docstring"><p>Returns a set that is xset without the elements of yset.</p></div><div class="var-source"><pre>; set.clj:16
-(defn difference
-  [xset yset]
-    (reduce disj xset yset))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
+<div class="doc-item" id="doc-1099"><h2 class="doc-item-name">defunbound<span class="namespace">(clojure.contrib.def)</span></h2><p class="macro">Macro</p><ul class="var-arglists"><li>(<span class="var-name">defunbound</span>  name)</li><li>(<span class="var-name">defunbound</span> name doc)</li></ul><div class="var-docstring"><p>Defines an unbound var with optional doc string</p></div><div class="var-source"><pre>; def.clj:28
+(defmacro defunbound
+  ([name]
+     (list `def name))
+  ([name doc]
+     (list `def (with-meta name (assoc (meta name) :doc doc)))))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
           epl-v10.html at the root of this distribution. By using this software
           in any fashion, you are agreeing to be bound by the terms of this 
           license. You must not remove this notice, or any other, from this 

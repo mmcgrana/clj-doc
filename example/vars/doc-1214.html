@@ -1,9 +1,22 @@
-<div class="doc-item" id="doc-1214"><h2 class="doc-item-name">left<span class="namespace">(clojure.zip)</span></h2><ul class="var-arglists"><li>(<span class="var-name">left</span>  loc)</li></ul><div class="var-docstring"><p>Returns the loc of the left sibling of the node at this loc, or nil</p></div><div class="var-source"><pre>; zip.clj:130
-(defn left
-  [loc]
-    (let [[node {l :l r :r :as path}] loc]
-      (when (and path (seq l))
-        (with-meta [(peek l) (assoc path :l (pop l) :r (cons node r))] ^loc))))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
+<div class="doc-item" id="doc-1214"><h2 class="doc-item-name">isa?<span class="namespace">(clojure.core)</span></h2><ul class="var-arglists"><li>(<span class="var-name">isa?</span> child parent)</li><li>(<span class="var-name">isa?</span> h child parent)</li></ul><div class="var-docstring"><p>Returns true if (= child parent), or child is directly or indirectly derived from
+  parent, either via a Java type inheritance relationship or a
+  relationship established via derive. h must be a hierarchy obtained
+  from make-hierarchy, if not supplied defaults to the global
+  hierarchy</p></div><div class="var-source"><pre>; core.clj:3279
+(defn isa?
+  ([child parent] (isa? global-hierarchy child parent))
+  ([h child parent]
+   (or (= child parent)
+       (and (class? parent) (class? child)
+            (. #^Class parent isAssignableFrom child))
+       (contains? ((:ancestors h) child) parent)
+       (and (class? child) (some #(contains? ((:ancestors h) %) parent) (supers child)))
+       (and (vector? parent) (vector? child)
+            (= (count parent) (count child))
+            (loop [ret true i 0]
+              (if (or (not ret) (= i (count parent)))
+                ret
+                (recur (isa? h (child i) (parent i)) (inc i))))))))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
           epl-v10.html at the root of this distribution. By using this software
           in any fashion, you are agreeing to be bound by the terms of this 
           license. You must not remove this notice, or any other, from this 

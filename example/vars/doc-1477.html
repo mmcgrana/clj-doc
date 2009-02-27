@@ -1,8 +1,7 @@
-<div class="doc-item" id="doc-1477"><h2 class="doc-item-name">vary-meta<span class="namespace">(clojure.core)</span></h2><ul class="var-arglists"><li>(<span class="var-name">vary-meta</span> obj f &amp; args)</li></ul><div class="var-docstring"><p>Returns an object of the same type and value as obj, with
-  (apply f (meta obj) args) as its metadata.</p></div><div class="var-source"><pre>; core.clj:383
-(defn vary-meta
- [obj f &amp; args]
-  (with-meta obj (apply f (meta obj) args)))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
+<div class="doc-item" id="doc-1477"><h2 class="doc-item-name">to-array<span class="namespace">(clojure.core)</span></h2><ul class="var-arglists"><li>(<span class="var-name">to-array</span>  coll)</li></ul><div class="var-docstring"><p>Returns an array of Objects containing the contents of coll, which
+  can be any Collection.  Maps to java.util.Collection.toArray().</p></div><div class="var-source"><pre>; core.clj:233
+(defn to-array
+  [coll] (. clojure.lang.RT (toArray coll)))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
           epl-v10.html at the root of this distribution. By using this software
           in any fashion, you are agreeing to be bound by the terms of this 
           license. You must not remove this notice, or any other, from this 

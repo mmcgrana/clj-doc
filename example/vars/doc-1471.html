@@ -1,10 +1,11 @@
-<div class="doc-item" id="doc-1471"><h2 class="doc-item-name">use<span class="namespace">(clojure.core)</span></h2><ul class="var-arglists"><li>(<span class="var-name">use</span> &amp; args)</li></ul><div class="var-docstring"><p>Like 'require, but also refers to each lib's namespace using
-  clojure.core/refer. Use :use in the ns macro in preference to calling
-  this directly.</p><p>'use accepts additional options in libspecs: :exclude, :only, :rename.
-  The arguments and semantics for :exclude, :only, and :rename are the same
-  as those documented for clojure.core/refer.</p></div><div class="var-source"><pre>; core.clj:3592
-(defn use
-  [&amp; args] (apply load-libs :require :use args))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
+<div class="doc-item" id="doc-1471"><h2 class="doc-item-name">the-ns<span class="namespace">(clojure.core)</span></h2><ul class="var-arglists"><li>(<span class="var-name">the-ns</span>  x)</li></ul><div class="var-docstring"><p>If passed a namespace, returns it. Else, when passed a symbol,
+  returns the namespace named by it, throwing an exception if not
+  found.</p></div><div class="var-source"><pre>; core.clj:2375
+(defn #^clojure.lang.Namespace the-ns
+  [x]
+  (if (instance? clojure.lang.Namespace x)
+    x
+    (or (find-ns x) (throw (Exception. (str &quot;No namespace: &quot; x &quot; found&quot;))))))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
           epl-v10.html at the root of this distribution. By using this software
           in any fashion, you are agreeing to be bound by the terms of this 
           license. You must not remove this notice, or any other, from this 

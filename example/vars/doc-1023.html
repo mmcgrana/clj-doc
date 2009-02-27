@@ -1,6 +1,12 @@
-<div class="doc-item" id="doc-1023"><h2 class="doc-item-name">bit-and<span class="namespace">(clojure.core)</span></h2><ul class="var-arglists"><li>(<span class="var-name">bit-and</span> x y)</li></ul><div class="var-docstring"><p>Bitwise and</p></div><div class="var-source"><pre>; core.clj:781
-(defn bit-and
-  [x y] (. clojure.lang.Numbers and x y))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
+<div class="doc-item" id="doc-1023"><h2 class="doc-item-name">atom<span class="namespace">(clojure.core)</span></h2><ul class="var-arglists"><li>(<span class="var-name">atom</span>  x)</li><li>(<span class="var-name">atom</span> x &amp; options)</li></ul><div class="var-docstring"><p>Creates and returns an Atom with an initial value of x and zero or
+  more options (in any order):</p><p>:meta metadata-map</p><p>:validator validate-fn</p><p>If metadata-map is supplied, it will be come the metadata on the
+  atom. validate-fn must be nil or a side-effect-free fn of one
+  argument, which will be passed the intended new state on any state
+  change. If the new state is unacceptable, the validate-fn should
+  return false or throw an exception.</p></div><div class="var-source"><pre>; core.clj:1300
+(defn atom
+  ([x] (new clojure.lang.Atom x))
+  ([x &amp; options] (setup-reference (atom x) options)))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
           epl-v10.html at the root of this distribution. By using this software
           in any fashion, you are agreeing to be bound by the terms of this 
           license. You must not remove this notice, or any other, from this 

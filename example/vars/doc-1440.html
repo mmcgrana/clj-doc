@@ -1,9 +1,8 @@
-<div class="doc-item" id="doc-1440"><h2 class="doc-item-name">take<span class="namespace">(clojure.core)</span></h2><ul class="var-arglists"><li>(<span class="var-name">take</span> n coll)</li></ul><div class="var-docstring"><p>Returns a lazy seq of the first n items in coll, or all items if
-  there are fewer than n.</p></div><div class="var-source"><pre>; core.clj:1464
-(defn take
-  [n coll]
-    (when (and (pos? n) (seq coll))
-      (lazy-cons (first coll) (when (&gt; n 1) (take (dec n) (rest coll))))))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
+<div class="doc-item" id="doc-1440"><h2 class="doc-item-name">sorted-map-by<span class="namespace">(clojure.core)</span></h2><ul class="var-arglists"><li>(<span class="var-name">sorted-map-by</span> comparator &amp; keyvals)</li></ul><div class="var-docstring"><p>keyval =&gt; key val
+  Returns a new sorted map with supplied mappings, using the supplied comparator.</p></div><div class="var-source"><pre>; core.clj:274
+(defn sorted-map-by
+  ([comparator &amp; keyvals]
+   (. clojure.lang.PersistentTreeMap (create comparator keyvals))))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
           epl-v10.html at the root of this distribution. By using this software
           in any fashion, you are agreeing to be bound by the terms of this 
           license. You must not remove this notice, or any other, from this 

@@ -1,11 +1,10 @@
-<div class="doc-item" id="doc-1340"><h2 class="doc-item-name">re-matches<span class="namespace">(clojure.core)</span></h2><ul class="var-arglists"><li>(<span class="var-name">re-matches</span> re s)</li></ul><div class="var-docstring"><p>Returns the match, if any, of string to pattern, using
-  java.util.regex.Matcher.matches().  Uses re-groups to return the
-  groups.</p></div><div class="var-source"><pre>; core.clj:2730
-(defn re-matches
-  [#^java.util.regex.Pattern re s]
-    (let [m (re-matcher re s)]
-      (when (. m (matches))
-        (re-groups m))))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
+<div class="doc-item" id="doc-1340"><h2 class="doc-item-name">proxy-call-with-super<span class="namespace">(clojure.core)</span></h2><ul class="var-arglists"><li>(<span class="var-name">proxy-call-with-super</span> call this meth)</li></ul><div class="var-source"><pre>; core_proxy.clj:300
+(defn proxy-call-with-super [call this meth]
+ (let [m (proxy-mappings this)]
+    (update-proxy this (assoc m meth nil))
+    (let [ret (call)]
+      (update-proxy this m)
+      ret)))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
           epl-v10.html at the root of this distribution. By using this software
           in any fashion, you are agreeing to be bound by the terms of this 
           license. You must not remove this notice, or any other, from this 

@@ -1,14 +1,6 @@
-<div class="doc-item" id="doc-1212"><h2 class="doc-item-name">lazy-cat<span class="namespace">(clojure.core)</span></h2><p class="macro">Macro</p><ul class="var-arglists"><li>(<span class="var-name">lazy-cat</span>  coll)</li><li>(<span class="var-name">lazy-cat</span> coll &amp; colls)</li></ul><div class="var-docstring"><p>Expands to code which yields a lazy sequence of the concatenation
-  of the supplied colls.  Each coll expr is not evaluated until it is
-  needed.</p></div><div class="var-source"><pre>; core.clj:2577
-(defmacro lazy-cat
-  ([coll] `(seq ~coll))
-  ([coll &amp; colls]
-   `(let [iter# (fn iter# [coll#]
-		    (if (seq coll#)
-		      (lazy-cons (first coll#) (iter# (rest coll#)))
-		      (lazy-cat ~@colls)))]
-      (iter# ~coll))))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
+<div class="doc-item" id="doc-1212"><h2 class="doc-item-name">ints<span class="namespace">(clojure.core)</span></h2><ul class="var-arglists"><li>(<span class="var-name">ints</span>  xs)</li></ul><div class="var-docstring"><p>Casts to int[]</p></div><div class="var-source"><pre>; core.clj:3192
+(definline ints
+  [xs] `(. clojure.lang.Numbers ints ~xs))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
           epl-v10.html at the root of this distribution. By using this software
           in any fashion, you are agreeing to be bound by the terms of this 
           license. You must not remove this notice, or any other, from this 

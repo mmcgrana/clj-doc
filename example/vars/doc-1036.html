@@ -1,10 +1,6 @@
-<div class="doc-item" id="doc-1036"><h2 class="doc-item-name">butlast<span class="namespace">(clojure.core)</span></h2><ul class="var-arglists"><li>(<span class="var-name">butlast</span>  coll)</li></ul><div class="var-docstring"><p>Return a sequence of all but the last item in coll, in linear time</p></div><div class="var-source"><pre>; core.clj:171
-(def 
- butlast (fn butlast [s]
-           (loop [ret [] s s]
-             (if (rest s)
-               (recur (conj ret (first s)) (rest s))
-               (seq ret)))))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
+<div class="doc-item" id="doc-1036"><h2 class="doc-item-name">bit-flip<span class="namespace">(clojure.core)</span></h2><ul class="var-arglists"><li>(<span class="var-name">bit-flip</span> x n)</li></ul><div class="var-docstring"><p>Flip bit at index n</p></div><div class="var-source"><pre>; core.clj:819
+(defn bit-flip
+  [x n] (. clojure.lang.Numbers flipBit x n))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
           epl-v10.html at the root of this distribution. By using this software
           in any fashion, you are agreeing to be bound by the terms of this 
           license. You must not remove this notice, or any other, from this 

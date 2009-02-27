@@ -1,8 +1,7 @@
-<div class="doc-item" id="doc-1388"><h2 class="doc-item-name">rseq<span class="namespace">(clojure.core)</span></h2><ul class="var-arglists"><li>(<span class="var-name">rseq</span>  rev)</li></ul><div class="var-docstring"><p>Returns, in constant time, a sequence of the items in rev (which
-  can be a vector or sorted-map), in reverse order.</p></div><div class="var-source"><pre>; core.clj:957
-(defn rseq
-  [#^clojure.lang.Reversible rev]
-    (. rev (rseq)))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
+<div class="doc-item" id="doc-1388"><h2 class="doc-item-name">repeat<span class="namespace">(clojure.core)</span></h2><ul class="var-arglists"><li>(<span class="var-name">repeat</span>  x)</li><li>(<span class="var-name">repeat</span> n x)</li></ul><div class="var-docstring"><p>Returns a lazy (infinite!, or length n if supplied) sequence of xs.</p></div><div class="var-source"><pre>; core.clj:1616
+(defn repeat
+  ([x] (lazy-seq (cons x (repeat x))))
+  ([n x] (take n (repeat x))))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
           epl-v10.html at the root of this distribution. By using this software
           in any fashion, you are agreeing to be bound by the terms of this 
           license. You must not remove this notice, or any other, from this 

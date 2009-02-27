@@ -1,20 +1,7 @@
-<div class="doc-item" id="doc-1408"><h2 class="doc-item-name">skip-whitespace<span class="namespace">(clojure.main)</span></h2><ul class="var-arglists"><li>(<span class="var-name">skip-whitespace</span>  s)</li></ul><div class="var-docstring"><p>Skips whitespace characters on stream s. Returns :line-start, :stream-end,
-  or :body to indicate the relative location of the next character on s.
-  Interprets comma as whitespace and semicolon as comment to end of line.
-  Does not interpret #! as comment to end of line because only one
-  character of lookahead is available. The stream must either be an
-  instance of LineNumberingPushbackReader or duplicate its behavior of both
-  supporting .unread and collapsing all of CR, LF, and CRLF to a single
-  \newline.</p></div><div class="var-source"><pre>; main.clj:62
-(defn skip-whitespace
-  [s]
-  (loop [c (.read s)]
-    (cond
-     (= c (int \newline)) :line-start
-     (= c -1) :stream-end
-     (= c (int \;)) (do (.readLine s) :line-start)
-     (or (Character/isWhitespace c) (= c (int \,))) (recur (.read s))
-     :else (do (.unread s c) :body))))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
+<div class="doc-item" id="doc-1408"><h2 class="doc-item-name">rights<span class="namespace">(clojure.zip)</span></h2><ul class="var-arglists"><li>(<span class="var-name">rights</span>  loc)</li></ul><div class="var-docstring"><p>Returns a seq of the right siblings of this loc</p></div><div class="var-source"><pre>; zip.clj:81
+(defn rights
+  [loc]
+    (:r (loc 1)))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
           epl-v10.html at the root of this distribution. By using this software
           in any fashion, you are agreeing to be bound by the terms of this 
           license. You must not remove this notice, or any other, from this 

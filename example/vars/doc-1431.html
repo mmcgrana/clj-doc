@@ -1,17 +1,8 @@
-<div class="doc-item" id="doc-1431"><h2 class="doc-item-name">subseq<span class="namespace">(clojure.core)</span></h2><ul class="var-arglists"><li>(<span class="var-name">subseq</span> sc test key)</li><li>(<span class="var-name">subseq</span> sc start-test start-key end-test end-key)</li></ul><div class="var-docstring"><p>sc must be a sorted collection, test(s) one of &lt;, &lt;=, &gt; or
-  &gt;=. Returns a seq of those entries with keys ek for
-  which (test (.. sc comparator (compare ek key)) 0) is true</p></div><div class="var-source"><pre>; core.clj:2982
-(defn subseq
-  ([#^clojure.lang.Sorted sc test key]
-   (let [include (bound-fn sc test key)]
-     (if (#{&gt; &gt;=} test)
-       (when-let [[e :as s] (. sc seqFrom key true)]
-         (if (include e) s (rest s)))
-       (take-while include (. sc seq true)))))
-  ([#^clojure.lang.Sorted sc start-test start-key end-test end-key]
-   (when-let [[e :as s] (. sc seqFrom start-key true)]
-     (take-while (bound-fn sc end-test end-key)
-                 (if ((bound-fn sc start-test start-key) e) s (rest s))))))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
+<div class="doc-item" id="doc-1431"><h2 class="doc-item-name">shutdown-agents<span class="namespace">(clojure.core)</span></h2><ul class="var-arglists"><li>(<span class="var-name">shutdown-agents</span>  )</li></ul><div class="var-docstring"><p>Initiates a shutdown of the thread pools that back the agent
+  system. Running actions will complete, but no new actions will be
+  accepted</p></div><div class="var-source"><pre>; core.clj:1268
+(defn shutdown-agents
+  [] (. clojure.lang.Agent shutdown))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
           epl-v10.html at the root of this distribution. By using this software
           in any fashion, you are agreeing to be bound by the terms of this 
           license. You must not remove this notice, or any other, from this 

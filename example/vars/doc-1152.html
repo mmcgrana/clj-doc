@@ -1,9 +1,10 @@
-<div class="doc-item" id="doc-1152"><h2 class="doc-item-name">flush<span class="namespace">(clojure.core)</span></h2><ul class="var-arglists"><li>(<span class="var-name">flush</span>  )</li></ul><div class="var-docstring"><p>Flushes the output stream that is the current value of
-  *out*</p></div><div class="var-source"><pre>; core.clj:1932
-(defn flush
-  []
-    (. *out* (flush))
-    nil)</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
+<div class="doc-item" id="doc-1152"><h2 class="doc-item-name">find-pure-exprs<span class="namespace">(clojure.contrib.template)</span></h2><ul class="var-arglists"><li>(<span class="var-name">find-pure-exprs</span>  form)</li></ul><div class="var-docstring"><p>Recursively finds all sub-expressions in form that do not contain
+  any symbols starting with _</p></div><div class="var-source"><pre>; template.clj:88
+(defn find-pure-exprs
+  [form]
+  (filter #(and (list? %)
+                (empty? (find-holes %)))
+          (tree-seq seq? seq form)))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
           epl-v10.html at the root of this distribution. By using this software
           in any fashion, you are agreeing to be bound by the terms of this 
           license. You must not remove this notice, or any other, from this 

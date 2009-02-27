@@ -1,6 +1,16 @@
-<div class="doc-item" id="doc-1129"><h2 class="doc-item-name">eval<span class="namespace">(clojure.core)</span></h2><ul class="var-arglists"><li>(<span class="var-name">eval</span>  form)</li></ul><div class="var-docstring"><p>Evaluates the form data structure (not text!) and returns the result.</p></div><div class="var-source"><pre>; core.clj:1633
-(defn eval
-  [form] (. clojure.lang.Compiler (eval form)))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
+<div class="doc-item" id="doc-1129"><h2 class="doc-item-name">econdt<span class="namespace">(clojure.contrib.condt)</span></h2><p class="macro">Macro</p><ul class="var-arglists"><li>(<span class="var-name">econdt</span> expr &amp; clauses)</li></ul><div class="var-docstring"><p>Like condt but throws Exception if no tests match.</p></div><div class="var-source"><pre>; condt.clj:47
+(defmacro econdt
+  [expr &amp; clauses]
+  (let [test-fn-sym (gensym &quot;test_&quot;)
+        f (fn this [c]
+              (cond
+               (empty? c) '(throw (Exception. &quot;Nothing matched in econdt.&quot;))
+               (= 1 (count c)) (throw (IllegalStateException. &quot;Odd number of clauses in econdt.&quot;))
+               :else (list 'if (list test-fn-sym (first c))
+                           (second c)
+                           (this (nthnext c 2)))))]
+    `(let [~test-fn-sym (clojure.contrib.template/template ~expr)]
+       ~(f clauses))))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
           epl-v10.html at the root of this distribution. By using this software
           in any fashion, you are agreeing to be bound by the terms of this 
           license. You must not remove this notice, or any other, from this 

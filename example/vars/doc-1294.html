@@ -1,6 +1,10 @@
-<div class="doc-item" id="doc-1294"><h2 class="doc-item-name">pos?<span class="namespace">(clojure.core)</span></h2><ul class="var-arglists"><li>(<span class="var-name">pos?</span>  x)</li></ul><div class="var-docstring"><p>Returns true if num is greater than zero, else false</p></div><div class="var-source"><pre>; core.clj:740
-(defn pos?
-  [x] (. clojure.lang.Numbers (isPos x)))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
+<div class="doc-item" id="doc-1294"><h2 class="doc-item-name">nth<span class="namespace">(clojure.core)</span></h2><ul class="var-arglists"><li>(<span class="var-name">nth</span> coll index)</li><li>(<span class="var-name">nth</span> coll index not-found)</li></ul><div class="var-docstring"><p>Returns the value at the index. get returns nil if index out of
+  bounds, nth throws an exception unless not-found is supplied.  nth
+  also works for strings, Java arrays, regex Matchers and Lists, and,
+  in O(n) time, for sequences.</p></div><div class="var-source"><pre>; core.clj:887
+(defn nth
+  ([coll index] (. clojure.lang.RT (nth coll index)))
+  ([coll index not-found] (. clojure.lang.RT (nth coll index not-found))))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
           epl-v10.html at the root of this distribution. By using this software
           in any fashion, you are agreeing to be bound by the terms of this 
           license. You must not remove this notice, or any other, from this 

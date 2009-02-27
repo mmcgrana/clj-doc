@@ -1,0 +1,8 @@
+<div class="doc-item" id="doc-1507"><h2 class="doc-item-name">vector-zip<span class="namespace">(clojure.zip)</span></h2><ul class="var-arglists"><li>(<span class="var-name">vector-zip</span>  root)</li></ul><div class="var-docstring"><p>Returns a zipper for nested vectors, given a root vector</p></div><div class="var-source"><pre>; zip.clj:36
+(defn vector-zip
+  [root]
+    (zipper vector? seq (fn [node children] (apply vector children)) root))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
+          epl-v10.html at the root of this distribution. By using this software
+          in any fashion, you are agreeing to be bound by the terms of this 
+          license. You must not remove this notice, or any other, from this 
+          software.</p></div></div>

@@ -1,7 +1,6 @@
-<div class="doc-item" id="doc-1038"><h2 class="doc-item-name">cache-seq<span class="namespace">(clojure.core)</span></h2><ul class="var-arglists"><li>(<span class="var-name">cache-seq</span>  s)</li></ul><div class="var-docstring"><p>Given a seq s, returns a lazy seq that will touch each element of s
-  at most once, caching the results.</p></div><div class="var-source"><pre>; core.clj:438
-(defn cache-seq
-  [s] (when s (clojure.lang.CachedSeq. s)))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
+<div class="doc-item" id="doc-1038"><h2 class="doc-item-name">bit-or<span class="namespace">(clojure.core)</span></h2><ul class="var-arglists"><li>(<span class="var-name">bit-or</span> x y)</li></ul><div class="var-docstring"><p>Bitwise or</p></div><div class="var-source"><pre>; core.clj:796
+(defn bit-or
+  [x y] (. clojure.lang.Numbers or x y))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
           epl-v10.html at the root of this distribution. By using this software
           in any fashion, you are agreeing to be bound by the terms of this 
           license. You must not remove this notice, or any other, from this 

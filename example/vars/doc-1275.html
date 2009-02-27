@@ -1,10 +1,6 @@
-<div class="doc-item" id="doc-1275"><h2 class="doc-item-name">ns-resolve<span class="namespace">(clojure.core)</span></h2><ul class="var-arglists"><li>(<span class="var-name">ns-resolve</span> ns sym)</li></ul><div class="var-docstring"><p>Returns the var or Class to which a symbol will be resolved in the
-  namespace, else nil.  Note that if the symbol is fully qualified,
-  the var/Class to which it resolves need not be present in the
-  namespace.</p></div><div class="var-source"><pre>; core.clj:2409
-(defn ns-resolve
-  [ns sym]
-  (clojure.lang.Compiler/maybeResolveIn (the-ns ns) sym))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
+<div class="doc-item" id="doc-1275"><h2 class="doc-item-name">nil?<span class="namespace">(clojure.core)</span></h2><ul class="var-arglists"><li>(<span class="var-name">nil?</span>  x)</li></ul><div class="var-docstring"><p>Returns true if x is nil, false otherwise.</p></div><div class="var-source"><pre>; core.clj:320
+(defn nil?
+  [x] (identical? x nil))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
           epl-v10.html at the root of this distribution. By using this software
           in any fashion, you are agreeing to be bound by the terms of this 
           license. You must not remove this notice, or any other, from this 

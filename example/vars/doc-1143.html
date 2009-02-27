@@ -1,7 +1,29 @@
-<div class="doc-item" id="doc-1143"><h2 class="doc-item-name">find-symbols<span class="namespace">(clojure.contrib.template)</span></h2><ul class="var-arglists"><li>(<span class="var-name">find-symbols</span>  form)</li></ul><div class="var-docstring"><p>Recursively finds all symbols in form.</p></div><div class="var-source"><pre>; template.clj:77
-(defn find-symbols
-  [form]
-  (distinct (filter symbol? (tree-seq coll? seq form))))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
+<div class="doc-item" id="doc-1143"><h2 class="doc-item-name">fcase<span class="namespace">(clojure.contrib.fcase)</span></h2><p class="macro">Macro</p><ul class="var-arglists"><li>(<span class="var-name">fcase</span> compare-fn case-value &amp; test-expr-clauses)</li></ul><div class="var-docstring"><p>Generic switch/case macro.  'fcase' is short for 'function case'.</p><p>The 'compare-fn' is a fn of two arguments.</p><p>The 'test-expr-clauses' are value-expression pairs without
+  surrounding parentheses, like in Clojure's 'cond'.</p><p>The 'case-value' is evaluated once and cached.  Then, 'compare-fn'
+  is called once for each clause, with the clause's test value as its
+  first argument and 'case-value' as its second argument.  If
+  'compare-fn' returns logical true, the clause's expression is
+  evaluated and returned.  If 'compare-fn' returns false/nil, we go to
+  the next test value.</p><p>If 'test-expr-clauses' contains an odd number of items, the last
+  item is the default expression evaluated if no case-value matches.
+  If there is no default expression and no case-value matches, fcase
+  returns nil.</p><p>See specific forms of this macro in 'case' and 're-case'.</p><p>The test expressions in 'fcase' are always evaluated linearly, in
+  order.  For a large number of case expressions it may be more
+  efficient to use a hash lookup.</p></div><div class="var-source"><pre>; fcase.clj:28
+(defmacro fcase
+  [compare-fn case-value &amp;
+   test-expr-clauses]
+  (let [test-val-sym (gensym &quot;test_val&quot;)
+	test-fn-sym (gensym &quot;test_fn&quot;)
+	cond-loop (fn this [clauses]
+		      (cond
+		       (&gt;= (count clauses) 2)
+		       (list 'if (list test-fn-sym (first clauses) test-val-sym)
+			     (second clauses)
+			     (this (rest (rest clauses))))
+		       (= (count clauses) 1) (first clauses)))]
+    (list 'let [test-val-sym case-value, test-fn-sym compare-fn]
+	  (cond-loop test-expr-clauses))))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
           epl-v10.html at the root of this distribution. By using this software
           in any fashion, you are agreeing to be bound by the terms of this 
           license. You must not remove this notice, or any other, from this 

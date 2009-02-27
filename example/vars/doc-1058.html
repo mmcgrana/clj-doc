@@ -1,16 +1,6 @@
-<div class="doc-item" id="doc-1058"><h2 class="doc-item-name">cond<span class="namespace">(clojure.core)</span></h2><p class="macro">Macro</p><ul class="var-arglists"><li>(<span class="var-name">cond</span> &amp; clauses)</li></ul><div class="var-docstring"><p>Takes a set of test/expr pairs. It evaluates each test one at a
-  time.  If a test returns logical true, cond evaluates and returns
-  the value of the corresponding expr and doesn't evaluate any of the
-  other tests or exprs. (cond) returns nil.</p></div><div class="var-source"><pre>; core.clj:355
-(defmacro cond
-  [&amp; clauses]
-    (when clauses
-      (list 'if (first clauses)
-            (if (rest clauses)
-                (second clauses)
-                (throw (IllegalArgumentException.
-                         &quot;cond requires an even number of forms&quot;)))
-            (cons 'clojure.core/cond (rest (rest clauses))))))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
+<div class="doc-item" id="doc-1058"><h2 class="doc-item-name">comment<span class="namespace">(clojure.core)</span></h2><p class="macro">Macro</p><ul class="var-arglists"><li>(<span class="var-name">comment</span> &amp; body)</li></ul><div class="var-docstring"><p>Ignores body, yields nil</p></div><div class="var-source"><pre>; core.clj:2736
+(defmacro comment
+  [&amp; body])</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
           epl-v10.html at the root of this distribution. By using this software
           in any fashion, you are agreeing to be bound by the terms of this 
           license. You must not remove this notice, or any other, from this 

@@ -1,13 +1,7 @@
-<div class="doc-item" id="doc-1484"><h2 class="doc-item-name">when-first<span class="namespace">(clojure.core)</span></h2><p class="macro">Macro</p><ul class="var-arglists"><li>(<span class="var-name">when-first</span> bindings &amp; body)</li></ul><div class="var-docstring"><p>bindings =&gt; x xs</p><p>Same as (when (seq xs) (let [x (first xs)] body))</p></div><div class="var-source"><pre>; core.clj:2564
-(defmacro when-first
-  [bindings &amp; body]
-  (assert-args when-first
-     (vector? bindings) &quot;a vector for its binding&quot;
-     (= 2 (count bindings)) &quot;exactly 2 forms in binding vector&quot;)
-  (let [[x xs] bindings]
-    `(when (seq ~xs)
-       (let [~x (first ~xs)]
-         ~@body))))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
+<div class="doc-item" id="doc-1484"><h2 class="doc-item-name">unchecked-dec<span class="namespace">(clojure.core)</span></h2><ul class="var-arglists"><li>(<span class="var-name">unchecked-dec</span>  x)</li></ul><div class="var-docstring"><p>Returns a number one less than x, an int or long.
+  Note - uses a primitive operator subject to overflow.</p></div><div class="var-source"><pre>; core.clj:708
+(defn unchecked-dec
+  [x] (. clojure.lang.Numbers (unchecked_dec x)))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
           epl-v10.html at the root of this distribution. By using this software
           in any fashion, you are agreeing to be bound by the terms of this 
           license. You must not remove this notice, or any other, from this 

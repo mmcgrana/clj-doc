@@ -22,7 +22,7 @@
   (let [lines       (re-split #"\n" raw-source)]
     (if (> (count lines) 2)
       (let [first-line  (first lines)
-            rest-lines  (rest lines)
+            rest-lines  (next lines)
             second-line (first rest-lines)]
         (str-join "\n"
           (cons first-line

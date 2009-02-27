@@ -1,11 +1,7 @@
-<div class="doc-item" id="doc-1102"><h2 class="doc-item-name">distinct<span class="namespace">(clojure.core)</span></h2><ul class="var-arglists"><li>(<span class="var-name">distinct</span>  coll)</li></ul><div class="var-docstring"><p>Returns a lazy sequence of the elements of coll with duplicates removed</p></div><div class="var-source"><pre>; core.clj:2898
-(defn distinct
-  [coll]
-    (let [step (fn step [[f &amp; r :as xs] seen]
-                   (when xs
-                     (if (seen f) (recur r seen)
-                         (lazy-cons f (step r (conj seen f))))))]
-      (step (seq coll) #{})))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
+<div class="doc-item" id="doc-1102"><h2 class="doc-item-name">defvar-<span class="namespace">(clojure.contrib.def)</span></h2><p class="macro">Macro</p><ul class="var-arglists"><li>(<span class="var-name">defvar-</span> name &amp; decls)</li></ul><div class="var-docstring"><p>Same as defvar but yields a private definition</p></div><div class="var-source"><pre>; def.clj:40
+(defmacro defvar-
+  [name &amp; decls]
+  (list* `defvar (with-meta name (assoc (meta name) :private true)) decls))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
           epl-v10.html at the root of this distribution. By using this software
           in any fashion, you are agreeing to be bound by the terms of this 
           license. You must not remove this notice, or any other, from this 

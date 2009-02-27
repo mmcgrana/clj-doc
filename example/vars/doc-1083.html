@@ -1,38 +1,6 @@
-<div class="doc-item" id="doc-1083"><h2 class="doc-item-name">defn<span class="namespace">(clojure.core)</span></h2><p class="macro">Macro</p><ul class="var-arglists"><li>(<span class="var-name">defn</span> name doc-string? attr-map? [params*] body)</li><li>(<span class="var-name">defn</span> name doc-string? attr-map? ([params*] body) + attr-map?)</li></ul><div class="var-docstring"><p>Same as (def name (fn [params* ] exprs*)) or (def
-    name (fn ([params* ] exprs*)+)) with any doc-string or attrs added
-    to the var metadata</p></div><div class="var-source"><pre>; core.clj:180
-(def 
-
- #^{:doc &quot;Same as (def name (fn [params* ] exprs*)) or (def
-    name (fn ([params* ] exprs*)+)) with any doc-string or attrs added
-    to the var metadata&quot;
-    :arglists '([name doc-string? attr-map? [params*] body]
-                [name doc-string? attr-map? ([params*] body)+ attr-map?])}
- defn (fn defn [name &amp; fdecl]
-        (let [m (if (string? (first fdecl))
-                  {:doc (first fdecl)}
-                  {})
-              fdecl (if (string? (first fdecl))
-                      (rest fdecl)
-                      fdecl)
-              m (if (map? (first fdecl))
-                  (conj m (first fdecl))
-                  m)
-              fdecl (if (map? (first fdecl))
-                      (rest fdecl)
-                      fdecl)
-              fdecl (if (vector? (first fdecl))
-                      (list fdecl)
-                      fdecl)
-              m (if (map? (last fdecl))
-                  (conj m (last fdecl))
-                  m)
-              fdecl (if (map? (last fdecl))
-                      (butlast fdecl)
-                      fdecl)
-              m (conj {:arglists (list 'quote (sigs fdecl))} m)]
-          (list 'def (with-meta name (conj (if (meta name) (meta name) {}) m))
-                (cons `fn fdecl)))))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
+<div class="doc-item" id="doc-1083"><h2 class="doc-item-name">dec<span class="namespace">(clojure.core)</span></h2><ul class="var-arglists"><li>(<span class="var-name">dec</span>  x)</li></ul><div class="var-docstring"><p>Returns a number one less than num.</p></div><div class="var-source"><pre>; core.clj:697
+(defn dec
+  [x] (. clojure.lang.Numbers (dec x)))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
           epl-v10.html at the root of this distribution. By using this software
           in any fashion, you are agreeing to be bound by the terms of this 
           license. You must not remove this notice, or any other, from this 

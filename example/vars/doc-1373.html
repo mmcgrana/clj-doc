@@ -1,8 +1,12 @@
-<div class="doc-item" id="doc-1373"><h2 class="doc-item-name">replace<span class="namespace">(clojure.zip)</span></h2><ul class="var-arglists"><li>(<span class="var-name">replace</span> loc node)</li></ul><div class="var-docstring"><p>Replaces the node at this loc, without moving</p></div><div class="var-source"><pre>; zip.clj:155
-(defn replace
-  [loc node]
-    (let [[_ path] loc]
-      (with-meta [node (assoc path :changed? true)] ^loc)))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
+<div class="doc-item" id="doc-1373"><h2 class="doc-item-name">reductions<span class="namespace">(clojure.contrib.seq-utils)</span></h2><ul class="var-arglists"><li>(<span class="var-name">reductions</span> f coll)</li><li>(<span class="var-name">reductions</span> f init coll)</li></ul><div class="var-docstring"><p>Returns a lazy seq of the intermediate values of the reduction (as
+  per reduce) of coll by f, starting with init.</p></div><div class="var-source"><pre>; seq_utils.clj:109
+(defn reductions
+  ([f coll]
+   (if (seq coll)
+     (rec-seq self (cons (first coll) (map f self (rest coll))))
+     (cons (f) nil)))
+  ([f init coll]
+   (rec-seq self (cons init (map f self coll)))))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
           epl-v10.html at the root of this distribution. By using this software
           in any fashion, you are agreeing to be bound by the terms of this 
           license. You must not remove this notice, or any other, from this 

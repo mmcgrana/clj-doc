@@ -1,8 +1,18 @@
-<div class="doc-item" id="doc-1479"><h2 class="doc-item-name">vector<span class="namespace">(clojure.core)</span></h2><ul class="var-arglists"><li>(<span class="var-name">vector</span>  )</li><li>(<span class="var-name">vector</span> &amp; args)</li></ul><div class="var-docstring"><p>Creates a new vector containing the args.</p></div><div class="var-source"><pre>; core.clj:226
-(defn vector
-  ([] [])
-  ([&amp; args]
-   (. clojure.lang.LazilyPersistentVector (create args))))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
+<div class="doc-item" id="doc-1479"><h2 class="doc-item-name">trampoline<span class="namespace">(clojure.core)</span></h2><ul class="var-arglists"><li>(<span class="var-name">trampoline</span>  f)</li><li>(<span class="var-name">trampoline</span> f &amp; args)</li></ul><div class="var-docstring"><p>trampoline can be used to convert algorithms requiring mutual
+  recursion without stack consumption. Calls f with supplied args, if
+  any. If f returns a fn, calls that fn with no arguments, and
+  continues to repeat, until the return value is not a fn, then
+  returns that non-fn value. Note that if you want to return a fn as a
+  final value, you must wrap it in some data structure and unpack it
+  after trampoline returns.</p></div><div class="var-source"><pre>; core.clj:3820
+(defn trampoline
+  ([f]
+     (let [ret (f)]
+       (if (fn? ret)
+         (recur ret)
+         ret)))
+  ([f &amp; args]
+     (trampoline #(apply f args))))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
           epl-v10.html at the root of this distribution. By using this software
           in any fashion, you are agreeing to be bound by the terms of this 
           license. You must not remove this notice, or any other, from this 

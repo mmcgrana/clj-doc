@@ -1,8 +1,16 @@
-<div class="doc-item" id="doc-1356"><h2 class="doc-item-name">ref-set<span class="namespace">(clojure.core)</span></h2><ul class="var-arglists"><li>(<span class="var-name">ref-set</span> ref val)</li></ul><div class="var-docstring"><p>Must be called in a transaction. Sets the value of ref.
-  Returns val.</p></div><div class="var-source"><pre>; core.clj:1314
-(defn ref-set
-  [#^clojure.lang.Ref ref val]
-    (. ref (set val)))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
+<div class="doc-item" id="doc-1356"><h2 class="doc-item-name">re-groups<span class="namespace">(clojure.core)</span></h2><ul class="var-arglists"><li>(<span class="var-name">re-groups</span>  m)</li></ul><div class="var-docstring"><p>Returns the groups from the most recent match/find. If there are no
+  nested groups, returns a string of the entire match. If there are
+  nested groups, returns a vector of the groups, the first element
+  being the entire match.</p></div><div class="var-source"><pre>; core.clj:2817
+(defn re-groups
+  [#^java.util.regex.Matcher m]
+    (let [gc  (. m (groupCount))]
+      (if (zero? gc)
+        (. m (group))
+        (loop [ret [] c 0]
+          (if (&lt;= c gc)
+            (recur (conj ret (. m (group c))) (inc c))
+            ret)))))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
           epl-v10.html at the root of this distribution. By using this software
           in any fashion, you are agreeing to be bound by the terms of this 
           license. You must not remove this notice, or any other, from this 

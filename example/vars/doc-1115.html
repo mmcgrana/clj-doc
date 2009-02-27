@@ -1,14 +1,16 @@
-<div class="doc-item" id="doc-1115"><h2 class="doc-item-name">down<span class="namespace">(clojure.zip)</span></h2><ul class="var-arglists"><li>(<span class="var-name">down</span>  loc)</li></ul><div class="var-docstring"><p>Returns the loc of the leftmost child of the node at this loc, or
-  nil if no children</p></div><div class="var-source"><pre>; zip.clj:87
-(defn down
-  [loc]
-    (let [[node path] loc
-          [c &amp; crest :as cs] (children loc)]
-      (when cs
-        (with-meta [c {:l [] 
-                       :pnodes (if path (conj (:pnodes path) node) [node]) 
-                       :ppath path 
-                       :r crest}] ^loc))))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
+<div class="doc-item" id="doc-1115"><h2 class="doc-item-name">doall<span class="namespace">(clojure.core)</span></h2><ul class="var-arglists"><li>(<span class="var-name">doall</span>  coll)</li><li>(<span class="var-name">doall</span> n coll)</li></ul><div class="var-docstring"><p>When lazy sequences are produced via functions that have side
+  effects, any effects other than those needed to produce the first
+  element in the seq do not occur until the seq is consumed. doall can
+  be used to force any effects. Walks through the successive nexts of
+  the seq, retains the head and returns it, thus causing the entire
+  seq to reside in memory at one time.</p></div><div class="var-source"><pre>; core.clj:1776
+(defn doall
+  ([coll]
+   (dorun coll)
+   coll)
+  ([n coll]
+   (dorun n coll)
+   coll))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
           epl-v10.html at the root of this distribution. By using this software
           in any fashion, you are agreeing to be bound by the terms of this 
           license. You must not remove this notice, or any other, from this 

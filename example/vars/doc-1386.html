@@ -1,13 +1,7 @@
-<div class="doc-item" id="doc-1386"><h2 class="doc-item-name">root<span class="namespace">(clojure.zip)</span></h2><ul class="var-arglists"><li>(<span class="var-name">root</span>  loc)</li></ul><div class="var-docstring"><p>zips all the way up and returns the root node, reflecting any
- changes.</p></div><div class="var-source"><pre>; zip.clj:112
-(defn root
-  [loc]
-    (if (= :end (loc 1))
-      (node loc)
-      (let [p (up loc)]
-        (if p
-          (recur p)
-          (node loc)))))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
+<div class="doc-item" id="doc-1386"><h2 class="doc-item-name">rename<span class="namespace">(clojure.set)</span></h2><ul class="var-arglists"><li>(<span class="var-name">rename</span> xrel kmap)</li></ul><div class="var-docstring"><p>Returns a rel of the maps in xrel with the keys in kmap renamed to the vals in kmap</p></div><div class="var-source"><pre>; set.clj:80
+(defn rename
+  [xrel kmap]
+    (set (map #(rename-keys % kmap) xrel)))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
           epl-v10.html at the root of this distribution. By using this software
           in any fashion, you are agreeing to be bound by the terms of this 
           license. You must not remove this notice, or any other, from this 

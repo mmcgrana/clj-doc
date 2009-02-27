@@ -10,7 +10,7 @@
   "Returns a lazy seq of items in coll starting after the first
   element for which pred returns true."
   [pred coll]
-  (rest (take-starting pred coll)))
+  (next (take-starting pred coll)))
 
 (defn- file-join
   "Join the given seq-able path segments according to the platform's

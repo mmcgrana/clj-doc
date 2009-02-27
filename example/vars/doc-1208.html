@@ -1,8 +1,6 @@
-<div class="doc-item" id="doc-1208"><h2 class="doc-item-name">keyword<span class="namespace">(clojure.core)</span></h2><ul class="var-arglists"><li>(<span class="var-name">keyword</span>  name)</li><li>(<span class="var-name">keyword</span> ns name)</li></ul><div class="var-docstring"><p>Returns a Keyword with the given namespace and name.  Do not use :
-  in the keyword strings, it will be added automatically.</p></div><div class="var-source"><pre>; core.clj:342
-(defn keyword
-  ([name] (if (keyword? name) name (. clojure.lang.Keyword (intern nil name))))
-  ([ns name] (. clojure.lang.Keyword (intern ns name))))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
+<div class="doc-item" id="doc-1208"><h2 class="doc-item-name">interpose<span class="namespace">(clojure.core)</span></h2><ul class="var-arglists"><li>(<span class="var-name">interpose</span> sep coll)</li></ul><div class="var-docstring"><p>Returns a lazy seq of the elements of coll separated by sep</p></div><div class="var-source"><pre>; core.clj:3115
+(defn interpose
+  [sep coll] (drop 1 (interleave (repeat sep) coll)))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
           epl-v10.html at the root of this distribution. By using this software
           in any fashion, you are agreeing to be bound by the terms of this 
           license. You must not remove this notice, or any other, from this 

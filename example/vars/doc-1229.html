@@ -1,7 +1,12 @@
-<div class="doc-item" id="doc-1229"><h2 class="doc-item-name">long-array<span class="namespace">(clojure.core)</span></h2><ul class="var-arglists"><li>(<span class="var-name">long-array</span>  size-or-seq)</li><li>(<span class="var-name">long-array</span> size init-val-or-seq)</li></ul><div class="var-docstring"><p>Creates an array of ints</p></div><div class="var-source"><pre>; core.clj:3093
-(defn long-array
-  ([size-or-seq] (. clojure.lang.Numbers long_array size-or-seq))
-  ([size init-val-or-seq] (. clojure.lang.Numbers long_array size init-val-or-seq)))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
+<div class="doc-item" id="doc-1229"><h2 class="doc-item-name">let<span class="namespace">(clojure.core)</span></h2><p class="macro">Macro</p><ul class="var-arglists"><li>(<span class="var-name">let</span> bindings &amp; body)</li></ul><div class="var-docstring"><p>Evaluates the exprs in a lexical context in which the symbols in
+  the binding-forms are bound to their respective init-exprs or parts
+  therein.</p></div><div class="var-source"><pre>; core.clj:2603
+(defmacro let
+  [bindings &amp; body]
+  (assert-args let
+     (vector? bindings) &quot;a vector for its binding&quot;
+     (even? (count bindings)) &quot;an even number of forms in binding vector&quot;)
+  `(let* ~(destructure bindings) ~@body))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
           epl-v10.html at the root of this distribution. By using this software
           in any fashion, you are agreeing to be bound by the terms of this 
           license. You must not remove this notice, or any other, from this 

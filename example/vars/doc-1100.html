@@ -1,14 +1,7 @@
-<div class="doc-item" id="doc-1100"><h2 class="doc-item-name">disj<span class="namespace">(clojure.core)</span></h2><ul class="var-arglists"><li>(<span class="var-name">disj</span>  set)</li><li>(<span class="var-name">disj</span> set key)</li><li>(<span class="var-name">disj</span> set key &amp; ks)</li></ul><div class="var-docstring"><p>disj[oin]. Returns a new set of the same (hashed/sorted) type, that
-  does not contain key(s).</p></div><div class="var-source"><pre>; core.clj:910
-(defn disj
-  ([set] set)
-  ([#^clojure.lang.IPersistentSet set key]
-   (. set (disjoin key)))
-  ([set key &amp; ks]
-   (let [ret (disj set key)]
-     (if ks
-       (recur ret (first ks) (rest ks))
-       ret))))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
+<div class="doc-item" id="doc-1100"><h2 class="doc-item-name">defunbound-<span class="namespace">(clojure.contrib.def)</span></h2><p class="macro">Macro</p><ul class="var-arglists"><li>(<span class="var-name">defunbound-</span> name &amp; decls)</li></ul><div class="var-docstring"><p>Same as defunbound but yields a private definition</p></div><div class="var-source"><pre>; def.clj:45
+(defmacro defunbound-
+  [name &amp; decls]
+  (list* `defunbound (with-meta name (assoc (meta name) :private true)) decls))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
           epl-v10.html at the root of this distribution. By using this software
           in any fashion, you are agreeing to be bound by the terms of this 
           license. You must not remove this notice, or any other, from this 

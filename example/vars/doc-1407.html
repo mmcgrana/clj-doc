@@ -1,16 +1,10 @@
-<div class="doc-item" id="doc-1407"><h2 class="doc-item-name">skip-if-eol<span class="namespace">(clojure.main)</span></h2><ul class="var-arglists"><li>(<span class="var-name">skip-if-eol</span>  s)</li></ul><div class="var-docstring"><p>If the next character on stream s is a newline, skips it, otherwise
-  leaves the stream untouched. Returns :line-start, :stream-end, or :body
-  to indicate the relative location of the next character on s. The stream
-  must either be an instance of LineNumberingPushbackReader or duplicate
-  its behavior of both supporting .unread and collapsing all of CR, LF, and
-  CRLF to a single \newline.</p></div><div class="var-source"><pre>; main.clj:48
-(defn skip-if-eol
-  [s]
-  (let [c (.read s)]
-    (cond
-     (= c (int \newline)) :line-start
-     (= c -1) :stream-end
-     :else (do (.unread s c) :body))))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
+<div class="doc-item" id="doc-1407"><h2 class="doc-item-name">rightmost<span class="namespace">(clojure.zip)</span></h2><ul class="var-arglists"><li>(<span class="var-name">rightmost</span>  loc)</li></ul><div class="var-docstring"><p>Returns the loc of the rightmost sibling of the node at this loc, or self</p></div><div class="var-source"><pre>; zip.clj:130
+(defn rightmost
+  [loc]
+    (let [[node {l :l r :r :as path}] loc]
+      (if (and path r)
+        (with-meta [(last r) (assoc path :l (apply conj l node (butlast r)) :r nil)] ^loc)
+        loc)))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
           epl-v10.html at the root of this distribution. By using this software
           in any fashion, you are agreeing to be bound by the terms of this 
           license. You must not remove this notice, or any other, from this 

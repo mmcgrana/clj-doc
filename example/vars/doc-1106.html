@@ -1,16 +1,37 @@
-<div class="doc-item" id="doc-1106"><h2 class="doc-item-name">doc<span class="namespace">(clojure.core)</span></h2><p class="macro">Macro</p><ul class="var-arglists"><li>(<span class="var-name">doc</span>  name)</li></ul><div class="var-docstring"><p>Prints documentation for a var or special form given its name</p></div><div class="var-source"><pre>; core.clj:2813
-(defmacro doc
-  [name]
-  (cond
-   (special-form-anchor `~name)
-   `(print-special-doc '~name &quot;Special Form&quot; (special-form-anchor '~name))
-   (syntax-symbol-anchor `~name)
-   `(print-special-doc '~name &quot;Syntax Symbol&quot; (syntax-symbol-anchor '~name))
-   :else
-    (let [nspace (find-ns name)]
-      (if nspace
-        `(print-namespace-doc ~nspace)
-        `(print-doc (var ~name))))))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
+<div class="doc-item" id="doc-1106"><h2 class="doc-item-name">derive<span class="namespace">(clojure.core)</span></h2><ul class="var-arglists"><li>(<span class="var-name">derive</span> tag parent)</li><li>(<span class="var-name">derive</span> h tag parent)</li></ul><div class="var-docstring"><p>Establishes a parent/child relationship between parent and
+  tag. Parent must be a namespace-qualified symbol or keyword and
+  child can be either a namespace-qualified symbol or keyword or a
+  class. h must be a hierarchy obtained from make-hierarchy, if not
+  supplied defaults to, and modifies, the global hierarchy.</p></div><div class="var-source"><pre>; core.clj:3334
+(defn derive
+  ([tag parent]
+   (assert (namespace parent))
+   (assert (or (class? tag) (and (instance? clojure.lang.Named tag) (namespace tag))))
+
+   (alter-var-root #'global-hierarchy derive tag parent) nil)
+  ([h tag parent]
+   (assert (not= tag parent))
+   (assert (or (class? tag) (instance? clojure.lang.Named tag)))
+   (assert (instance? clojure.lang.Named parent))
+
+   (let [tp (:parents h)
+         td (:descendants h)
+         ta (:ancestors h)
+         tf (fn [m source sources target targets]
+              (reduce (fn [ret k]
+                        (assoc ret k
+                               (reduce conj (get targets k #{}) (cons target (targets target)))))
+                      m (cons source (sources source))))]
+     (or
+      (when-not (contains? (tp tag) parent)
+        (when (contains? (ta tag) parent)
+          (throw (Exception. (print-str tag &quot;already has&quot; parent &quot;as ancestor&quot;))))
+        (when (contains? (ta parent) tag)
+          (throw (Exception. (print-str &quot;Cyclic derivation:&quot; parent &quot;has&quot; tag &quot;as ancestor&quot;))))
+        {:parents (assoc (:parents h) tag (conj (get tp tag #{}) parent))
+         :ancestors (tf (:ancestors h) tag td parent ta)
+         :descendants (tf (:descendants h) parent ta tag td)})
+      h))))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
           epl-v10.html at the root of this distribution. By using this software
           in any fashion, you are agreeing to be bound by the terms of this 
           license. You must not remove this notice, or any other, from this 

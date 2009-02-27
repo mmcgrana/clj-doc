@@ -1,9 +1,8 @@
-<div class="doc-item" id="doc-1344"><h2 class="doc-item-name">re-split<span class="namespace">(clojure.contrib.str-utils)</span></h2><ul class="var-arglists"><li>(<span class="var-name">re-split</span> pattern string)</li><li>(<span class="var-name">re-split</span> pattern string limit)</li></ul><div class="var-docstring"><p>Splits the string on instances of 'pattern'.  Returns a sequence of
-  strings.  Optional 'limit' argument is the maximum number of
-  splits.  Like Perl's 'split'.</p></div><div class="var-source"><pre>; str_utils.clj:18
-(defn re-split
-  ([#^Pattern pattern string] (seq (. pattern (split string))))
-  ([#^Pattern pattern string limit] (seq (. pattern (split string limit)))))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
+<div class="doc-item" id="doc-1344"><h2 class="doc-item-name">pvalues<span class="namespace">(clojure.core)</span></h2><p class="macro">Macro</p><ul class="var-arglists"><li>(<span class="var-name">pvalues</span> &amp; exprs)</li></ul><div class="var-docstring"><p>Returns a lazy sequence of the values of the exprs, which are
+  evaluated in parallel</p></div><div class="var-source"><pre>; core.clj:4043
+(defmacro pvalues
+  [&amp; exprs]
+  `(pcalls ~@(map #(list `fn [] %) exprs)))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
           epl-v10.html at the root of this distribution. By using this software
           in any fashion, you are agreeing to be bound by the terms of this 
           license. You must not remove this notice, or any other, from this 

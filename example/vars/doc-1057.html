@@ -1,18 +1,6 @@
-<div class="doc-item" id="doc-1057"><h2 class="doc-item-name">concat<span class="namespace">(clojure.core)</span></h2><ul class="var-arglists"><li>(<span class="var-name">concat</span>  )</li><li>(<span class="var-name">concat</span>  x)</li><li>(<span class="var-name">concat</span> x y)</li><li>(<span class="var-name">concat</span> x y &amp; zs)</li></ul><div class="var-docstring"><p>Returns a lazy seq representing the concatenation of	the elements in the supplied colls.</p></div><div class="var-source"><pre>; core.clj:443
-(defn concat
-  ([] nil)
-  ([x] (seq x))
-  ([x y]
-     (if (seq x)
-       (lazy-cons (first x) (concat (rest x) y))
-       (seq y)))
-  ([x y &amp; zs]
-     (let [cat (fn cat [xys zs]
-                   (if (seq xys)
-                     (lazy-cons (first xys) (cat (rest xys) zs))
-                     (when zs
-                       (recur (first zs) (rest zs)))))]
-       (cat (concat x y) zs))))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
+<div class="doc-item" id="doc-1057"><h2 class="doc-item-name">coll?<span class="namespace">(clojure.core)</span></h2><ul class="var-arglists"><li>(<span class="var-name">coll?</span>  x)</li></ul><div class="var-docstring"><p>Returns true if x implements IPersistentCollection</p></div><div class="var-source"><pre>; core.clj:3758
+(defn coll?
+  [x] (instance? clojure.lang.IPersistentCollection x))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
           epl-v10.html at the root of this distribution. By using this software
           in any fashion, you are agreeing to be bound by the terms of this 
           license. You must not remove this notice, or any other, from this 

@@ -1,6 +1,15 @@
-<div class="doc-item" id="doc-1112"><h2 class="doc-item-name">double<span class="namespace">(clojure.core)</span></h2><ul class="var-arglists"><li>(<span class="var-name">double</span>  x)</li></ul><div class="var-docstring"><p>Coerce to double</p></div><div class="var-source"><pre>; core.clj:1812
-(defn double
-  [#^Number x] (. x (doubleValue)))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
+<div class="doc-item" id="doc-1112"><h2 class="doc-item-name">distinct<span class="namespace">(clojure.core)</span></h2><ul class="var-arglists"><li>(<span class="var-name">distinct</span>  coll)</li></ul><div class="var-docstring"><p>Returns a lazy sequence of the elements of coll with duplicates removed</p></div><div class="var-source"><pre>; core.clj:3011
+(defn distinct
+  [coll]
+    (let [step (fn step [xs seen]
+                   (lazy-seq
+                    ((fn [[f :as xs] seen]
+                      (when-let [s (seq xs)]
+                        (if (contains? seen f) 
+                          (recur (rest s) seen)
+                          (cons f (step (rest s) (conj seen f))))))
+                     xs seen)))]
+      (step coll #{})))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
           epl-v10.html at the root of this distribution. By using this software
           in any fashion, you are agreeing to be bound by the terms of this 
           license. You must not remove this notice, or any other, from this 

@@ -1,11 +1,6 @@
-<div class="doc-item" id="doc-1000"><h2 class="doc-item-name">aset<span class="namespace">(clojure.core)</span></h2><ul class="var-arglists"><li>(<span class="var-name">aset</span> array idx val)</li><li>(<span class="var-name">aset</span> array idx idx2 &amp; idxv)</li></ul><div class="var-docstring"><p>Sets the value at the index/indices. Works on Java arrays of
-  reference types. Returns val.</p></div><div class="var-source"><pre>; core.clj:2073
-(defn aset
-  ([array idx val]
-   (. Array (set array idx val))
-   val)
-  ([array idx idx2 &amp; idxv]
-   (apply aset (aget array idx) idx2 idxv)))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
+<div class="doc-item" id="doc-1000"><h2 class="doc-item-name">alter-meta!<span class="namespace">(clojure.core)</span></h2><ul class="var-arglists"><li>(<span class="var-name">alter-meta!</span> iref f &amp; args)</li></ul><div class="var-docstring"><p>Atomically sets the metadata for a namespace/var/ref/agent/atom to be:</p><p>(apply f its-current-meta args)</p><p>f must be free of side-effects</p></div><div class="var-source"><pre>; core.clj:1350
+(defn alter-meta!
+ [#^clojure.lang.IReference iref f &amp; args] (.alterMeta iref f args))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
           epl-v10.html at the root of this distribution. By using this software
           in any fashion, you are agreeing to be bound by the terms of this 
           license. You must not remove this notice, or any other, from this 

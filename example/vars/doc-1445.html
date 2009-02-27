@@ -1,11 +1,9 @@
-<div class="doc-item" id="doc-1445"><h2 class="doc-item-name">test<span class="namespace">(clojure.core)</span></h2><ul class="var-arglists"><li>(<span class="var-name">test</span>  v)</li></ul><div class="var-docstring"><p>test [v] finds fn at key :test in var metadata and calls it,
-  presuming failure will throw exception</p></div><div class="var-source"><pre>; core.clj:2682
-(defn test
-  [v]
-    (let [f (:test ^v)]
-      (if f
-        (do (f) :ok)
-        :no-test)))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
+<div class="doc-item" id="doc-1445"><h2 class="doc-item-name">spit<span class="namespace">(clojure.contrib.duck-streams)</span></h2><ul class="var-arglists"><li>(<span class="var-name">spit</span> f content)</li></ul><div class="var-docstring"><p>Opposite of slurp.  Opens f with writer, writes content, then
+  closes f.</p></div><div class="var-source"><pre>; duck_streams.clj:192
+(defn spit
+  [f content]
+  (with-open [#^PrintWriter w (writer f)]
+      (.print w content)))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
           epl-v10.html at the root of this distribution. By using this software
           in any fashion, you are agreeing to be bound by the terms of this 
           license. You must not remove this notice, or any other, from this 

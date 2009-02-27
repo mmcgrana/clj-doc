@@ -1,15 +1,13 @@
-<div class="doc-item" id="doc-1362"><h2 class="doc-item-name">remove<span class="namespace">(clojure.zip)</span></h2><ul class="var-arglists"><li>(<span class="var-name">remove</span>  loc)</li></ul><div class="var-docstring"><p>Removes the node at loc, returning the loc that would have preceded
-  it in a depth-first walk.</p></div><div class="var-source"><pre>; zip.clj:198
-(defn remove
-  [loc]
-    (let [[node {l :l, ppath :ppath, pnodes :pnodes, rs :r, :as path}] loc]
-      (if (nil? path)
-        (throw (new Exception &quot;Remove at top&quot;))
-        (if (pos? (count l)) 
-          (with-meta [(peek l) (assoc path :l (pop l) :changed? true)] ^loc)
-          (with-meta [(make-node loc (peek pnodes) rs) 
-                      (and ppath (assoc ppath :changed? true))]
-                     ^loc)))))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
+<div class="doc-item" id="doc-1362"><h2 class="doc-item-name">re-seq<span class="namespace">(clojure.core)</span></h2><ul class="var-arglists"><li>(<span class="var-name">re-seq</span> re s)</li></ul><div class="var-docstring"><p>Returns a lazy sequence of successive matches of pattern in string,
+  using java.util.regex.Matcher.find(), each such match processed with
+  re-groups.</p></div><div class="var-source"><pre>; core.clj:2831
+(defn re-seq
+  [#^java.util.regex.Pattern re s]
+    (let [m (re-matcher re s)]
+      ((fn step []
+         (lazy-seq
+          (when (. m (find))
+            (cons (re-groups m) (step))))))))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
           epl-v10.html at the root of this distribution. By using this software
           in any fashion, you are agreeing to be bound by the terms of this 
           license. You must not remove this notice, or any other, from this 

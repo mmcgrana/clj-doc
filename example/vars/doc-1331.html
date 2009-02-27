@@ -1,16 +1,10 @@
-<div class="doc-item" id="doc-1331"><h2 class="doc-item-name">range<span class="namespace">(clojure.core)</span></h2><ul class="var-arglists"><li>(<span class="var-name">range</span>  end)</li><li>(<span class="var-name">range</span> start end)</li><li>(<span class="var-name">range</span> start end step)</li></ul><div class="var-docstring"><p>Returns a lazy seq of nums from start (inclusive) to end
-  (exclusive), by step, where start defaults to 0 and step to 1.</p></div><div class="var-source"><pre>; core.clj:1531
-(defn range
-  ([end] (if (and (&gt; end 0) (&lt;= end (. Integer MAX_VALUE)))
-           (new clojure.lang.Range 0 end)
-           (take end (iterate inc 0))))
-  ([start end] (if (and (&lt; start end)
-                        (&gt;= start (. Integer MIN_VALUE))
-                        (&lt;= end (. Integer MAX_VALUE)))
-                 (new clojure.lang.Range start end)
-                 (take (- end start) (iterate inc start))))
-  ([start end step]
-   (take-while (partial (if (pos? step) &gt; &lt;) end) (iterate (partial + step) start))))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
+<div class="doc-item" id="doc-1331"><h2 class="doc-item-name">print-special-doc<span class="namespace">(clojure.core)</span></h2><ul class="var-arglists"><li>(<span class="var-name">print-special-doc</span> name type anchor)</li></ul><div class="var-source"><pre>; core.clj:2911
+(defn print-special-doc
+  [name type anchor]
+  (println &quot;-------------------------&quot;)
+  (println name)
+  (println type)
+  (println (str &quot;  Please see http://clojure.org/special_forms#&quot; anchor)))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
           epl-v10.html at the root of this distribution. By using this software
           in any fashion, you are agreeing to be bound by the terms of this 
           license. You must not remove this notice, or any other, from this 

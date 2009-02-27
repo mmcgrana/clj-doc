@@ -1,7 +1,13 @@
-<div class="doc-item" id="doc-1435"><h2 class="doc-item-name">symbol<span class="namespace">(clojure.core)</span></h2><ul class="var-arglists"><li>(<span class="var-name">symbol</span>  name)</li><li>(<span class="var-name">symbol</span> ns name)</li></ul><div class="var-docstring"><p>Returns a Symbol with the given namespace and name.</p></div><div class="var-source"><pre>; core.clj:337
-(defn symbol
-  ([name] (if (symbol? name) name (. clojure.lang.Symbol (intern name))))
-  ([ns name] (. clojure.lang.Symbol (intern ns name))))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
+<div class="doc-item" id="doc-1435"><h2 class="doc-item-name">slurp*<span class="namespace">(clojure.contrib.duck-streams)</span></h2><ul class="var-arglists"><li>(<span class="var-name">slurp*</span>  f)</li></ul><div class="var-docstring"><p>Like clojure.core/slurp but opens f with reader.</p></div><div class="var-source"><pre>; duck_streams.clj:181
+(defn slurp*
+  [f]
+  (with-open [#^BufferedReader r (reader f)]
+      (let [sb (StringBuilder.)]
+        (loop [c (.read r)]
+          (if (neg? c)
+            (str sb)
+            (do (.append sb (char c))
+                (recur (.read r))))))))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
           epl-v10.html at the root of this distribution. By using this software
           in any fashion, you are agreeing to be bound by the terms of this 
           license. You must not remove this notice, or any other, from this 

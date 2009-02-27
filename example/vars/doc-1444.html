@@ -1,7 +1,7 @@
-<div class="doc-item" id="doc-1444"><h2 class="doc-item-name">template?<span class="namespace">(clojure.contrib.template)</span></h2><ul class="var-arglists"><li>(<span class="var-name">template?</span>  form)</li></ul><div class="var-docstring"><p>Returns true if form is a valid template expression.</p></div><div class="var-source"><pre>; template.clj:102
-(defn template?
-  [form]
-  (if (seq (find-holes form)) true false))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
+<div class="doc-item" id="doc-1444"><h2 class="doc-item-name">special-symbol?<span class="namespace">(clojure.core)</span></h2><ul class="var-arglists"><li>(<span class="var-name">special-symbol?</span>  s)</li></ul><div class="var-docstring"><p>Returns true if s names a special form</p></div><div class="var-source"><pre>; core.clj:2970
+(defn special-symbol?
+  [s]
+    (contains? (. clojure.lang.Compiler specials) s))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
           epl-v10.html at the root of this distribution. By using this software
           in any fashion, you are agreeing to be bound by the terms of this 
           license. You must not remove this notice, or any other, from this 

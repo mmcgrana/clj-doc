@@ -1,35 +1,8 @@
-<div class="doc-item" id="doc-1375"><h2 class="doc-item-name">require<span class="namespace">(clojure.core)</span></h2><ul class="var-arglists"><li>(<span class="var-name">require</span> &amp; args)</li></ul><div class="var-docstring"><p>Loads libs, skipping any that are already loaded. Each argument is
-  either a libspec that identifies a lib, a prefix list that identifies
-  multiple libs whose names share a common prefix, or a flag that modifies
-  how all the identified libs are loaded. Use :require in the ns macro
-  in preference to calling this directly.</p><p>Libs</p><p>A 'lib' is a named set of resources in classpath whose contents define a
-  library of Clojure code. Lib names are symbols and each lib is associated
-  with a Clojure namespace and a Java package that share its name. A lib's
-  name also locates its root directory within classpath using Java's
-  package name to classpath-relative path mapping. All resources in a lib
-  should be contained in the directory structure under its root directory.
-  All definitions a lib makes should be in its associated namespace.</p><p>'require loads a lib by loading its root resource. The root resource path
-  is derived from the root directory path by repeating its last component
-  and appending '.clj'. For example, the lib 'x.y.z has root directory
-  &lt;classpath&gt;/x/y/z; root resource &lt;classpath&gt;/x/y/z/z.clj. The root
-  resource should contain code to create the lib's namespace and load any
-  additional lib resources.</p><p>Libspecs</p><p>A libspec is a lib name or a vector containing a lib name followed by
-  options expressed as sequential keywords and arguments.</p><p>Recognized options: :as
-  :as takes a symbol as its argument and makes that symbol an alias to the
-    lib's namespace in the current namespace.</p><p>Prefix Lists</p><p>It's common for Clojure code to depend on several libs whose names have
-  the same prefix. When specifying libs, prefix lists can be used to reduce
-  repetition. A prefix list contains the shared prefix followed by libspecs
-  with the shared prefix removed from the lib names. After removing the
-  prefix, the names that remain must not contain any periods.</p><p>Flags</p><p>A flag is a keyword.
-  Recognized flags: :reload, :reload-all, :verbose
-  :reload forces loading of all the identified libs even if they are
-    already loaded
-  :reload-all implies :reload and also forces loading of all libs that the
-    identified libs directly or indirectly load via require or use
-  :verbose triggers printing information about each load, alias, and refer</p></div><div class="var-source"><pre>; core.clj:3538
-(defn require
-  [&amp; args]
-  (apply load-libs :require args))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
+<div class="doc-item" id="doc-1375"><h2 class="doc-item-name">ref-set<span class="namespace">(clojure.core)</span></h2><ul class="var-arglists"><li>(<span class="var-name">ref-set</span> ref val)</li></ul><div class="var-docstring"><p>Must be called in a transaction. Sets the value of ref.
+  Returns val.</p></div><div class="var-source"><pre>; core.clj:1391
+(defn ref-set
+  [#^clojure.lang.Ref ref val]
+    (. ref (set val)))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
           epl-v10.html at the root of this distribution. By using this software
           in any fashion, you are agreeing to be bound by the terms of this 
           license. You must not remove this notice, or any other, from this 

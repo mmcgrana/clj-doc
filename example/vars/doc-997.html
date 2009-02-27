@@ -1,13 +1,10 @@
-<div class="doc-item" id="doc-997"><h2 class="doc-item-name">apply-template<span class="namespace">(clojure.contrib.template)</span></h2><ul class="var-arglists"><li>(<span class="var-name">apply-template</span> expr values)</li></ul><div class="var-docstring"><p>Replaces _1, _2, _3, etc. in expr with corresponding elements of
-  values.  Returns the modified expression.  For use in macros.</p></div><div class="var-source"><pre>; template.clj:128
-(defn apply-template
-  [expr values]
-  (when-not (template? expr)
-    (throw (IllegalArgumentException. (str (pr-str expr) &quot; is not a valid template.&quot;))))
-  (let [expr (postwalk-replace {'_ '_1} expr)
-        holes (find-holes expr)
-        smap (zipmap holes values)]
-    (prewalk-replace smap expr)))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
+<div class="doc-item" id="doc-997"><h2 class="doc-item-name">alias<span class="namespace">(clojure.core)</span></h2><ul class="var-arglists"><li>(<span class="var-name">alias</span> alias namespace-sym)</li></ul><div class="var-docstring"><p>Add an alias in the current namespace to another
+  namespace. Arguments are two symbols: the alias to be used, and
+  the symbolic name of the target namespace. Use :as in the ns macro in preference
+  to calling this directly.</p></div><div class="var-source"><pre>; core.clj:2462
+(defn alias
+  [alias namespace-sym]
+  (.addAlias *ns* alias (find-ns namespace-sym)))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
           epl-v10.html at the root of this distribution. By using this software
           in any fashion, you are agreeing to be bound by the terms of this 
           license. You must not remove this notice, or any other, from this 

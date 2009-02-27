@@ -1,17 +1,7 @@
-<div class="doc-item" id="doc-1236"><h2 class="doc-item-name">make-array<span class="namespace">(clojure.core)</span></h2><ul class="var-arglists"><li>(<span class="var-name">make-array</span> type len)</li><li>(<span class="var-name">make-array</span> type dim &amp; more-dims)</li></ul><div class="var-docstring"><p>Creates and returns an array of instances of the specified class of
-  the specified dimension(s).  Note that a class object is required.
-  Class objects can be obtained by using their imported or
-  fully-qualified name.  Class objects for the primitive types can be
-  obtained using, e.g., Integer/TYPE.</p></div><div class="var-source"><pre>; core.clj:2127
-(defn make-array
-  ([#^Class type len]
-   (. Array (newInstance type (int len))))
-  ([#^Class type dim &amp; more-dims]
-   (let [dims (cons dim more-dims)
-         #^&quot;[I&quot; dimarray (make-array (. Integer TYPE)  (count dims))]
-     (dotimes [i (alength dimarray)]
-       (aset-int dimarray i (nth dims i)))
-     (. Array (newInstance type dimarray)))))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
+<div class="doc-item" id="doc-1236"><h2 class="doc-item-name">load-reader<span class="namespace">(clojure.core)</span></h2><ul class="var-arglists"><li>(<span class="var-name">load-reader</span>  rdr)</li></ul><div class="var-docstring"><p>Sequentially read and evaluate the set of forms contained in the
+  stream/file</p></div><div class="var-source"><pre>; core.clj:2314
+(defn load-reader
+  [rdr] (. clojure.lang.Compiler (load rdr)))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
           epl-v10.html at the root of this distribution. By using this software
           in any fashion, you are agreeing to be bound by the terms of this 
           license. You must not remove this notice, or any other, from this 

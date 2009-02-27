@@ -1,9 +1,6 @@
-<div class="doc-item" id="doc-1442"><h2 class="doc-item-name">take-while<span class="namespace">(clojure.core)</span></h2><ul class="var-arglists"><li>(<span class="var-name">take-while</span> pred coll)</li></ul><div class="var-docstring"><p>Returns a lazy seq of successive items from coll while
-  (pred item) returns true. pred must be free of side-effects.</p></div><div class="var-source"><pre>; core.clj:1471
-(defn take-while
-  [pred coll]
-    (when (and (seq coll) (pred (first coll)))
-      (lazy-cons (first coll) (take-while pred (rest coll)))))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
+<div class="doc-item" id="doc-1442"><h2 class="doc-item-name">sorted?<span class="namespace">(clojure.core)</span></h2><ul class="var-arglists"><li>(<span class="var-name">sorted?</span>  coll)</li></ul><div class="var-docstring"><p>Returns true if coll implements Sorted</p></div><div class="var-source"><pre>; core.clj:3788
+(defn sorted?
+  [coll] (instance? clojure.lang.Sorted coll))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
           epl-v10.html at the root of this distribution. By using this software
           in any fashion, you are agreeing to be bound by the terms of this 
           license. You must not remove this notice, or any other, from this 

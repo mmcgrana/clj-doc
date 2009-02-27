@@ -1,36 +1,10 @@
-<div class="doc-item" id="doc-1156"><h2 class="doc-item-name">for<span class="namespace">(clojure.core)</span></h2><p class="macro">Macro</p><ul class="var-arglists"><li>(<span class="var-name">for</span> seq-exprs expr)</li></ul><div class="var-docstring"><p>List comprehension. Takes a vector of one or more
- binding-form/collection-expr pairs, each followed by an optional filtering
- :when/:while expression (:when test or :while test), and yields a
- lazy sequence of evaluations of expr. Collections are iterated in a
- nested fashion, rightmost fastest, and nested coll-exprs can refer to
- bindings created in prior binding-forms.</p><p>(take 100 (for [x (range 100000000) y (range 1000000) :while (&lt; y x)]  [x y]))</p></div><div class="var-source"><pre>; core.clj:2589
-(defmacro for
- ([seq-exprs expr]
-  (assert-args for
-     (vector? seq-exprs) &quot;a vector for its binding&quot;
-     (even? (count seq-exprs)) &quot;an even number of forms in binding vector&quot;)
-  (let [to-groups (fn [seq-exprs]
-                    (reduce (fn [groups [k v]]
-                              (if (keyword? k)
-                                (conj (pop groups) (assoc (peek groups) k v))
-                                (conj groups {:bind k :seq v})))
-                            [] (partition 2 seq-exprs)))
-        emit (fn emit [[group &amp; [{next-seq :seq} :as more-groups]]]
-		  (let [giter (gensym &quot;iter__&quot;) gxs (gensym &quot;s__&quot;)]
-		    `(fn ~giter [~gxs]
-			 (when-first [~(:bind group) ~gxs]
-                           (when ~(or (:while group) true)
-                             (if ~(or (:when group) true)
-                               ~(if more-groups
-                                  `(let [iterys# ~(emit more-groups)
-                                         fs# (iterys# ~next-seq)]
-                                     (if fs#
-                                       (lazy-cat fs# (~giter (rest ~gxs)))
-                                       (recur (rest ~gxs))))
-                                  `(lazy-cons ~expr (~giter (rest ~gxs))))
-                              (recur (rest ~gxs))))))))]
-    `(let [iter# ~(emit (to-groups seq-exprs))]
-	(iter# ~(second seq-exprs))))))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
+<div class="doc-item" id="doc-1156"><h2 class="doc-item-name">flatten<span class="namespace">(clojure.contrib.seq-utils)</span></h2><ul class="var-arglists"><li>(<span class="var-name">flatten</span>  x)</li></ul><div class="var-docstring"><p>Takes any nested combination of sequential things (lists, vectors,
+  etc.) and returns their contents as a single, flat sequence.
+  (flatten nil) returns nil.</p></div><div class="var-source"><pre>; seq_utils.clj:29
+(defn flatten
+  [x]
+  (filter (complement sequential?)
+          (rest (tree-seq sequential? seq x))))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
           epl-v10.html at the root of this distribution. By using this software
           in any fashion, you are agreeing to be bound by the terms of this 
           license. You must not remove this notice, or any other, from this 

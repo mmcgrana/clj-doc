@@ -1,8 +1,6 @@
-<div class="doc-item" id="doc-1017"><h2 class="doc-item-name">await1<span class="namespace">(clojure.core)</span></h2><ul class="var-arglists"><li>(<span class="var-name">await1</span>  a)</li></ul><div class="var-source"><pre>; core.clj:1703
-(defn await1 [#^clojure.lang.Agent a]
-  (when (pos? (.getQueueCount a))
-    (await a))
-    a)</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
+<div class="doc-item" id="doc-1017"><h2 class="doc-item-name">aset-long<span class="namespace">(clojure.core)</span></h2><ul class="var-arglists"><li>(<span class="var-name">aset-long</span> array idx val)</li><li>(<span class="var-name">aset-long</span> array idx idx2 &amp; idxv)</li></ul><div class="var-docstring"><p>Sets the value at the index/indices. Works on arrays of long. Returns val.</p></div><div class="var-source"><pre>; core.clj:2208
+(def-aset
+  aset-long setLong long)</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
           epl-v10.html at the root of this distribution. By using this software
           in any fashion, you are agreeing to be bound by the terms of this 
           license. You must not remove this notice, or any other, from this 

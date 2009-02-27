@@ -1,13 +1,14 @@
-<div class="doc-item" id="doc-1497"><h2 class="doc-item-name">write-lines<span class="namespace">(clojure.contrib.duck-streams)</span></h2><ul class="var-arglists"><li>(<span class="var-name">write-lines</span> f lines)</li></ul><div class="var-docstring"><p>Writes lines (a seq) to f, separated by newlines.  f is opened with
-  writer.</p></div><div class="var-source"><pre>; duck_streams.clj:155
-(defn write-lines
-  [f lines]
-  (with-open [#^PrintWriter writer (writer f)]
-    (loop [lines lines]
-      (when-let [line (first lines)]
-        (.write writer (str line))
-        (.println writer)
-        (recur (rest lines))))))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
+<div class="doc-item" id="doc-1497"><h2 class="doc-item-name">update-proxy<span class="namespace">(clojure.core)</span></h2><ul class="var-arglists"><li>(<span class="var-name">update-proxy</span> proxy mappings)</li></ul><div class="var-docstring"><p>Takes a proxy instance and a map of strings (which must
+  correspond to methods of the proxy superclass/superinterfaces) to
+  fns (which must take arguments matching the corresponding method,
+  plus an additional (explicit) first arg corresponding to this, and
+  updates (via assoc) the proxy's fn map. nil can be passed instead of
+  a fn, in which case the corresponding method will revert to the
+  default behavior. Note that this function can be used to update the
+  behavior of an existing instance without changing its identity.</p></div><div class="var-source"><pre>; core_proxy.clj:232
+(defn update-proxy
+  [#^IProxy proxy mappings]
+    (. proxy (__updateClojureFnMappings mappings)))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
           epl-v10.html at the root of this distribution. By using this software
           in any fashion, you are agreeing to be bound by the terms of this 
           license. You must not remove this notice, or any other, from this 

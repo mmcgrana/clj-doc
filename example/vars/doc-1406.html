@@ -1,8 +1,9 @@
-<div class="doc-item" id="doc-1406"><h2 class="doc-item-name">shutdown-agents<span class="namespace">(clojure.core)</span></h2><ul class="var-arglists"><li>(<span class="var-name">shutdown-agents</span>  )</li></ul><div class="var-docstring"><p>Initiates a shutdown of the thread pools that back the agent
-  system. Running actions will complete, but no new actions will be
-  accepted</p></div><div class="var-source"><pre>; core.clj:1193
-(defn shutdown-agents
-  [] (. clojure.lang.Agent shutdown))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
+<div class="doc-item" id="doc-1406"><h2 class="doc-item-name">right<span class="namespace">(clojure.zip)</span></h2><ul class="var-arglists"><li>(<span class="var-name">right</span>  loc)</li></ul><div class="var-docstring"><p>Returns the loc of the right sibling of the node at this loc, or nil</p></div><div class="var-source"><pre>; zip.clj:123
+(defn right
+  [loc]
+    (let [[node {l :l  [r &amp; rnext :as rs] :r :as path}] loc]
+      (when (and path rs)
+        (with-meta [r (assoc path :l (conj l node) :r rnext)] ^loc))))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
           epl-v10.html at the root of this distribution. By using this software
           in any fashion, you are agreeing to be bound by the terms of this 
           license. You must not remove this notice, or any other, from this 

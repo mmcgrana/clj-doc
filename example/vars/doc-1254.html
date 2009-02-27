@@ -1,12 +1,6 @@
-<div class="doc-item" id="doc-1254"><h2 class="doc-item-name">mod<span class="namespace">(clojure.core)</span></h2><ul class="var-arglists"><li>(<span class="var-name">mod</span> num div)</li></ul><div class="var-docstring"><p>modulus of num and div.</p></div><div class="var-source"><pre>; core.clj:1852
-(defn mod
-  [num div]
-  (cond
-   (or (not (integer? num)) (not (integer? div)))
-     (throw (IllegalArgumentException.
-           &quot;mod requires two integers&quot;))
-   (or (&lt; num 0 div) (&lt; div 0 num)) (+ (rem num div) div)
-   :else (rem num div)))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
+<div class="doc-item" id="doc-1254"><h2 class="doc-item-name">map?<span class="namespace">(clojure.core)</span></h2><ul class="var-arglists"><li>(<span class="var-name">map?</span>  x)</li></ul><div class="var-docstring"><p>Return true if x implements IPersistentMap</p></div><div class="var-source"><pre>; core.clj:125
+(def
+ map? (fn map? [x] (instance? clojure.lang.IPersistentMap x)))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
           epl-v10.html at the root of this distribution. By using this software
           in any fashion, you are agreeing to be bound by the terms of this 
           license. You must not remove this notice, or any other, from this 

@@ -1,7 +1,13 @@
-<div class="doc-item" id="doc-1071"><h2 class="doc-item-name">create-struct<span class="namespace">(clojure.core)</span></h2><ul class="var-arglists"><li>(<span class="var-name">create-struct</span> &amp; keys)</li></ul><div class="var-docstring"><p>Returns a structure basis object.</p></div><div class="var-source"><pre>; core.clj:2171
-(defn create-struct
-  [&amp; keys]
-    (. clojure.lang.PersistentStructMap (createSlotMap keys)))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
+<div class="doc-item" id="doc-1071"><h2 class="doc-item-name">conj<span class="namespace">(clojure.core)</span></h2><ul class="var-arglists"><li>(<span class="var-name">conj</span> coll x)</li><li>(<span class="var-name">conj</span> coll x &amp; xs)</li></ul><div class="var-docstring"><p>conj[oin]. Returns a new collection with the xs
+    'added'. (conj nil item) returns (item).  The 'addition' may
+    happen at different 'places' depending on the concrete type.</p></div><div class="var-source"><pre>; core.clj:63
+(def
+ conj (fn conj 
+        ([coll x] (. clojure.lang.RT (conj coll x)))
+        ([coll x &amp; xs]
+         (if xs
+           (recur (conj coll x) (first xs) (next xs))
+           (conj coll x)))))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
           epl-v10.html at the root of this distribution. By using this software
           in any fashion, you are agreeing to be bound by the terms of this 
           license. You must not remove this notice, or any other, from this 

@@ -1,6 +1,15 @@
-<div class="doc-item" id="doc-1114"><h2 class="doc-item-name">doubles<span class="namespace">(clojure.core)</span></h2><ul class="var-arglists"><li>(<span class="var-name">doubles</span>  xs)</li></ul><div class="var-docstring"><p>Casts to double[]</p></div><div class="var-source"><pre>; core.clj:3108
-(definline doubles
-  [xs] `(. clojure.lang.Numbers doubles ~xs))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
+<div class="doc-item" id="doc-1114"><h2 class="doc-item-name">do-template<span class="namespace">(clojure.contrib.template)</span></h2><p class="macro">Macro</p><ul class="var-arglists"><li>(<span class="var-name">do-template</span> expr &amp; args)</li></ul><div class="var-docstring"><p>Repeatedly evaluates template expr (in a do block) using values in
+  args.  args are grouped by the number of holes in the template.
+  Example: (do-template (check _1 _2) :a :b :c :d)
+  expands to (do (check :a :b) (check :c :d))</p></div><div class="var-source"><pre>; template.clj:139
+(defmacro do-template
+  [expr &amp; args]
+  (when-not (template? expr)
+    (throw (IllegalArgumentException. (str (pr-str expr) &quot; is not a valid template.&quot;))))
+  (let [expr (postwalk-replace {'_ '_1} expr)
+        argcount (count (find-holes expr))]
+    `(do ~@(map (fn [a] (apply-template expr a))
+                (partition argcount args)))))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
           epl-v10.html at the root of this distribution. By using this software
           in any fashion, you are agreeing to be bound by the terms of this 
           license. You must not remove this notice, or any other, from this 

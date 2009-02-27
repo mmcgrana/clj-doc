@@ -1,10 +1,10 @@
-<div class="doc-item" id="doc-1295"><h2 class="doc-item-name">postwalk<span class="namespace">(clojure.contrib.walk)</span></h2><ul class="var-arglists"><li>(<span class="var-name">postwalk</span> f form)</li></ul><div class="var-docstring"><p>Performs a depth-first, post-order traversal of form.  Calls f on
-  each sub-form, uses f's return value in place of the original.
-  Recognizes all Clojure data structures except sorted-map-by.
-  Consumes seqs as with doall.</p></div><div class="var-source"><pre>; walk.clj:52
-(defn postwalk
-  [f form]
-  (walk (partial postwalk f) f form))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
+<div class="doc-item" id="doc-1295"><h2 class="doc-item-name">nthnext<span class="namespace">(clojure.core)</span></h2><ul class="var-arglists"><li>(<span class="var-name">nthnext</span> coll n)</li></ul><div class="var-docstring"><p>Returns the nth next of coll, (seq coll) when n is 0.</p></div><div class="var-source"><pre>; core.clj:2537
+(defn nthnext
+  [coll n]
+    (loop [n n xs (seq coll)]
+      (if (and xs (pos? n))
+        (recur (dec n) (next xs))
+        xs)))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
           epl-v10.html at the root of this distribution. By using this software
           in any fashion, you are agreeing to be bound by the terms of this 
           license. You must not remove this notice, or any other, from this 

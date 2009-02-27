@@ -1,6 +1,23 @@
-<div class="doc-item" id="doc-1032"><h2 class="doc-item-name">bit-test<span class="namespace">(clojure.core)</span></h2><ul class="var-arglists"><li>(<span class="var-name">bit-test</span> x n)</li></ul><div class="var-docstring"><p>Test bit at index n</p></div><div class="var-source"><pre>; core.clj:813
-(defn bit-test
-  [x n] (. clojure.lang.Numbers testBit x n))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
+<div class="doc-item" id="doc-1032"><h2 class="doc-item-name">binding<span class="namespace">(clojure.core)</span></h2><p class="macro">Macro</p><ul class="var-arglists"><li>(<span class="var-name">binding</span> bindings &amp; body)</li></ul><div class="var-docstring"><p>binding =&gt; var-symbol init-expr</p><p>Creates new bindings for the (already-existing) vars, with the
+  supplied initial values, executes the exprs in an implicit do, then
+  re-establishes the bindings that existed before.</p></div><div class="var-source"><pre>; core.clj:1133
+(defmacro binding
+  [bindings &amp; body]
+    (assert-args binding
+      (vector? bindings) &quot;a vector for its binding&quot;
+      (even? (count bindings)) &quot;an even number of forms in binding vector&quot;)
+    (let [var-ize (fn [var-vals]
+                    (loop [ret [] vvs (seq var-vals)]
+                      (if vvs
+                        (recur  (conj (conj ret `(var ~(first vvs))) (second vvs))
+                                (next (next vvs)))
+                        (seq ret))))]
+      `(do
+         (. clojure.lang.Var (pushThreadBindings (hash-map ~@(var-ize bindings))))
+         (try
+          ~@body
+          (finally
+           (. clojure.lang.Var (popThreadBindings)))))))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
           epl-v10.html at the root of this distribution. By using this software
           in any fashion, you are agreeing to be bound by the terms of this 
           license. You must not remove this notice, or any other, from this 

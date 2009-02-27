@@ -1,5 +1,16 @@
-<div class="doc-item" id="doc-1121"><h2 class="doc-item-name">element<span class="namespace">(clojure.xml)</span></h2><div class="var-source"><pre>; xml.clj:18
-(defstruct element :tag :attrs :content)</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
+<div class="doc-item" id="doc-1121"><h2 class="doc-item-name">doto<span class="namespace">(clojure.core)</span></h2><p class="macro">Macro</p><ul class="var-arglists"><li>(<span class="var-name">doto</span> x &amp; forms)</li></ul><div class="var-docstring"><p>Evaluates x then calls all of the methods and functions with the
+  value of x supplied at the from of the given arguments.  The forms
+  are evaluated in order.  Returns x.</p><p>(doto (new java.util.HashMap) (.put &quot;a&quot; 1) (.put &quot;b&quot; 2))</p></div><div class="var-source"><pre>; core.clj:2122
+(defmacro doto
+  [x &amp; forms]
+    (let [gx (gensym)]
+      `(let [~gx ~x]
+         ~@(map (fn [f]
+                  (if (seq? f)
+                    `(~(first f) ~gx ~@(next f))
+                    `(~f ~gx)))
+                forms)
+         ~gx)))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
           epl-v10.html at the root of this distribution. By using this software
           in any fashion, you are agreeing to be bound by the terms of this 
           license. You must not remove this notice, or any other, from this 

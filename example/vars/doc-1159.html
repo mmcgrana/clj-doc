@@ -1,10 +1,7 @@
-<div class="doc-item" id="doc-1159"><h2 class="doc-item-name">frequencies<span class="namespace">(clojure.contrib.seq-utils)</span></h2><ul class="var-arglists"><li>(<span class="var-name">frequencies</span>  coll)</li></ul><div class="var-docstring"><p>Returns a map from distinct items in coll to the number of times
-  they appear.</p></div><div class="var-source"><pre>; seq_utils.clj:82
-(defn frequencies
-  [coll]
-  (reduce (fn [counts x]
-              (assoc counts x (inc (get counts x 0))))
-          {} coll))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
+<div class="doc-item" id="doc-1159"><h2 class="doc-item-name">float-array<span class="namespace">(clojure.core)</span></h2><ul class="var-arglists"><li>(<span class="var-name">float-array</span>  size-or-seq)</li><li>(<span class="var-name">float-array</span> size init-val-or-seq)</li></ul><div class="var-docstring"><p>Creates an array of floats</p></div><div class="var-source"><pre>; core.clj:3160
+(defn float-array
+  ([size-or-seq] (. clojure.lang.Numbers float_array size-or-seq))
+  ([size init-val-or-seq] (. clojure.lang.Numbers float_array size init-val-or-seq)))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
           epl-v10.html at the root of this distribution. By using this software
           in any fashion, you are agreeing to be bound by the terms of this 
           license. You must not remove this notice, or any other, from this 

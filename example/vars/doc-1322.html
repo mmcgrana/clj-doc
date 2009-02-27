@@ -1,10 +1,9 @@
-<div class="doc-item" id="doc-1322"><h2 class="doc-item-name">proxy-call-with-super<span class="namespace">(clojure.core)</span></h2><ul class="var-arglists"><li>(<span class="var-name">proxy-call-with-super</span> call this meth)</li></ul><div class="var-source"><pre>; core_proxy.clj:297
-(defn proxy-call-with-super [call this meth]
- (let [m (proxy-mappings this)]
-    (update-proxy this (assoc m meth nil))
-    (let [ret (call)]
-      (update-proxy this m)
-      ret)))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
+<div class="doc-item" id="doc-1322"><h2 class="doc-item-name">prewalk-replace<span class="namespace">(clojure.contrib.walk)</span></h2><ul class="var-arglists"><li>(<span class="var-name">prewalk-replace</span> smap form)</li></ul><div class="var-docstring"><p>Recursively transforms form by replacing keys in smap with their
+  values.  Like clojure/replace but works on any data structure.  Does
+  replacement at the root of the tree first.</p></div><div class="var-source"><pre>; walk.clj:104
+(defn prewalk-replace
+  [smap form]
+  (prewalk (fn [x] (if (contains? smap x) (smap x) x)) form))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
           epl-v10.html at the root of this distribution. By using this software
           in any fashion, you are agreeing to be bound by the terms of this 
           license. You must not remove this notice, or any other, from this 

@@ -1,7 +1,5 @@
-<div class="doc-item" id="doc-1464"><h2 class="doc-item-name">unchecked-subtract<span class="namespace">(clojure.core)</span></h2><ul class="var-arglists"><li>(<span class="var-name">unchecked-subtract</span> x y)</li></ul><div class="var-docstring"><p>Returns the difference of x and y, both int or long.
-  Note - uses a primitive operator subject to overflow.</p></div><div class="var-source"><pre>; core.clj:716
-(defn unchecked-subtract
-  [x y] (. clojure.lang.Numbers (unchecked_subtract x y)))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
+<div class="doc-item" id="doc-1464"><h2 class="doc-item-name">tag<span class="namespace">(clojure.xml)</span></h2><div class="var-source"><pre>; xml.clj:20
+(def tag (accessor element :tag))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
           epl-v10.html at the root of this distribution. By using this software
           in any fashion, you are agreeing to be bound by the terms of this 
           license. You must not remove this notice, or any other, from this 

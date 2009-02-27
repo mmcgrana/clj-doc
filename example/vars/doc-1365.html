@@ -1,8 +1,15 @@
-<div class="doc-item" id="doc-1365"><h2 class="doc-item-name">remove-watcher<span class="namespace">(clojure.core)</span></h2><ul class="var-arglists"><li>(<span class="var-name">remove-watcher</span> reference watcher-agent)</li></ul><div class="var-docstring"><p>Experimental.
-  Removes a watcher (set by add-watcher) from a reference</p></div><div class="var-source"><pre>; core.clj:1177
-(defn remove-watcher
-  [#^clojure.lang.IRef reference watcher-agent]
-  (.removeWatch reference watcher-agent))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
+<div class="doc-item" id="doc-1365"><h2 class="doc-item-name">read<span class="namespace">(clojure.core)</span></h2><ul class="var-arglists"><li>(<span class="var-name">read</span>  )</li><li>(<span class="var-name">read</span>  stream)</li><li>(<span class="var-name">read</span> stream eof-error? eof-value)</li><li>(<span class="var-name">read</span> stream eof-error? eof-value recursive?)</li></ul><div class="var-docstring"><p>Reads the next object from stream, which must be an instance of
+  java.io.PushbackReader or some derivee.  stream defaults to the
+  current value of *in* .</p></div><div class="var-source"><pre>; core.clj:2070
+(defn read
+  ([]
+   (read *in*))
+  ([stream]
+   (read stream true nil))
+  ([stream eof-error? eof-value]
+   (read stream eof-error? eof-value false))
+  ([stream eof-error? eof-value recursive?]
+   (. clojure.lang.LispReader (read stream (boolean eof-error?) eof-value recursive?))))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
           epl-v10.html at the root of this distribution. By using this software
           in any fashion, you are agreeing to be bound by the terms of this 
           license. You must not remove this notice, or any other, from this 

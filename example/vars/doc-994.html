@@ -1,13 +1,7 @@
-<div class="doc-item" id="doc-994"><h2 class="doc-item-name">and<span class="namespace">(clojure.core)</span></h2><p class="macro">Macro</p><ul class="var-arglists"><li>(<span class="var-name">and</span>  )</li><li>(<span class="var-name">and</span>  x)</li><li>(<span class="var-name">and</span> x &amp; rest)</li></ul><div class="var-docstring"><p>Evaluates exprs one at a time, from left to right. If a form
-  returns logical false (nil or false), and returns that value and
-  doesn't evaluate any of the other expressions, otherwise it returns
-  the value of the last expr. (and) returns true.</p></div><div class="var-source"><pre>; core.clj:503
-(defmacro and
-  ([] true)
-  ([x] x)
-  ([x &amp; rest]
-   `(let [and# ~x]
-      (if and# (and ~@rest) and#))))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
+<div class="doc-item" id="doc-994"><h2 class="doc-item-name">agent-errors<span class="namespace">(clojure.core)</span></h2><ul class="var-arglists"><li>(<span class="var-name">agent-errors</span>  a)</li></ul><div class="var-docstring"><p>Returns a sequence of the exceptions thrown during asynchronous
+  actions of the agent.</p></div><div class="var-source"><pre>; core.clj:1258
+(defn agent-errors
+  [#^clojure.lang.Agent a] (. a (getErrors)))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
           epl-v10.html at the root of this distribution. By using this software
           in any fashion, you are agreeing to be bound by the terms of this 
           license. You must not remove this notice, or any other, from this 

@@ -1,7 +1,16 @@
-<div class="doc-item" id="doc-1145"><h2 class="doc-item-name">first<span class="namespace">(clojure.core)</span></h2><ul class="var-arglists"><li>(<span class="var-name">first</span>  coll)</li></ul><div class="var-docstring"><p>Returns the first item in the collection. Calls seq on its
-    argument. If coll is nil, returns nil.</p></div><div class="var-source"><pre>; core.clj:38
-(def
- first (fn first [coll] (. clojure.lang.RT (first coll))))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
+<div class="doc-item" id="doc-1145"><h2 class="doc-item-name">file<span class="namespace">(clojure.contrib.duck-streams)</span></h2><ul class="var-arglists"><li>(<span class="var-name">file</span> &amp; args)</li></ul><div class="var-docstring"><p>Concatenates args as strings returns a java.io.File.  Replaces all
+  / and \ with File/separatorChar.  Replaces ~ at the start of the
+  path with the user.home system property.</p></div><div class="var-source"><pre>; duck_streams.clj:53
+(defn #^File file
+  [&amp; args]
+  (let [#^String s (apply str args)
+        s (.replace s \/ File/separatorChar)
+        s (.replace s \\ File/separatorChar)
+        s (if (.startsWith s &quot;~&quot;)
+            (str (System/getProperty &quot;user.home&quot;)
+                 File/separatorChar (subs s 1))
+            s)]
+    (File. s)))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
           epl-v10.html at the root of this distribution. By using this software
           in any fashion, you are agreeing to be bound by the terms of this 
           license. You must not remove this notice, or any other, from this 

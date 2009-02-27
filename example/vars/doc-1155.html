@@ -1,11 +1,7 @@
-<div class="doc-item" id="doc-1155"><h2 class="doc-item-name">fnseq<span class="namespace">(clojure.core)</span></h2><ul class="var-arglists"><li>(<span class="var-name">fnseq</span> first restfn)</li></ul><div class="var-docstring"><p>Returns a seq object whose first is first and whose rest is the
-  value produced by calling restfn with no arguments. restfn will be
-  called at most once per step in the sequence, e.g. calling rest
-  repeatedly on the head of the seq calls restfn once - the value it
-  yields is cached.</p></div><div class="var-source"><pre>; core.clj:409
-(defn fnseq
-  [first restfn]
-    (new clojure.lang.FnSeq first restfn))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
+<div class="doc-item" id="doc-1155"><h2 class="doc-item-name">first<span class="namespace">(clojure.core)</span></h2><ul class="var-arglists"><li>(<span class="var-name">first</span>  coll)</li></ul><div class="var-docstring"><p>Returns the first item in the collection. Calls seq on its
+    argument. If coll is nil, returns nil.</p></div><div class="var-source"><pre>; core.clj:43
+(def
+ first (fn first [coll] (. clojure.lang.RT (first coll))))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
           epl-v10.html at the root of this distribution. By using this software
           in any fashion, you are agreeing to be bound by the terms of this 
           license. You must not remove this notice, or any other, from this 

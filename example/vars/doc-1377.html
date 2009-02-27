@@ -1,6 +1,7 @@
-<div class="doc-item" id="doc-1377"><h2 class="doc-item-name">reset-meta!<span class="namespace">(clojure.core)</span></h2><ul class="var-arglists"><li>(<span class="var-name">reset-meta!</span> iref metadata-map)</li></ul><div class="var-docstring"><p>Atomically resets the metadata for a namespace/var/ref/agent/atom</p></div><div class="var-source"><pre>; core.clj:1281
-(defn reset-meta!
- [#^clojure.lang.IReference iref metadata-map] (.resetMeta iref metadata-map))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
+<div class="doc-item" id="doc-1377"><h2 class="doc-item-name">refer-clojure<span class="namespace">(clojure.core)</span></h2><p class="macro">Macro</p><ul class="var-arglists"><li>(<span class="var-name">refer-clojure</span> &amp; filters)</li></ul><div class="var-docstring"><p>Same as (refer 'clojure.core &lt;filters&gt;)</p></div><div class="var-source"><pre>; core.clj:3476
+(defmacro refer-clojure
+  [&amp; filters]
+  `(clojure.core/refer '~'clojure.core ~@filters))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
           epl-v10.html at the root of this distribution. By using this software
           in any fashion, you are agreeing to be bound by the terms of this 
           license. You must not remove this notice, or any other, from this 

@@ -1,8 +1,7 @@
-<div class="doc-item" id="doc-1242"><h2 class="doc-item-name">mapcat<span class="namespace">(clojure.core)</span></h2><ul class="var-arglists"><li>(<span class="var-name">mapcat</span> f &amp; colls)</li></ul><div class="var-docstring"><p>Returns the result of applying concat to the result of applying map
-  to f and colls.  Thus function f should return a collection.</p></div><div class="var-source"><pre>; core.clj:1440
-(defn mapcat
-  [f &amp; colls]
-    (apply concat (apply map f colls)))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
+<div class="doc-item" id="doc-1242"><h2 class="doc-item-name">long-array<span class="namespace">(clojure.core)</span></h2><ul class="var-arglists"><li>(<span class="var-name">long-array</span>  size-or-seq)</li><li>(<span class="var-name">long-array</span> size init-val-or-seq)</li></ul><div class="var-docstring"><p>Creates an array of ints</p></div><div class="var-source"><pre>; core.clj:3181
+(defn long-array
+  ([size-or-seq] (. clojure.lang.Numbers long_array size-or-seq))
+  ([size init-val-or-seq] (. clojure.lang.Numbers long_array size init-val-or-seq)))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
           epl-v10.html at the root of this distribution. By using this software
           in any fashion, you are agreeing to be bound by the terms of this 
           license. You must not remove this notice, or any other, from this 

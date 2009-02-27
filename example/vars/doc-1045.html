@@ -1,6 +1,7 @@
-<div class="doc-item" id="doc-1045"><h2 class="doc-item-name">class<span class="namespace">(clojure.core)</span></h2><ul class="var-arglists"><li>(<span class="var-name">class</span>  x)</li></ul><div class="var-docstring"><p>Returns the Class of x</p></div><div class="var-source"><pre>; core.clj:1784
-(defn #^Class class
-  [#^Object x] (if (nil? x) x (. x (getClass))))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
+<div class="doc-item" id="doc-1045"><h2 class="doc-item-name">branch?<span class="namespace">(clojure.zip)</span></h2><ul class="var-arglists"><li>(<span class="var-name">branch?</span>  loc)</li></ul><div class="var-docstring"><p>Returns true if the node at loc is a branch</p></div><div class="var-source"><pre>; zip.clj:55
+(defn branch?
+  [loc]
+    ((:zip/branch? ^loc) (node loc)))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
           epl-v10.html at the root of this distribution. By using this software
           in any fashion, you are agreeing to be bound by the terms of this 
           license. You must not remove this notice, or any other, from this 

@@ -1,17 +1,9 @@
-<div class="doc-item" id="doc-1174"><h2 class="doc-item-name">if-let<span class="namespace">(clojure.core)</span></h2><p class="macro">Macro</p><ul class="var-arglists"><li>(<span class="var-name">if-let</span> bindings then)</li><li>(<span class="var-name">if-let</span> bindings then else &amp; oldform)</li></ul><div class="var-docstring"><p>bindings =&gt; binding-form test</p><p>If test is true, evaluates then with binding-form bound to the value of test, if not, yields else</p></div><div class="var-source"><pre>; core.clj:2907
-(defmacro if-let
-  ([bindings then]
-   `(if-let ~bindings ~then nil))
-  ([bindings then else &amp; oldform]
-   (assert-args if-let
-     (and (vector? bindings) (nil? oldform)) &quot;a vector for its binding&quot;
-     (= 2 (count bindings)) &quot;exactly 2 forms in binding vector&quot;)
-   (let [[form tst] bindings]
-     `(let [temp# ~tst]
-        (if temp#
-          (let [~form temp#]
-            ~then)
-          ~else)))))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
+<div class="doc-item" id="doc-1174"><h2 class="doc-item-name">gensym<span class="namespace">(clojure.core)</span></h2><ul class="var-arglists"><li>(<span class="var-name">gensym</span>  )</li><li>(<span class="var-name">gensym</span>  prefix-string)</li></ul><div class="var-docstring"><p>Returns a new symbol with a unique name. If a prefix string is
+  supplied, the name is prefix# where # is some unique number. If
+  prefix is not supplied, the prefix is 'G__'.</p></div><div class="var-source"><pre>; core.clj:375
+(defn gensym
+  ([] (gensym &quot;G__&quot;))
+  ([prefix-string] (. clojure.lang.Symbol (intern (str prefix-string (str (. clojure.lang.RT (nextID))))))))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
           epl-v10.html at the root of this distribution. By using this software
           in any fashion, you are agreeing to be bound by the terms of this 
           license. You must not remove this notice, or any other, from this 

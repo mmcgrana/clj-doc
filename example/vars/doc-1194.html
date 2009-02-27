@@ -1,8 +1,9 @@
-<div class="doc-item" id="doc-1194"><h2 class="doc-item-name">interleave<span class="namespace">(clojure.core)</span></h2><ul class="var-arglists"><li>(<span class="var-name">interleave</span> &amp; colls)</li></ul><div class="var-docstring"><p>Returns a lazy seq of the first item in each coll, then the second
-  etc.</p></div><div class="var-source"><pre>; core.clj:2376
-(defn interleave
-  [&amp; colls]
-    (apply concat (apply map list colls)))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
+<div class="doc-item" id="doc-1194"><h2 class="doc-item-name">includes?<span class="namespace">(clojure.contrib.seq-utils)</span></h2><ul class="var-arglists"><li>(<span class="var-name">includes?</span> coll x)</li></ul><div class="var-docstring"><p>Returns true if coll contains something equal (with =) to x,
+  in linear time.</p></div><div class="var-source"><pre>; seq_utils.clj:43
+(defn includes?
+  [coll x]
+  (if (some (fn [y] (= y x)) coll)
+    true false))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
           epl-v10.html at the root of this distribution. By using this software
           in any fashion, you are agreeing to be bound by the terms of this 
           license. You must not remove this notice, or any other, from this 

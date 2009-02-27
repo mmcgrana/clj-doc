@@ -1,0 +1,21 @@
+<div class="doc-item" id="doc-1519"><h2 class="doc-item-name">with-open<span class="namespace">(clojure.core)</span></h2><p class="macro">Macro</p><ul class="var-arglists"><li>(<span class="var-name">with-open</span> bindings &amp; body)</li></ul><div class="var-docstring"><p>bindings =&gt; [name init ...]</p><p>Evaluates body in a try expression with names bound to the values
+  of the inits, and a finally clause that calls (.close name) on each
+  name in reverse order.</p></div><div class="var-source"><pre>; core.clj:2102
+(defmacro with-open
+  [bindings &amp; body]
+  (assert-args with-open
+     (vector? bindings) &quot;a vector for its binding&quot;
+     (even? (count bindings)) &quot;an even number of forms in binding vector&quot;)
+  (cond
+    (= (count bindings) 0) `(do ~@body)
+    (symbol? (bindings 0)) `(let ~(subvec bindings 0 2)
+                              (try
+                                (with-open ~(subvec bindings 2) ~@body)
+                                (finally
+                                  (. ~(bindings 0) close))))
+    :else (throw (IllegalArgumentException.
+                   &quot;with-open only allows Symbols in bindings&quot;))))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
+          epl-v10.html at the root of this distribution. By using this software
+          in any fashion, you are agreeing to be bound by the terms of this 
+          license. You must not remove this notice, or any other, from this 
+          software.</p></div></div>

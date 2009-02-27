@@ -1,9 +1,12 @@
-<div class="doc-item" id="doc-1304"><h2 class="doc-item-name">prewalk-replace<span class="namespace">(clojure.contrib.walk)</span></h2><ul class="var-arglists"><li>(<span class="var-name">prewalk-replace</span> smap form)</li></ul><div class="var-docstring"><p>Recursively transforms form by replacing keys in smap with their
-  values.  Like clojure/replace but works on any data structure.  Does
-  replacement at the root of the tree first.</p></div><div class="var-source"><pre>; walk.clj:104
-(defn prewalk-replace
-  [smap form]
-  (prewalk (fn [x] (if (contains? smap x) (smap x) x)) form))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
+<div class="doc-item" id="doc-1304"><h2 class="doc-item-name">partition-all<span class="namespace">(clojure.contrib.seq-utils)</span></h2><ul class="var-arglists"><li>(<span class="var-name">partition-all</span> n coll)</li><li>(<span class="var-name">partition-all</span> n step coll)</li></ul><div class="var-docstring"><p>Returns a lazy sequence of lists like clojure.core/partition, but may
+  include lists with fewer than n items at the end.</p></div><div class="var-source"><pre>; seq_utils.clj:129
+(defn partition-all
+  ([n coll]
+     (partition-all n n coll))
+  ([n step coll]
+     (lazy-seq
+      (when-let [s (seq coll)]
+        (cons (take n s) (partition-all n step (drop step s)))))))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
           epl-v10.html at the root of this distribution. By using this software
           in any fashion, you are agreeing to be bound by the terms of this 
           license. You must not remove this notice, or any other, from this 

@@ -1,11 +1,11 @@
-<div class="doc-item" id="doc-1359"><h2 class="doc-item-name">release-pending-sends<span class="namespace">(clojure.core)</span></h2><ul class="var-arglists"><li>(<span class="var-name">release-pending-sends</span>  )</li></ul><div class="var-docstring"><p>Normally, actions sent directly or indirectly during another action
-  are held until the action completes (changes the agent's
-  state). This function can be used to dispatch any pending sent
-  actions immediately. This has no impact on actions sent during a
-  transaction, which are still held until commit. If no action is
-  occurring, does nothing. Returns the number of actions dispatched.</p></div><div class="var-source"><pre>; core.clj:1156
-(defn release-pending-sends
-  [] (clojure.lang.Agent/releasePendingSends))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
+<div class="doc-item" id="doc-1359"><h2 class="doc-item-name">re-matches<span class="namespace">(clojure.core)</span></h2><ul class="var-arglists"><li>(<span class="var-name">re-matches</span> re s)</li></ul><div class="var-docstring"><p>Returns the match, if any, of string to pattern, using
+  java.util.regex.Matcher.matches().  Uses re-groups to return the
+  groups.</p></div><div class="var-source"><pre>; core.clj:2842
+(defn re-matches
+  [#^java.util.regex.Pattern re s]
+    (let [m (re-matcher re s)]
+      (when (. m (matches))
+        (re-groups m))))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
           epl-v10.html at the root of this distribution. By using this software
           in any fashion, you are agreeing to be bound by the terms of this 
           license. You must not remove this notice, or any other, from this 

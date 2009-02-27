@@ -1,8 +1,15 @@
-<div class="doc-item" id="doc-1303"><h2 class="doc-item-name">prewalk-demo<span class="namespace">(clojure.contrib.walk)</span></h2><ul class="var-arglists"><li>(<span class="var-name">prewalk-demo</span>  form)</li></ul><div class="var-docstring"><p>Demonstrates the behavior of prewalk by printing each form as it is
-  walked.  Returns form.</p></div><div class="var-source"><pre>; walk.clj:84
-(defn prewalk-demo
-  [form]
-  (prewalk (fn [x] (print &quot;Walked: &quot;) (prn x) x) form))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
+<div class="doc-item" id="doc-1303"><h2 class="doc-item-name">partition<span class="namespace">(clojure.core)</span></h2><ul class="var-arglists"><li>(<span class="var-name">partition</span> n coll)</li><li>(<span class="var-name">partition</span> n step coll)</li></ul><div class="var-docstring"><p>Returns a lazy sequence of lists of n items each, at offsets step
+  apart. If step is not supplied, defaults to n, i.e. the partitions
+  do not overlap.</p></div><div class="var-source"><pre>; core.clj:1719
+(defn partition
+  ([n coll]
+     (partition n n coll))
+  ([n step coll]
+   (lazy-seq
+    (when-let [s (seq coll)]
+      (let [p (take n s)]
+        (when (= n (count p))
+          (cons p (partition n step (drop step s)))))))))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
           epl-v10.html at the root of this distribution. By using this software
           in any fashion, you are agreeing to be bound by the terms of this 
           license. You must not remove this notice, or any other, from this 

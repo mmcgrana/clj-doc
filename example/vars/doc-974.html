@@ -1,14 +1,5 @@
-<div class="doc-item" id="doc-974"><h2 class="doc-item-name">&lt;=<span class="namespace">(clojure.core)</span></h2><ul class="var-arglists"><li>(<span class="var-name">&lt;=</span>  x)</li><li>(<span class="var-name">&lt;=</span> x y)</li><li>(<span class="var-name">&lt;=</span> x y &amp; more)</li></ul><div class="var-docstring"><p>Returns non-nil if nums are in monotonically non-decreasing order,
-  otherwise false.</p></div><div class="var-source"><pre>; core.clj:613
-(defn &lt;=
-  ([x] true)
-  ([x y] (. clojure.lang.Numbers (lte x y)))
-  ([x y &amp; more]
-   (if (&lt;= x y)
-     (if (rest more)
-       (recur y (first more) (rest more))
-       (&lt;= y (first more)))
-     false)))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
+<div class="doc-item" id="doc-974"><h2 class="doc-item-name">*state*<span class="namespace">(clojure.xml)</span></h2><div class="var-source"><pre>; xml.clj:15
+(def *state*)</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
           epl-v10.html at the root of this distribution. By using this software
           in any fashion, you are agreeing to be bound by the terms of this 
           license. You must not remove this notice, or any other, from this 

@@ -1,6 +1,11 @@
-<div class="doc-item" id="doc-1141"><h2 class="doc-item-name">find-ns<span class="namespace">(clojure.core)</span></h2><ul class="var-arglists"><li>(<span class="var-name">find-ns</span>  sym)</li></ul><div class="var-docstring"><p>Returns the namespace named by the symbol or nil if it doesn't exist.</p></div><div class="var-source"><pre>; core.clj:2246
-(defn find-ns
-  [sym] (clojure.lang.Namespace/find sym))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
+<div class="doc-item" id="doc-1141"><h2 class="doc-item-name">every?<span class="namespace">(clojure.core)</span></h2><ul class="var-arglists"><li>(<span class="var-name">every?</span> pred coll)</li></ul><div class="var-docstring"><p>Returns true if (pred x) is logical true for every x in coll, else
+  false.</p></div><div class="var-source"><pre>; core.clj:1469
+(defn every?
+  [pred coll]
+    (if (seq coll)
+      (and (pred (first coll))
+           (recur pred (next coll)))
+      true))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
           epl-v10.html at the root of this distribution. By using this software
           in any fashion, you are agreeing to be bound by the terms of this 
           license. You must not remove this notice, or any other, from this 

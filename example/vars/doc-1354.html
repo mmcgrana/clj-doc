@@ -1,12 +1,8 @@
-<div class="doc-item" id="doc-1354"><h2 class="doc-item-name">reductions<span class="namespace">(clojure.contrib.seq-utils)</span></h2><ul class="var-arglists"><li>(<span class="var-name">reductions</span> f coll)</li><li>(<span class="var-name">reductions</span> f init coll)</li></ul><div class="var-docstring"><p>Returns a lazy seq of the intermediate values of the reduction (as
-  per reduce) of coll by f, starting with init.</p></div><div class="var-source"><pre>; seq_utils.clj:116
-(defn reductions
-  ([f coll]
-   (if (seq coll)
-     (rec-cons self (first coll) (map f self (rest coll)))
-     (cons (f) nil)))
-  ([f init coll]
-   (rec-cons self init (map f self coll))))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
+<div class="doc-item" id="doc-1354"><h2 class="doc-item-name">re-case<span class="namespace">(clojure.contrib.fcase)</span></h2><p class="macro">Macro</p><ul class="var-arglists"><li>(<span class="var-name">re-case</span> test-value &amp; clauses)</li></ul><div class="var-docstring"><p>Like case, but the test expressions are regular expressions, tested
+  with re-find.</p></div><div class="var-source"><pre>; fcase.clj:75
+(defmacro re-case
+  [test-value &amp; clauses]
+  `(fcase re-find ~test-value ~@clauses))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
           epl-v10.html at the root of this distribution. By using this software
           in any fashion, you are agreeing to be bound by the terms of this 
           license. You must not remove this notice, or any other, from this 

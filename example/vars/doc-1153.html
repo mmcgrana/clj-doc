@@ -1,43 +1,7 @@
-<div class="doc-item" id="doc-1153"><h2 class="doc-item-name">fn<span class="namespace">(clojure.core)</span></h2><p class="macro">Macro</p><ul class="var-arglists"><li>(<span class="var-name">fn</span> &amp; sigs)</li></ul><div class="var-docstring"><p>(fn name? [params* ] exprs*)
-  (fn name? ([params* ] exprs*)+)</p><p>params =&gt; positional-params* , or positional-params* &amp; rest-param
-  positional-param =&gt; binding-form
-  rest-param =&gt; binding-form
-  name =&gt; symbol</p><p>Defines a function</p></div><div class="var-source"><pre>; core.clj:2503
-(defmacro fn
-  (fn name? ([params* ] exprs*)+)
-
-  params =&gt; positional-params* , or positional-params* &amp; rest-param
-  positional-param =&gt; binding-form
-  rest-param =&gt; binding-form
-  name =&gt; symbol
-
-  Defines a function&quot;
-  [&amp; sigs]
-    (let [name (if (symbol? (first sigs)) (first sigs) nil)
-          sigs (if name (rest sigs) sigs)
-          sigs (if (vector? (first sigs)) (list sigs) sigs)
-          psig (fn [sig]
-                 (let [[params &amp; body] sig]
-                   (if (every? symbol? params)
-                     sig
-                     (loop [params params
-                            new-params []
-                            lets []]
-                       (if params
-                         (if (symbol? (first params))
-                           (recur (rest params) (conj new-params (first params)) lets)
-                           (let [gparam (gensym &quot;p__&quot;)]
-                             (recur (rest params) (conj new-params gparam)
-                                    (-&gt; lets (conj (first params)) (conj gparam)))))
-                         `(~new-params
-                           (let ~lets
-                             ~@body)))))))
-          new-sigs (map psig sigs)]
-      (with-meta
-        (if name
-          (list* 'fn* name new-sigs)
-          (cons 'fn* new-sigs))
-        *macro-meta*)))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
+<div class="doc-item" id="doc-1153"><h2 class="doc-item-name">find-symbols<span class="namespace">(clojure.contrib.template)</span></h2><ul class="var-arglists"><li>(<span class="var-name">find-symbols</span>  form)</li></ul><div class="var-docstring"><p>Recursively finds all symbols in form.</p></div><div class="var-source"><pre>; template.clj:77
+(defn find-symbols
+  [form]
+  (distinct (filter symbol? (tree-seq coll? seq form))))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
           epl-v10.html at the root of this distribution. By using this software
           in any fashion, you are agreeing to be bound by the terms of this 
           license. You must not remove this notice, or any other, from this 

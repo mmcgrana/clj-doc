@@ -1,10 +1,8 @@
-<div class="doc-item" id="doc-1313"><h2 class="doc-item-name">print-special-doc<span class="namespace">(clojure.core)</span></h2><ul class="var-arglists"><li>(<span class="var-name">print-special-doc</span> name type anchor)</li></ul><div class="var-source"><pre>; core.clj:2799
-(defn print-special-doc
-  [name type anchor]
-  (println &quot;-------------------------&quot;)
-  (println name)
-  (println type)
-  (println (str &quot;  Please see http://clojure.org/special_forms#&quot; anchor)))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
+<div class="doc-item" id="doc-1313"><h2 class="doc-item-name">postwalk-demo<span class="namespace">(clojure.contrib.walk)</span></h2><ul class="var-arglists"><li>(<span class="var-name">postwalk-demo</span>  form)</li></ul><div class="var-docstring"><p>Demonstrates the behavior of postwalk by printing each form as it is
+  walked.  Returns form.</p></div><div class="var-source"><pre>; walk.clj:78
+(defn postwalk-demo
+  [form]
+  (postwalk (fn [x] (print &quot;Walked: &quot;) (prn x) x) form))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
           epl-v10.html at the root of this distribution. By using this software
           in any fashion, you are agreeing to be bound by the terms of this 
           license. You must not remove this notice, or any other, from this 

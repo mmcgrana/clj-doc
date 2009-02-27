@@ -1,10 +1,7 @@
-<div class="doc-item" id="doc-1247"><h2 class="doc-item-name">merge<span class="namespace">(clojure.core)</span></h2><ul class="var-arglists"><li>(<span class="var-name">merge</span> &amp; maps)</li></ul><div class="var-docstring"><p>Returns a map that consists of the rest of the maps conj-ed onto
-  the first.  If a key occurs in more than one map, the mapping from
-  the latter (left-to-right) will be the mapping in the result.</p></div><div class="var-source"><pre>; core.clj:1545
-(defn merge
-  [&amp; maps]
-  (when (some identity maps)
-    (reduce #(conj (or %1 {}) %2) maps)))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
+<div class="doc-item" id="doc-1247"><h2 class="doc-item-name">macroexpand-all<span class="namespace">(clojure.contrib.walk)</span></h2><ul class="var-arglists"><li>(<span class="var-name">macroexpand-all</span>  form)</li></ul><div class="var-docstring"><p>Recursively performs all possible macroexpansions in form.</p></div><div class="var-source"><pre>; walk.clj:118
+(defn macroexpand-all
+  [form]
+  (prewalk (fn [x] (if (list? x) (macroexpand x) x)) form))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
           epl-v10.html at the root of this distribution. By using this software
           in any fashion, you are agreeing to be bound by the terms of this 
           license. You must not remove this notice, or any other, from this 

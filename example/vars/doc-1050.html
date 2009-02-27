@@ -1,10 +1,6 @@
-<div class="doc-item" id="doc-1050"><h2 class="doc-item-name">commute<span class="namespace">(clojure.core)</span></h2><ul class="var-arglists"><li>(<span class="var-name">commute</span> ref fun &amp; args)</li></ul><div class="var-docstring"><p>Must be called in a transaction. Sets the in-transaction-value of
-  ref to:</p><p>(apply fun in-transaction-value-of-ref args)</p><p>and returns the in-transaction-value of ref.</p><p>At the commit point of the transaction, sets the value of ref to be:</p><p>(apply fun most-recently-committed-value-of-ref args)</p><p>Thus fun should be commutative, or, failing that, you must accept
-  last-one-in-wins behavior.  commute allows for more concurrency than
-  ref-set.</p></div><div class="var-source"><pre>; core.clj:1285
-(defn commute
-  [#^clojure.lang.Ref ref fun &amp; args]
-    (. ref (commute fun args)))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
+<div class="doc-item" id="doc-1050"><h2 class="doc-item-name">char<span class="namespace">(clojure.core)</span></h2><ul class="var-arglists"><li>(<span class="var-name">char</span>  x)</li></ul><div class="var-docstring"><p>Coerce to char</p></div><div class="var-source"><pre>; core.clj:1936
+(defn char
+  [x] (. clojure.lang.RT (charCast x)))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
           epl-v10.html at the root of this distribution. By using this software
           in any fashion, you are agreeing to be bound by the terms of this 
           license. You must not remove this notice, or any other, from this 
