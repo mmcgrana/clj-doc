@@ -1,0 +1,11 @@
+<div class="doc-item" id="doc-486"><h2 class="doc-item-name">*<span class="namespace">(clojure.core)</span></h2><ul class="var-arglists"><li>(<span class="var-name">*</span>  )</li><li>(<span class="var-name">*</span>  x)</li><li>(<span class="var-name">*</span> x y)</li><li>(<span class="var-name">*</span> x y &amp; more)</li></ul><div class="var-docstring"><p>Returns the product of nums. (*) returns 1.</p></div><div class="var-source"><pre>; clojure/core.clj:646
+(defn *
+  ([] 1)
+  ([x] (cast Number x))
+  ([x y] (. clojure.lang.Numbers (multiply x y)))
+  ([x y &amp; more]
+   (reduce * (* x y) more)))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
+          epl-v10.html at the root of this distribution. By using this software
+          in any fashion, you are agreeing to be bound by the terms of this 
+          license. You must not remove this notice, or any other, from this 
+          software.</p></div></div>

@@ -1,0 +1,13 @@
+<div class="doc-item" id="doc-768"><h2 class="doc-item-name">index<span class="namespace">(clojure.set)</span></h2><ul class="var-arglists"><li>(<span class="var-name">index</span> xrel ks)</li></ul><div class="var-docstring"><p>Returns a map of the distinct values of ks in the xrel mapped to a
+  set of the maps in xrel with the corresponding values of ks.</p></div><div class="var-source"><pre>; clojure/set.clj:85
+(defn index
+  [xrel ks]
+    (reduce
+     (fn [m x]
+       (let [ik (select-keys x ks)]
+         (assoc m ik (conj (get m ik #{}) x))))
+     {} xrel))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
+          epl-v10.html at the root of this distribution. By using this software
+          in any fashion, you are agreeing to be bound by the terms of this 
+          license. You must not remove this notice, or any other, from this 
+          software.</p></div></div>

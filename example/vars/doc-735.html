@@ -1,0 +1,87 @@
+<div class="doc-item" id="doc-735"><h2 class="doc-item-name">for<span class="namespace">(clojure.core)</span></h2><p class="macro">Macro</p><ul class="var-arglists"><li>(<span class="var-name">for</span> seq-exprs body-expr)</li></ul><div class="var-docstring"><p>List comprehension. Takes a vector of one or more
+   binding-form/collection-expr pairs, each followed by zero or more
+   modifiers, and yields a lazy sequence of evaluations of expr.
+   Collections are iterated in a nested fashion, rightmost fastest,
+   and nested coll-exprs can refer to bindings created in prior
+   binding-forms.  Supported modifiers are: :let [binding-form expr ...],
+   :while test, :when test.</p><p>(take 100 (for [x (range 100000000) y (range 1000000) :while (&lt; y x)] [x y]))</p></div><div class="var-source"><pre>; clojure/core.clj:2852
+(defmacro for
+  [seq-exprs body-expr]
+  (assert-args for
+     (vector? seq-exprs) &quot;a vector for its binding&quot;
+     (even? (count seq-exprs)) &quot;an even number of forms in binding vector&quot;)
+  (let [to-groups (fn [seq-exprs]
+                    (reduce (fn [groups [k v]]
+                              (if (keyword? k)
+                                (conj (pop groups) (conj (peek groups) [k v]))
+                                (conj groups [k v])))
+                            [] (partition 2 seq-exprs)))
+        err (fn [&amp; msg] (throw (IllegalArgumentException. (apply str msg))))
+        emit-bind (fn emit-bind [[[bind expr &amp; mod-pairs]
+                                  &amp; [[_ next-expr] :as next-groups]]]
+                    (let [giter (gensym &quot;iter__&quot;)
+                          gxs (gensym &quot;s__&quot;)
+                          do-mod (fn do-mod [[[k v :as pair] &amp; etc]]
+                                   (cond
+                                     (= k :let) `(let ~v ~(do-mod etc))
+                                     (= k :while) `(when ~v ~(do-mod etc))
+                                     (= k :when) `(if ~v
+                                                    ~(do-mod etc)
+                                                    (recur (rest ~gxs)))
+                                     (keyword? k) (err &quot;Invalid 'for' keyword &quot; k)
+                                     next-groups
+                                      `(let [iterys# ~(emit-bind next-groups)
+                                             fs# (seq (iterys# ~next-expr))]
+                                         (if fs#
+                                           (concat fs# (~giter (rest ~gxs)))
+                                           (recur (rest ~gxs))))
+                                     :else `(cons ~body-expr
+                                                  (~giter (rest ~gxs)))))]
+                      (if next-groups
+                        #_&quot;not the inner-most loop&quot;
+                        `(fn ~giter [~gxs]
+                           (lazy-seq
+                             (loop [~gxs ~gxs]
+                               (when-first [~bind ~gxs]
+                                 ~(do-mod mod-pairs)))))
+                        #_&quot;inner-most loop&quot;
+                        (let [gi (gensym &quot;i__&quot;)
+                              gb (gensym &quot;b__&quot;)
+                              do-cmod (fn do-cmod [[[k v :as pair] &amp; etc]]
+                                        (cond
+                                          (= k :let) `(let ~v ~(do-cmod etc))
+                                          (= k :while) `(when ~v ~(do-cmod etc))
+                                          (= k :when) `(if ~v
+                                                         ~(do-cmod etc)
+                                                         (recur
+                                                           (unchecked-inc ~gi)))
+                                          (keyword? k)
+                                            (err &quot;Invalid 'for' keyword &quot; k)
+                                          :else
+                                            `(do (chunk-append ~gb ~body-expr)
+                                                 (recur (unchecked-inc ~gi)))))]
+                          `(fn ~giter [~gxs]
+                             (lazy-seq
+                               (loop [~gxs ~gxs]
+                                 (when-let [~gxs (seq ~gxs)]
+                                   (if (chunked-seq? ~gxs)
+                                     (let [c# (chunk-first ~gxs)
+                                           size# (int (count c#))
+                                           ~gb (chunk-buffer size#)]
+                                       (if (loop [~gi (int 0)]
+                                             (if (&lt; ~gi size#)
+                                               (let [~bind (.nth c# ~gi)]
+                                                 ~(do-cmod mod-pairs))
+                                               true))
+                                         (chunk-cons
+                                           (chunk ~gb)
+                                           (~giter (chunk-rest ~gxs)))
+                                         (chunk-cons (chunk ~gb) nil)))
+                                     (let [~bind (first ~gxs)]
+                                       ~(do-mod mod-pairs)))))))))))]
+    `(let [iter# ~(emit-bind (to-groups seq-exprs))]
+        (iter# ~(second seq-exprs)))))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
+          epl-v10.html at the root of this distribution. By using this software
+          in any fashion, you are agreeing to be bound by the terms of this 
+          license. You must not remove this notice, or any other, from this 
+          software.</p></div></div>

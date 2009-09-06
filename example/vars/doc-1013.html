@@ -1,6 +1,9 @@
-<div class="doc-item" id="doc-1013"><h2 class="doc-item-name">aset-char<span class="namespace">(clojure.core)</span></h2><ul class="var-arglists"><li>(<span class="var-name">aset-char</span> array idx val)</li><li>(<span class="var-name">aset-char</span> array idx idx2 &amp; idxv)</li></ul><div class="var-docstring"><p>Sets the value at the index/indices. Works on arrays of char. Returns val.</p></div><div class="var-source"><pre>; core.clj:2232
-(def-aset
-  aset-char setChar char)</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
+<div class="doc-item" id="doc-1013"><h2 class="doc-item-name">shuffle<span class="namespace">(clojure.contrib.seq-utils)</span></h2><ul class="var-arglists"><li>(<span class="var-name">shuffle</span>  coll)</li></ul><div class="var-docstring"><p>Return a random permutation of coll</p></div><div class="var-source"><pre>; clojure/contrib/seq_utils.clj:143
+(defn shuffle
+  [coll]
+  (let [l (java.util.ArrayList. coll)]
+    (java.util.Collections/shuffle l)
+    (seq l)))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
           epl-v10.html at the root of this distribution. By using this software
           in any fashion, you are agreeing to be bound by the terms of this 
           license. You must not remove this notice, or any other, from this 

@@ -1,8 +1,11 @@
-<div class="doc-item" id="doc-1006"><h2 class="doc-item-name">apply<span class="namespace">(clojure.core)</span></h2><ul class="var-arglists"><li>(<span class="var-name">apply</span> f args* argseq)</li></ul><div class="var-docstring"><p>Applies fn f to the argument list formed by prepending args to argseq.</p></div><div class="var-source"><pre>; core.clj:404
-(defn apply
-  {:arglists '([f args* argseq])}
-  [#^clojure.lang.IFn f &amp; args]
-    (. f (applyTo (spread args))))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
+<div class="doc-item" id="doc-1006"><h2 class="doc-item-name">sequence<span class="namespace">(clojure.core)</span></h2><ul class="var-arglists"><li>(<span class="var-name">sequence</span>  coll)</li></ul><div class="var-docstring"><p>Coerces coll to a (possibly empty) sequence, if it is not already
+  one. Will not force a lazy seq. (sequence nil) yields ()</p></div><div class="var-source"><pre>; clojure/core.clj:1538
+(defn sequence
+  [coll]
+   (cond 
+    (seq? coll) coll
+    (stream? coll) (.sequence #^clojure.lang.Stream coll)
+    :else (or (seq coll) ())))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
           epl-v10.html at the root of this distribution. By using this software
           in any fashion, you are agreeing to be bound by the terms of this 
           license. You must not remove this notice, or any other, from this 

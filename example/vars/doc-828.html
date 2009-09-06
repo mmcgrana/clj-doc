@@ -1,0 +1,7 @@
+<div class="doc-item" id="doc-828"><h2 class="doc-item-name">map-invert<span class="namespace">(clojure.set)</span></h2><ul class="var-arglists"><li>(<span class="var-name">map-invert</span>  m)</li></ul><div class="var-docstring"><p>Returns the map with the vals mapped to the keys.</p></div><div class="var-source"><pre>; clojure/set.clj:95
+(defn map-invert
+  [m] (reduce (fn [m [k v]] (assoc m v k)) {} m))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
+          epl-v10.html at the root of this distribution. By using this software
+          in any fashion, you are agreeing to be bound by the terms of this 
+          license. You must not remove this notice, or any other, from this 
+          software.</p></div></div>

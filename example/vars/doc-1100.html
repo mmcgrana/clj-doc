@@ -1,7 +1,11 @@
-<div class="doc-item" id="doc-1100"><h2 class="doc-item-name">defunbound-<span class="namespace">(clojure.contrib.def)</span></h2><p class="macro">Macro</p><ul class="var-arglists"><li>(<span class="var-name">defunbound-</span> name &amp; decls)</li></ul><div class="var-docstring"><p>Same as defunbound but yields a private definition</p></div><div class="var-source"><pre>; def.clj:45
-(defmacro defunbound-
-  [name &amp; decls]
-  (list* `defunbound (with-meta name (assoc (meta name) :private true)) decls))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
+<div class="doc-item" id="doc-1100"><h2 class="doc-item-name">while<span class="namespace">(clojure.core)</span></h2><p class="macro">Macro</p><ul class="var-arglists"><li>(<span class="var-name">while</span> test &amp; body)</li></ul><div class="var-docstring"><p>Repeatedly executes body while test expression is true. Presumes
+  some side-effect will cause test to become false/nil. Returns nil</p></div><div class="var-source"><pre>; clojure/core.clj:4100
+(defmacro while
+  [test &amp; body]
+  `(loop []
+     (when ~test
+       ~@body
+       (recur))))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
           epl-v10.html at the root of this distribution. By using this software
           in any fashion, you are agreeing to be bound by the terms of this 
           license. You must not remove this notice, or any other, from this 

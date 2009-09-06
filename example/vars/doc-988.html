@@ -1,11 +1,9 @@
-<div class="doc-item" id="doc-988"><h2 class="doc-item-name">accessor<span class="namespace">(clojure.core)</span></h2><ul class="var-arglists"><li>(<span class="var-name">accessor</span> s key)</li></ul><div class="var-docstring"><p>Returns a fn that, given an instance of a structmap with the basis,
-  returns the value at the key.  The key must be in the basis. The
-  returned function should be (slightly) more efficient than using
-  get, but such use of accessors should be limited to known
-  performance-critical areas.</p></div><div class="var-source"><pre>; core.clj:2305
-(defn accessor
-  [s key]
-    (. clojure.lang.PersistentStructMap (getAccessor s key)))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
+<div class="doc-item" id="doc-988"><h2 class="doc-item-name">right<span class="namespace">(clojure.zip)</span></h2><ul class="var-arglists"><li>(<span class="var-name">right</span>  loc)</li></ul><div class="var-docstring"><p>Returns the loc of the right sibling of the node at this loc, or nil</p></div><div class="var-source"><pre>; clojure/zip.clj:129
+(defn right
+  [loc]
+    (let [[node {l :l  [r &amp; rnext :as rs] :r :as path}] loc]
+      (when (and path rs)
+        (with-meta [r (assoc path :l (conj l node) :r rnext)] ^loc))))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
           epl-v10.html at the root of this distribution. By using this software
           in any fashion, you are agreeing to be bound by the terms of this 
           license. You must not remove this notice, or any other, from this 

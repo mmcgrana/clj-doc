@@ -1,0 +1,22 @@
+<div class="doc-item" id="doc-917"><h2 class="doc-item-name">promise<span class="namespace">(clojure.core)</span></h2><ul class="var-arglists"><li>(<span class="var-name">promise</span>  )</li></ul><div class="var-docstring"><p>Experimental.
+  Returns a promise object that can be read with deref/@, and set,
+  once only, with deliver. Calls to deref/@ prior to delivery will
+  block. All subsequent derefs will return the same delivered value
+  without blocking.</p></div><div class="var-source"><pre>; clojure/core.clj:4368
+(defn promise
+  []
+  (let [d (java.util.concurrent.CountDownLatch. 1)
+        v (atom nil)]
+    (proxy [clojure.lang.AFn clojure.lang.IDeref] []
+      (deref [] (.await d) @v)
+      (invoke [x]
+        (locking d
+          (if (pos? (.getCount d))
+            (do (reset! v x)
+                (.countDown d)
+                this)
+            (throw (IllegalStateException. &quot;Multiple deliver calls to a promise&quot;))))))))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
+          epl-v10.html at the root of this distribution. By using this software
+          in any fashion, you are agreeing to be bound by the terms of this 
+          license. You must not remove this notice, or any other, from this 
+          software.</p></div></div>

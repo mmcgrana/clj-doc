@@ -1,17 +1,9 @@
-<div class="doc-item" id="doc-1026"><h2 class="doc-item-name">await-for<span class="namespace">(clojure.core)</span></h2><ul class="var-arglists"><li>(<span class="var-name">await-for</span> timeout-ms &amp; agents)</li></ul><div class="var-docstring"><p>Blocks the current thread until all actions dispatched thus
-  far (from this thread or agent) to the agents have occurred, or the
-  timeout (in milliseconds) has elapsed. Returns nil if returning due
-  to timeout, non-nil otherwise.</p></div><div class="var-source"><pre>; core.clj:1809
-(defn await-for
-  [timeout-ms &amp; agents]
-    (io! &quot;await-for in transaction&quot;
-     (when *agent*
-       (throw (new Exception &quot;Can't await in agent action&quot;)))
-     (let [latch (new java.util.concurrent.CountDownLatch (count agents))
-           count-down (fn [agent] (. latch (countDown)) agent)]
-       (doseq [agent agents]
-           (send agent count-down))
-       (. latch (await  timeout-ms (. java.util.concurrent.TimeUnit MILLISECONDS))))))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
+<div class="doc-item" id="doc-1026"><h2 class="doc-item-name">special-form-anchor<span class="namespace">(clojure.core)</span></h2><ul class="var-arglists"><li>(<span class="var-name">special-form-anchor</span>  x)</li></ul><div class="var-docstring"><p>Returns the anchor tag on http://clojure.org/special_forms for the
+  special form x, or nil</p></div><div class="var-source"><pre>; clojure/core.clj:3101
+(defn special-form-anchor
+  [x]
+  (#{'. 'def 'do 'fn 'if 'let 'loop 'monitor-enter 'monitor-exit 'new
+  'quote 'recur 'set! 'throw 'try 'var} x))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
           epl-v10.html at the root of this distribution. By using this software
           in any fashion, you are agreeing to be bound by the terms of this 
           license. You must not remove this notice, or any other, from this 

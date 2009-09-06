@@ -1,0 +1,14 @@
+<div class="doc-item" id="doc-784"><h2 class="doc-item-name">into-array<span class="namespace">(clojure.core)</span></h2><ul class="var-arglists"><li>(<span class="var-name">into-array</span>  aseq)</li><li>(<span class="var-name">into-array</span> type aseq)</li></ul><div class="var-docstring"><p>Returns an array with components set to the values in aseq. The array's
+  component type is type if provided, or the type of the first value in
+  aseq if present, or Object. All values in aseq must be compatible with
+  the component type. Class objects for the primitive types can be obtained
+  using, e.g., Integer/TYPE.</p></div><div class="var-source"><pre>; clojure/core.clj:2019
+(defn into-array
+  ([aseq]
+     (clojure.lang.RT/seqToTypedArray (seq aseq)))
+  ([type aseq]
+     (clojure.lang.RT/seqToTypedArray type (seq aseq))))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
+          epl-v10.html at the root of this distribution. By using this software
+          in any fashion, you are agreeing to be bound by the terms of this 
+          license. You must not remove this notice, or any other, from this 
+          software.</p></div></div>

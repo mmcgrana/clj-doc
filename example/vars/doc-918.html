@@ -1,0 +1,64 @@
+<div class="doc-item" id="doc-918"><h2 class="doc-item-name">proxy<span class="namespace">(clojure.core)</span></h2><p class="macro">Macro</p><ul class="var-arglists"><li>(<span class="var-name">proxy</span> class-and-interfaces args &amp; fs)</li></ul><div class="var-docstring"><p>class-and-interfaces - a vector of class names</p><p>args - a (possibly empty) vector of arguments to the superclass
+  constructor.</p><p>f =&gt; (name [params*] body) or
+  (name ([params*] body) ([params+] body) ...)</p><p>Expands to code which creates a instance of a proxy class that
+  implements the named class/interface(s) by calling the supplied
+  fns. A single class, if provided, must be first. If not provided it
+  defaults to Object.</p><p>The interfaces names must be valid interface types. If a method fn
+  is not provided for a class method, the superclass methd will be
+  called. If a method fn is not provided for an interface method, an
+  UnsupportedOperationException will be thrown should it be
+  called. Method fns are closures and can capture the environment in
+  which proxy is called. Each method fn takes an additional implicit
+  first arg, which is bound to 'this. Note that while method fns can
+  be provided to override protected methods, they have no other access
+  to protected members, nor to super, as these capabilities cannot be
+  proxied.</p></div><div class="var-source"><pre>; clojure/core_proxy.clj:292
+(defmacro proxy
+  (name ([params*] body) ([params+] body) ...)
+
+  Expands to code which creates a instance of a proxy class that
+  implements the named class/interface(s) by calling the supplied
+  fns. A single class, if provided, must be first. If not provided it
+  defaults to Object.
+
+  The interfaces names must be valid interface types. If a method fn
+  is not provided for a class method, the superclass methd will be
+  called. If a method fn is not provided for an interface method, an
+  UnsupportedOperationException will be thrown should it be
+  called. Method fns are closures and can capture the environment in
+  which proxy is called. Each method fn takes an additional implicit
+  first arg, which is bound to 'this. Note that while method fns can
+  be provided to override protected methods, they have no other access
+  to protected members, nor to super, as these capabilities cannot be
+  proxied.&quot;
+  [class-and-interfaces args &amp; fs]
+   (let [bases (map #(or (resolve %) (throw (Exception. (str &quot;Can't resolve: &quot; %)))) 
+                    class-and-interfaces)
+         [super interfaces] (get-super-and-interfaces bases)
+         compile-effect (when *compile-files*
+                          (let [[cname bytecode] (generate-proxy super interfaces)]
+                            (clojure.lang.Compiler/writeClassFile cname bytecode)))
+         pc-effect (apply get-proxy-class bases)
+         pname (proxy-name super interfaces)]
+     `(let [;pc# (get-proxy-class ~@class-and-interfaces)
+            p# (new ~(symbol pname) ~@args)] ;(construct-proxy pc# ~@args)]   
+        (init-proxy p#
+         ~(loop [fmap {} fs fs]
+            (if fs
+              (let [[sym &amp; meths] (first fs)
+                    meths (if (vector? (first meths))
+                            (list meths)
+                            meths)
+                    meths (map (fn [[params &amp; body]]
+                                   (cons (apply vector 'this params) body))
+                               meths)]
+                (if-not (contains? fmap (name sym))		  
+                (recur (assoc fmap (name sym) (cons `fn meths)) (next fs))
+		           (throw (IllegalArgumentException.
+			              (str &quot;Method '&quot; (name sym) &quot;' redefined&quot;)))))
+              fmap)))
+        p#)))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
+          epl-v10.html at the root of this distribution. By using this software
+          in any fashion, you are agreeing to be bound by the terms of this 
+          license. You must not remove this notice, or any other, from this 
+          software.</p></div></div>

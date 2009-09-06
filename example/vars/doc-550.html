@@ -1,0 +1,17 @@
+<div class="doc-item" id="doc-550"><h2 class="doc-item-name">amap<span class="namespace">(clojure.core)</span></h2><p class="macro">Macro</p><ul class="var-arglists"><li>(<span class="var-name">amap</span> a idx ret expr)</li></ul><div class="var-docstring"><p>Maps an expression across an array a, using an index named idx, and
+  return value named ret, initialized to a clone of a, then setting each element of
+  ret to the evaluation of expr, returning the new array ret.</p></div><div class="var-source"><pre>; clojure/core.clj:3343
+(defmacro amap
+  [a idx ret expr]
+  `(let [a# ~a
+         ~ret (aclone a#)]
+     (loop  [~idx (int 0)]
+       (if (&lt; ~idx  (alength a#))
+         (do
+           (aset ~ret ~idx ~expr)
+           (recur (unchecked-inc ~idx)))
+         ~ret))))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
+          epl-v10.html at the root of this distribution. By using this software
+          in any fashion, you are agreeing to be bound by the terms of this 
+          license. You must not remove this notice, or any other, from this 
+          software.</p></div></div>

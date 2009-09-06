@@ -1,7 +1,10 @@
-<div class="doc-item" id="doc-989"><h2 class="doc-item-name">aclone<span class="namespace">(clojure.core)</span></h2><ul class="var-arglists"><li>(<span class="var-name">aclone</span>  array)</li></ul><div class="var-docstring"><p>Returns a clone of the Java array. Works on arrays of known
-  types.</p></div><div class="var-source"><pre>; core.clj:2166
-(defn aclone
-  [array] (. clojure.lang.RT (aclone array)))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
+<div class="doc-item" id="doc-989"><h2 class="doc-item-name">rightmost<span class="namespace">(clojure.zip)</span></h2><ul class="var-arglists"><li>(<span class="var-name">rightmost</span>  loc)</li></ul><div class="var-docstring"><p>Returns the loc of the rightmost sibling of the node at this loc, or self</p></div><div class="var-source"><pre>; clojure/zip.clj:136
+(defn rightmost
+  [loc]
+    (let [[node {l :l r :r :as path}] loc]
+      (if (and path r)
+        (with-meta [(last r) (assoc path :l (apply conj l node (butlast r)) :r nil)] ^loc)
+        loc)))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
           epl-v10.html at the root of this distribution. By using this software
           in any fashion, you are agreeing to be bound by the terms of this 
           license. You must not remove this notice, or any other, from this 

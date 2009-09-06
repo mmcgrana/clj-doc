@@ -1,10 +1,8 @@
-<div class="doc-item" id="doc-1095"><h2 class="doc-item-name">defonce<span class="namespace">(clojure.core)</span></h2><p class="macro">Macro</p><ul class="var-arglists"><li>(<span class="var-name">defonce</span> name expr)</li></ul><div class="var-docstring"><p>defs name to have the root value of the expr iff the named var has no root value,
-  else expr is unevaluated</p></div><div class="var-source"><pre>; core.clj:3481
-(defmacro defonce
-  [name expr]
-  `(let [v# (def ~name)]
-     (when-not (.hasRoot v#)
-       (def ~name ~expr))))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
+<div class="doc-item" id="doc-1095"><h2 class="doc-item-name">walk<span class="namespace">(clojure.contrib.walk)</span></h2><ul class="var-arglists"><li>(<span class="var-name">walk</span> inner outer form)</li></ul><div class="var-docstring"><p>Traverses form, an arbitrary data structure.  inner and outer are
+  functions.  Applies inner to each element of form, building up a
+  data structure of the same type, then applies outer to the result.
+  Recognizes all Clojure data structures except sorted-map-by.
+  Consumes seqs as with doall.</p></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
           epl-v10.html at the root of this distribution. By using this software
           in any fashion, you are agreeing to be bound by the terms of this 
           license. You must not remove this notice, or any other, from this 

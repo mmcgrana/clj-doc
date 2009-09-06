@@ -1,0 +1,16 @@
+<div class="doc-item" id="doc-714"><h2 class="doc-item-name">file-str<span class="namespace">(clojure.contrib.duck-streams)</span></h2><ul class="var-arglists"><li>(<span class="var-name">file-str</span> &amp; args)</li></ul><div class="var-docstring"><p>Concatenates args as strings and returns a java.io.File.  Replaces
+  all / and \ with File/separatorChar.  Replaces ~ at the start of
+  the path with the user.home system property.</p></div><div class="var-source"><pre>; clojure/contrib/duck_streams.clj:85
+(defn #^File file-str
+  [&amp; args]
+  (let [#^String s (apply str args)
+        s (.replaceAll (re-matcher #&quot;[/\\]&quot; s) File/separator)
+        s (if (.startsWith s &quot;~&quot;)
+            (str (System/getProperty &quot;user.home&quot;)
+                 File/separator (subs s 1))
+            s)]
+    (File. s)))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
+          epl-v10.html at the root of this distribution. By using this software
+          in any fashion, you are agreeing to be bound by the terms of this 
+          license. You must not remove this notice, or any other, from this 
+          software.</p></div></div>

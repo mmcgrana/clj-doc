@@ -1,0 +1,19 @@
+<div class="doc-item" id="doc-877"><h2 class="doc-item-name">parse<span class="namespace">(clojure.xml)</span></h2><ul class="var-arglists"><li>(<span class="var-name">parse</span>  s)</li><li>(<span class="var-name">parse</span> s startparse)</li></ul><div class="var-docstring"><p>Parses and loads the source s, which can be a File, InputStream or
+  String naming a URI. Returns a tree of the xml/element struct-map,
+  which has the keys :tag, :attrs, and :content. and accessor fns tag,
+  attrs, and content. Other parsers can be supplied by passing
+  startparse, a fn taking a source and a ContentHandler and returning
+  a parser</p></div><div class="var-source"><pre>; clojure/xml.clj:76
+(defn parse
+  ([s] (parse s startparse-sax))
+  ([s startparse]
+    (binding [*stack* nil
+              *current* (struct element)
+              *state* :between
+              *sb* nil]
+      (startparse s content-handler)
+      ((:content *current*) 0))))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
+          epl-v10.html at the root of this distribution. By using this software
+          in any fashion, you are agreeing to be bound by the terms of this 
+          license. You must not remove this notice, or any other, from this 
+          software.</p></div></div>

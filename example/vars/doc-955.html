@@ -1,6 +1,9 @@
-<div class="doc-item" id="doc-955"><h2 class="doc-item-name">*e<span class="namespace">(clojure.core)</span></h2><div class="var-docstring"><p>bound in a repl thread to the most recent exception caught by the repl</p></div><div class="var-source"><pre>; core.clj:3812
-(def
- *e)</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
+<div class="doc-item" id="doc-955"><h2 class="doc-item-name">ref-max-history<span class="namespace">(clojure.core)</span></h2><ul class="var-arglists"><li>(<span class="var-name">ref-max-history</span>  ref)</li><li>(<span class="var-name">ref-max-history</span> ref n)</li></ul><div class="var-docstring"><p>Gets the max-history of a ref, or sets it and returns the ref</p></div><div class="var-source"><pre>; clojure/core.clj:1463
+(defn ref-max-history
+  ([#^clojure.lang.Ref ref]
+    (.getMaxHistory ref))
+  ([#^clojure.lang.Ref ref n]
+    (.setMaxHistory ref n)))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
           epl-v10.html at the root of this distribution. By using this software
           in any fashion, you are agreeing to be bound by the terms of this 
           license. You must not remove this notice, or any other, from this 

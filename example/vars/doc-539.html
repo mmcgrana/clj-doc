@@ -1,0 +1,20 @@
+<div class="doc-item" id="doc-539"><h2 class="doc-item-name">add-watch<span class="namespace">(clojure.core)</span></h2><ul class="var-arglists"><li>(<span class="var-name">add-watch</span> reference key fn)</li></ul><div class="var-docstring"><p>Experimental.
+  Adds a watch function to an agent/atom/var/ref reference. The watch
+  fn must be a fn of 4 args: a key, the reference, its old-state, its
+  new-state. Whenever the reference's state might have been changed,
+  any registered watches will have their functions called. The watch fn
+  will be called synchronously, on the agent's thread if an agent,
+  before any pending sends if agent or ref. Note that an atom's or
+  ref's state may have changed again prior to the fn call, so use
+  old/new-state rather than derefing the reference. Note also that watch
+  fns may be called from multiple threads simultaneously. Var watchers
+  are triggered only by root binding changes, not thread-local
+  set!s. Keys must be unique per reference, and can be used to remove
+  the watch with remove-watch, but are otherwise considered opaque by
+  the watch mechanism.</p></div><div class="var-source"><pre>; clojure/core.clj:1251
+(defn add-watch
+  [#^clojure.lang.IRef reference key fn] (.addWatch reference key fn))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
+          epl-v10.html at the root of this distribution. By using this software
+          in any fashion, you are agreeing to be bound by the terms of this 
+          license. You must not remove this notice, or any other, from this 
+          software.</p></div></div>

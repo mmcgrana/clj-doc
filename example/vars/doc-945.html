@@ -1,6 +1,9 @@
-<div class="doc-item" id="doc-945"><h2 class="doc-item-name">*1<span class="namespace">(clojure.core)</span></h2><div class="var-docstring"><p>bound in a repl thread to the most recent value printed</p></div><div class="var-source"><pre>; core.clj:3800
-(def
- *1)</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
+<div class="doc-item" id="doc-945"><h2 class="doc-item-name">read-line<span class="namespace">(clojure.core)</span></h2><ul class="var-arglists"><li>(<span class="var-name">read-line</span>  )</li></ul><div class="var-docstring"><p>Reads the next line from stream that is the current value of *in* .</p></div><div class="var-source"><pre>; clojure/core.clj:2226
+(defn read-line
+  []
+  (if (instance? clojure.lang.LineNumberingPushbackReader *in*)
+    (.readLine #^clojure.lang.LineNumberingPushbackReader *in*)
+    (.readLine #^java.io.BufferedReader *in*)))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
           epl-v10.html at the root of this distribution. By using this software
           in any fashion, you are agreeing to be bound by the terms of this 
           license. You must not remove this notice, or any other, from this 

@@ -1,6 +1,9 @@
-<div class="doc-item" id="doc-998"><h2 class="doc-item-name">all-ns<span class="namespace">(clojure.core)</span></h2><ul class="var-arglists"><li>(<span class="var-name">all-ns</span>  )</li></ul><div class="var-docstring"><p>Returns a sequence of all namespaces.</p></div><div class="var-source"><pre>; core.clj:2371
-(defn all-ns
-  [] (clojure.lang.Namespace/all))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
+<div class="doc-item" id="doc-998"><h2 class="doc-item-name">send<span class="namespace">(clojure.core)</span></h2><ul class="var-arglists"><li>(<span class="var-name">send</span> a f &amp; args)</li></ul><div class="var-docstring"><p>Dispatch an action to an agent. Returns the agent immediately.
+  Subsequently, in a thread from a thread pool, the state of the agent
+  will be set to the value of:</p><p>(apply action-fn state-of-agent args)</p></div><div class="var-source"><pre>; clojure/core.clj:1224
+(defn send
+  [#^clojure.lang.Agent a f &amp; args]
+    (. a (dispatch f args false)))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
           epl-v10.html at the root of this distribution. By using this software
           in any fashion, you are agreeing to be bound by the terms of this 
           license. You must not remove this notice, or any other, from this 

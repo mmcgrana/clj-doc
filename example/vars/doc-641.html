@@ -1,0 +1,11 @@
+<div class="doc-item" id="doc-641"><h2 class="doc-item-name">copy<span class="namespace">(clojure.contrib.duck-streams)</span></h2><ul class="var-arglists"><li>(<span class="var-name">copy</span> input output)</li></ul><div class="var-docstring"><p>Copies input to output.  Returns nil.
+  Input may be an InputStream, Reader, File, byte[], or String.
+  Output may be an OutputStream, Writer, or File.</p><p>Does not close any streams except those it opens itself 
+  (on a File).</p><p>Writing a File fails if the parent directory does not exist.</p></div><div class="var-source"><pre>; clojure/contrib/duck_streams.clj:291
+(defmulti
+  copy
+  (fn [input output] [(type input) (type output)]))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
+          epl-v10.html at the root of this distribution. By using this software
+          in any fashion, you are agreeing to be bound by the terms of this 
+          license. You must not remove this notice, or any other, from this 
+          software.</p></div></div>

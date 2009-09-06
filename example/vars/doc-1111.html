@@ -1,14 +1,14 @@
-<div class="doc-item" id="doc-1111"><h2 class="doc-item-name">dissoc<span class="namespace">(clojure.core)</span></h2><ul class="var-arglists"><li>(<span class="var-name">dissoc</span>  map)</li><li>(<span class="var-name">dissoc</span> map key)</li><li>(<span class="var-name">dissoc</span> map key &amp; ks)</li></ul><div class="var-docstring"><p>dissoc[iate]. Returns a new map of the same (hashed/sorted) type,
-  that does not contain a mapping for key(s).</p></div><div class="var-source"><pre>; core.clj:912
-(defn dissoc
-  ([map] map)
-  ([map key]
-   (. clojure.lang.RT (dissoc map key)))
-  ([map key &amp; ks]
-   (let [ret (dissoc map key)]
-     (if ks
-       (recur ret (first ks) (next ks))
-       ret))))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
+<div class="doc-item" id="doc-1111"><h2 class="doc-item-name">with-precision<span class="namespace">(clojure.core)</span></h2><p class="macro">Macro</p><ul class="var-arglists"><li>(<span class="var-name">with-precision</span> precision &amp; exprs)</li></ul><div class="var-docstring"><p>Sets the precision and rounding mode to be used for BigDecimal operations.</p><p>Usage: (with-precision 10 (/ 1M 3))
+  or:    (with-precision 10 :rounding HALF_DOWN (/ 1M 3))</p><p>The rounding mode is one of CEILING, FLOOR, HALF_UP, HALF_DOWN,
+  HALF_EVEN, UP, DOWN and UNNECESSARY; it defaults to HALF_UP.</p></div><div class="var-source"><pre>; clojure/core.clj:3255
+(defmacro with-precision
+  [precision &amp; exprs]
+    (let [[body rm] (if (= (first exprs) :rounding)
+                      [(next (next exprs))
+                       `((. java.math.RoundingMode ~(second exprs)))]
+                      [exprs nil])]
+      `(binding [*math-context* (java.math.MathContext. ~precision ~@rm)]
+         ~@body)))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
           epl-v10.html at the root of this distribution. By using this software
           in any fashion, you are agreeing to be bound by the terms of this 
           license. You must not remove this notice, or any other, from this 

@@ -1,0 +1,14 @@
+<div class="doc-item" id="doc-897"><h2 class="doc-item-name">prev<span class="namespace">(clojure.zip)</span></h2><ul class="var-arglists"><li>(<span class="var-name">prev</span>  loc)</li></ul><div class="var-docstring"><p>Moves to the previous loc in the hierarchy, depth-first. If already
+  at the root, returns nil.</p></div><div class="var-source"><pre>; clojure/zip.clj:215
+(defn prev
+  [loc]
+    (if-let [lloc (left loc)]
+      (loop [loc lloc]
+        (if-let [child (and (branch? loc) (down loc))]
+          (recur (rightmost child))
+          loc))
+      (up loc)))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
+          epl-v10.html at the root of this distribution. By using this software
+          in any fashion, you are agreeing to be bound by the terms of this 
+          license. You must not remove this notice, or any other, from this 
+          software.</p></div></div>

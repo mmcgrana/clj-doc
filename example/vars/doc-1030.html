@@ -1,12 +1,7 @@
-<div class="doc-item" id="doc-1030"><h2 class="doc-item-name">bigdec<span class="namespace">(clojure.core)</span></h2><ul class="var-arglists"><li>(<span class="var-name">bigdec</span>  x)</li></ul><div class="var-docstring"><p>Coerce to BigDecimal</p></div><div class="var-source"><pre>; core.clj:1997
-(defn bigdec
-  [x] (cond
-       (decimal? x) x
-       (float? x) (. BigDecimal valueOf (double x))
-       (ratio? x) (/ (BigDecimal. (.numerator x)) (.denominator x))
-       (instance? BigInteger x) (BigDecimal. #^BigInteger x)
-       (number? x) (BigDecimal/valueOf (long x))
-       :else (BigDecimal. x)))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
+<div class="doc-item" id="doc-1030"><h2 class="doc-item-name">split-with<span class="namespace">(clojure.core)</span></h2><ul class="var-arglists"><li>(<span class="var-name">split-with</span> pred coll)</li></ul><div class="var-docstring"><p>Returns a vector of [(take-while pred coll) (drop-while pred coll)]</p></div><div class="var-source"><pre>; clojure/core.clj:1717
+(defn split-with
+  [pred coll]
+    [(take-while pred coll) (drop-while pred coll)])</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
           epl-v10.html at the root of this distribution. By using this software
           in any fashion, you are agreeing to be bound by the terms of this 
           license. You must not remove this notice, or any other, from this 

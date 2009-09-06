@@ -1,0 +1,10 @@
+<div class="doc-item" id="doc-797"><h2 class="doc-item-name">lazy-cat<span class="namespace">(clojure.core)</span></h2><p class="macro">Macro</p><ul class="var-arglists"><li>(<span class="var-name">lazy-cat</span> &amp; colls)</li></ul><div class="var-docstring"><p>Expands to code which yields a lazy sequence of the concatenation
+  of the supplied colls.  Each coll expr is not evaluated until it is
+  needed. </p><p>(lazy-cat xs ys zs) === (concat (lazy-seq xs) (lazy-seq ys) (lazy-seq zs))</p></div><div class="var-source"><pre>; clojure/core.clj:2843
+(defmacro lazy-cat
+  [&amp; colls]
+  `(concat ~@(map #(list `lazy-seq %) colls)))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
+          epl-v10.html at the root of this distribution. By using this software
+          in any fashion, you are agreeing to be bound by the terms of this 
+          license. You must not remove this notice, or any other, from this 
+          software.</p></div></div>

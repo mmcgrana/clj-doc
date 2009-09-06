@@ -1,14 +1,10 @@
-<div class="doc-item" id="doc-1110"><h2 class="doc-item-name">disj<span class="namespace">(clojure.core)</span></h2><ul class="var-arglists"><li>(<span class="var-name">disj</span>  set)</li><li>(<span class="var-name">disj</span> set key)</li><li>(<span class="var-name">disj</span> set key &amp; ks)</li></ul><div class="var-docstring"><p>disj[oin]. Returns a new set of the same (hashed/sorted) type, that
-  does not contain key(s).</p></div><div class="var-source"><pre>; core.clj:924
-(defn disj
-  ([set] set)
-  ([#^clojure.lang.IPersistentSet set key]
-   (. set (disjoin key)))
-  ([set key &amp; ks]
-   (let [ret (disj set key)]
-     (if ks
-       (recur ret (first ks) (next ks))
-       ret))))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
+<div class="doc-item" id="doc-1110"><h2 class="doc-item-name">with-out-writer<span class="namespace">(clojure.contrib.duck-streams)</span></h2><p class="macro">Macro</p><ul class="var-arglists"><li>(<span class="var-name">with-out-writer</span> f &amp; body)</li></ul><div class="var-docstring"><p>Opens a writer on f, binds it to *out*, and evalutes body.
+  Anything printed within body will be written to f.</p></div><div class="var-source"><pre>; clojure/contrib/duck_streams.clj:269
+(defmacro with-out-writer
+  [f &amp; body]
+  `(with-open [stream# (writer ~f)]
+     (binding [*out* stream#]
+       ~@body)))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
           epl-v10.html at the root of this distribution. By using this software
           in any fashion, you are agreeing to be bound by the terms of this 
           license. You must not remove this notice, or any other, from this 

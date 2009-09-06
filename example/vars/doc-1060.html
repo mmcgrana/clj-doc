@@ -1,15 +1,11 @@
-<div class="doc-item" id="doc-1060"><h2 class="doc-item-name">comp<span class="namespace">(clojure.core)</span></h2><ul class="var-arglists"><li>(<span class="var-name">comp</span> &amp; fs)</li></ul><div class="var-docstring"><p>Takes a set of functions and returns a fn that is the composition
-  of those fns.  The returned fn takes a variable number of args,
-  applies the rightmost of fns to the args, the next
-  fn (right-to-left) to the result, etc.</p></div><div class="var-source"><pre>; core.clj:1433
-(defn comp
-  [&amp; fs]
-    (let [fs (reverse fs)]
-      (fn [&amp; args]
-        (loop [ret (apply (first fs) args) fs (next fs)]
-          (if fs
-            (recur ((first fs) ret) (next fs))
-            ret)))))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
+<div class="doc-item" id="doc-1060"><h2 class="doc-item-name">time<span class="namespace">(clojure.core)</span></h2><p class="macro">Macro</p><ul class="var-arglists"><li>(<span class="var-name">time</span>  expr)</li></ul><div class="var-docstring"><p>Evaluates expr and prints the time it took.  Returns the value of
+ expr.</p></div><div class="var-source"><pre>; clojure/core.clj:2293
+(defmacro time
+  [expr]
+  `(let [start# (. System (nanoTime))
+         ret# ~expr]
+     (prn (str &quot;Elapsed time: &quot; (/ (double (- (. System (nanoTime)) start#)) 1000000.0) &quot; msecs&quot;))
+     ret#))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
           epl-v10.html at the root of this distribution. By using this software
           in any fashion, you are agreeing to be bound by the terms of this 
           license. You must not remove this notice, or any other, from this 

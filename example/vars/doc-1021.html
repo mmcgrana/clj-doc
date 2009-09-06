@@ -1,11 +1,12 @@
-<div class="doc-item" id="doc-1021"><h2 class="doc-item-name">assoc-in<span class="namespace">(clojure.core)</span></h2><ul class="var-arglists"><li>(<span class="var-name">assoc-in</span> m [k &amp; ks] v)</li></ul><div class="var-docstring"><p>Associates a value in a nested associative structure, where ks is a
-  sequence of keys and v is the new value and returns a new nested structure.
-  If any levels do not exist, hash-maps will be created.</p></div><div class="var-source"><pre>; core.clj:3732
-(defn assoc-in
-  [m [k &amp; ks] v]
-  (if ks
-    (assoc m k (assoc-in (get m k) ks v))
-    (assoc m k v)))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
+<div class="doc-item" id="doc-1021"><h2 class="doc-item-name">sort-by<span class="namespace">(clojure.core)</span></h2><ul class="var-arglists"><li>(<span class="var-name">sort-by</span> keyfn coll)</li><li>(<span class="var-name">sort-by</span> keyfn comp coll)</li></ul><div class="var-docstring"><p>Returns a sorted sequence of the items in coll, where the sort
+  order is determined by comparing (keyfn item).  If no comparator is
+  supplied, uses compare. comparator must
+  implement java.util.Comparator.</p></div><div class="var-source"><pre>; clojure/core.clj:1820
+(defn sort-by
+  ([keyfn coll]
+   (sort-by keyfn compare coll))
+  ([keyfn #^java.util.Comparator comp coll]
+   (sort (fn [x y] (. comp (compare (keyfn x) (keyfn y)))) coll)))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
           epl-v10.html at the root of this distribution. By using this software
           in any fashion, you are agreeing to be bound by the terms of this 
           license. You must not remove this notice, or any other, from this 

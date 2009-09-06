@@ -1,11 +1,10 @@
-<div class="doc-item" id="doc-1103"><h2 class="doc-item-name">delay<span class="namespace">(clojure.core)</span></h2><p class="macro">Macro</p><ul class="var-arglists"><li>(<span class="var-name">delay</span> &amp; body)</li></ul><div class="var-docstring"><p>Takes a body of expressions and yields a Delay object that will
-  invoke the body only the first time it is forced (with force), and
-  will cache the result and return it on all subsequent force
-  calls. Any closed over locals will be cleared prior to the tail call
-  of body, (i.e. they will not be retained).</p></div><div class="var-source"><pre>; core.clj:453
-(defmacro delay
-  [&amp; body]
-    (list 'new 'clojure.lang.Delay (list* `#^{:once true} fn* [] body)))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
+<div class="doc-item" id="doc-1103"><h2 class="doc-item-name">with-in-str<span class="namespace">(clojure.core)</span></h2><p class="macro">Macro</p><ul class="var-arglists"><li>(<span class="var-name">with-in-str</span> s &amp; body)</li></ul><div class="var-docstring"><p>Evaluates body in a context in which *in* is bound to a fresh
+  StringReader initialized with the string s.</p></div><div class="var-source"><pre>; clojure/core.clj:2952
+(defmacro with-in-str
+  [s &amp; body]
+  `(with-open [s# (-&gt; (java.io.StringReader. ~s) clojure.lang.LineNumberingPushbackReader.)]
+     (binding [*in* s#]
+       ~@body)))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
           epl-v10.html at the root of this distribution. By using this software
           in any fashion, you are agreeing to be bound by the terms of this 
           license. You must not remove this notice, or any other, from this 

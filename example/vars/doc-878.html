@@ -1,0 +1,16 @@
+<div class="doc-item" id="doc-878"><h2 class="doc-item-name">partial<span class="namespace">(clojure.core)</span></h2><ul class="var-arglists"><li>(<span class="var-name">partial</span> f arg1)</li><li>(<span class="var-name">partial</span> f arg1 arg2)</li><li>(<span class="var-name">partial</span> f arg1 arg2 arg3)</li><li>(<span class="var-name">partial</span> f arg1 arg2 arg3 &amp; more)</li></ul><div class="var-docstring"><p>Takes a function f and fewer than the normal arguments to f, and
+  returns a fn that takes a variable number of additional args. When
+  called, the returned function calls f with args + additional args.</p></div><div class="var-source"><pre>; clojure/core.clj:1519
+(defn partial
+  ([f arg1]
+   (fn [&amp; args] (apply f arg1 args)))
+  ([f arg1 arg2]
+   (fn [&amp; args] (apply f arg1 arg2 args)))
+  ([f arg1 arg2 arg3]
+   (fn [&amp; args] (apply f arg1 arg2 arg3 args)))
+  ([f arg1 arg2 arg3 &amp; more]
+   (fn [&amp; args] (apply f arg1 arg2 arg3 (concat more args)))))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
+          epl-v10.html at the root of this distribution. By using this software
+          in any fashion, you are agreeing to be bound by the terms of this 
+          license. You must not remove this notice, or any other, from this 
+          software.</p></div></div>

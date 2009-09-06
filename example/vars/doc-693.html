@@ -1,0 +1,15 @@
+<div class="doc-item" id="doc-693"><h2 class="doc-item-name">down<span class="namespace">(clojure.zip)</span></h2><ul class="var-arglists"><li>(<span class="var-name">down</span>  loc)</li></ul><div class="var-docstring"><p>Returns the loc of the leftmost child of the node at this loc, or
+  nil if no children</p></div><div class="var-source"><pre>; clojure/zip.clj:93
+(defn down
+  [loc]
+    (let [[node path] loc
+          [c &amp; cnext :as cs] (children loc)]
+      (when cs
+        (with-meta [c {:l [] 
+                       :pnodes (if path (conj (:pnodes path) node) [node]) 
+                       :ppath path 
+                       :r cnext}] ^loc))))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
+          epl-v10.html at the root of this distribution. By using this software
+          in any fashion, you are agreeing to be bound by the terms of this 
+          license. You must not remove this notice, or any other, from this 
+          software.</p></div></div>

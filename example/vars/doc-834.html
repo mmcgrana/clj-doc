@@ -1,0 +1,17 @@
+<div class="doc-item" id="doc-834"><h2 class="doc-item-name">memoize<span class="namespace">(clojure.core)</span></h2><ul class="var-arglists"><li>(<span class="var-name">memoize</span>  f)</li></ul><div class="var-docstring"><p>Returns a memoized version of a referentially transparent function. The
+  memoized version of the function keeps a cache of the mapping from arguments
+  to results and, when calls with the same arguments are repeated often, has
+  higher performance at the expense of higher memory use.</p></div><div class="var-source"><pre>; clojure/core.clj:4109
+(defn memoize
+  [f]
+  (let [mem (atom {})]
+    (fn [&amp; args]
+      (if-let [e (find @mem args)]
+        (val e)
+        (let [ret (apply f args)]
+          (swap! mem assoc args ret)
+          ret)))))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
+          epl-v10.html at the root of this distribution. By using this software
+          in any fashion, you are agreeing to be bound by the terms of this 
+          license. You must not remove this notice, or any other, from this 
+          software.</p></div></div>

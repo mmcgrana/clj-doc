@@ -1,0 +1,11 @@
+<div class="doc-item" id="doc-798"><h2 class="doc-item-name">lazy-seq<span class="namespace">(clojure.core)</span></h2><p class="macro">Macro</p><ul class="var-arglists"><li>(<span class="var-name">lazy-seq</span> &amp; body)</li></ul><div class="var-docstring"><p>Takes a body of expressions that returns an ISeq or nil, and yields
+  a Seqable object that will invoke the body only the first time seq
+  is called, and will cache the result and return it on all subsequent
+  seq calls.</p></div><div class="var-source"><pre>; clojure/core.clj:415
+(defmacro lazy-seq
+  [&amp; body]
+  (list 'new 'clojure.lang.LazySeq (list* '#^{:once true} fn* [] body)))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
+          epl-v10.html at the root of this distribution. By using this software
+          in any fashion, you are agreeing to be bound by the terms of this 
+          license. You must not remove this notice, or any other, from this 
+          software.</p></div></div>

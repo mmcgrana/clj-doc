@@ -1,7 +1,14 @@
-<div class="doc-item" id="doc-1098"><h2 class="doc-item-name">defstruct-<span class="namespace">(clojure.contrib.def)</span></h2><p class="macro">Macro</p><ul class="var-arglists"><li>(<span class="var-name">defstruct-</span> name &amp; decls)</li></ul><div class="var-docstring"><p>Same as defstruct but yields a private definition</p></div><div class="var-source"><pre>; def.clj:50
-(defmacro defstruct-
-  [name &amp; decls]
-  (list* `defstruct (with-meta name (assoc (meta name) :private true)) decls))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
+<div class="doc-item" id="doc-1098"><h2 class="doc-item-name">when-let<span class="namespace">(clojure.core)</span></h2><p class="macro">Macro</p><ul class="var-arglists"><li>(<span class="var-name">when-let</span> bindings &amp; body)</li></ul><div class="var-docstring"><p>bindings =&gt; binding-form test</p><p>When test is true, evaluates body with binding-form bound to the value of test</p></div><div class="var-source"><pre>; clojure/core.clj:1155
+(defmacro when-let
+  [bindings &amp; body]
+  (assert-args when-let
+     (vector? bindings) &quot;a vector for its binding&quot;
+     (= 2 (count bindings)) &quot;exactly 2 forms in binding vector&quot;)
+   (let [form (bindings 0) tst (bindings 1)]
+    `(let [temp# ~tst]
+       (when temp#
+         (let [~form temp#]
+           ~@body)))))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
           epl-v10.html at the root of this distribution. By using this software
           in any fashion, you are agreeing to be bound by the terms of this 
           license. You must not remove this notice, or any other, from this 

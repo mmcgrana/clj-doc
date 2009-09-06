@@ -1,5 +1,7 @@
-<div class="doc-item" id="doc-968"><h2 class="doc-item-name">*print-readably*<span class="namespace">(clojure.core)</span></h2><div class="var-docstring"><p>When set to logical false, strings and characters will be printed with
-  non-alphanumeric characters converted to the appropriate escape sequences.</p><p>Defaults to true</p></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
+<div class="doc-item" id="doc-968"><h2 class="doc-item-name">rename<span class="namespace">(clojure.set)</span></h2><ul class="var-arglists"><li>(<span class="var-name">rename</span> xrel kmap)</li></ul><div class="var-docstring"><p>Returns a rel of the maps in xrel with the keys in kmap renamed to the vals in kmap</p></div><div class="var-source"><pre>; clojure/set.clj:80
+(defn rename
+  [xrel kmap]
+    (set (map #(rename-keys % kmap) xrel)))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
           epl-v10.html at the root of this distribution. By using this software
           in any fashion, you are agreeing to be bound by the terms of this 
           license. You must not remove this notice, or any other, from this 

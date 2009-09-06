@@ -1,6 +1,17 @@
-<div class="doc-item" id="doc-1040"><h2 class="doc-item-name">bit-shift-left<span class="namespace">(clojure.core)</span></h2><ul class="var-arglists"><li>(<span class="var-name">bit-shift-left</span> x n)</li></ul><div class="var-docstring"><p>Bitwise shift left</p></div><div class="var-source"><pre>; core.clj:828
-(defn bit-shift-left
-  [x n] (. clojure.lang.Numbers shiftLeft x n))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
+<div class="doc-item" id="doc-1040"><h2 class="doc-item-name">subseq<span class="namespace">(clojure.core)</span></h2><ul class="var-arglists"><li>(<span class="var-name">subseq</span> sc test key)</li><li>(<span class="var-name">subseq</span> sc start-test start-key end-test end-key)</li></ul><div class="var-docstring"><p>sc must be a sorted collection, test(s) one of &lt;, &lt;=, &gt; or
+  &gt;=. Returns a seq of those entries with keys ek for
+  which (test (.. sc comparator (compare ek key)) 0) is true</p></div><div class="var-source"><pre>; clojure/core.clj:3277
+(defn subseq
+  ([#^clojure.lang.Sorted sc test key]
+   (let [include (bound-fn sc test key)]
+     (if (#{&gt; &gt;=} test)
+       (when-let [[e :as s] (. sc seqFrom key true)]
+         (if (include e) s (next s)))
+       (take-while include (. sc seq true)))))
+  ([#^clojure.lang.Sorted sc start-test start-key end-test end-key]
+   (when-let [[e :as s] (. sc seqFrom start-key true)]
+     (take-while (bound-fn sc end-test end-key)
+                 (if ((bound-fn sc start-test start-key) e) s (next s))))))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
           epl-v10.html at the root of this distribution. By using this software
           in any fashion, you are agreeing to be bound by the terms of this 
           license. You must not remove this notice, or any other, from this 

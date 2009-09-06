@@ -1,0 +1,23 @@
+<div class="doc-item" id="doc-787"><h2 class="doc-item-name">isa?<span class="namespace">(clojure.core)</span></h2><ul class="var-arglists"><li>(<span class="var-name">isa?</span> child parent)</li><li>(<span class="var-name">isa?</span> h child parent)</li></ul><div class="var-docstring"><p>Returns true if (= child parent), or child is directly or indirectly derived from
+  parent, either via a Java type inheritance relationship or a
+  relationship established via derive. h must be a hierarchy obtained
+  from make-hierarchy, if not supplied defaults to the global
+  hierarchy</p></div><div class="var-source"><pre>; clojure/core.clj:3487
+(defn isa?
+  ([child parent] (isa? global-hierarchy child parent))
+  ([h child parent]
+   (or (= child parent)
+       (and (class? parent) (class? child)
+            (. #^Class parent isAssignableFrom child))
+       (contains? ((:ancestors h) child) parent)
+       (and (class? child) (some #(contains? ((:ancestors h) %) parent) (supers child)))
+       (and (vector? parent) (vector? child)
+            (= (count parent) (count child))
+            (loop [ret true i 0]
+              (if (or (not ret) (= i (count parent)))
+                ret
+                (recur (isa? h (child i) (parent i)) (inc i))))))))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
+          epl-v10.html at the root of this distribution. By using this software
+          in any fashion, you are agreeing to be bound by the terms of this 
+          license. You must not remove this notice, or any other, from this 
+          software.</p></div></div>

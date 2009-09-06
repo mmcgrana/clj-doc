@@ -1,8 +1,38 @@
-<div class="doc-item" id="doc-1005"><h2 class="doc-item-name">append-child<span class="namespace">(clojure.zip)</span></h2><ul class="var-arglists"><li>(<span class="var-name">append-child</span> loc item)</li></ul><div class="var-docstring"><p>Inserts the item as the rightmost child of the node at this loc,
-  without moving</p></div><div class="var-source"><pre>; zip.clj:188
-(defn append-child
-  [loc item]
-    (replace loc (make-node loc (node loc) (concat (children loc) [item]))))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
+<div class="doc-item" id="doc-1005"><h2 class="doc-item-name">seque<span class="namespace">(clojure.core)</span></h2><ul class="var-arglists"><li>(<span class="var-name">seque</span>  s)</li><li>(<span class="var-name">seque</span> n-or-q s)</li></ul><div class="var-docstring"><p>Creates a queued seq on another (presumably lazy) seq s. The queued
+  seq will produce a concrete seq in the background, and can get up to
+  n items ahead of the consumer. n-or-q can be an integer n buffer
+  size, or an instance of java.util.concurrent BlockingQueue. Note
+  that reading from a seque can block if the reader gets ahead of the
+  producer.</p></div><div class="var-source"><pre>; clojure/core.clj:3414
+(defn seque
+  ([s] (seque 100 s))
+  ([n-or-q s]
+   (let [#^BlockingQueue q (if (instance? BlockingQueue n-or-q)
+                             n-or-q
+                             (LinkedBlockingQueue. (int n-or-q)))
+         NIL (Object.) ;nil sentinel since LBQ doesn't support nils
+         agt (agent (seq s))
+         fill (fn [s]
+                (try
+                  (loop [[x &amp; xs :as s] s]
+                    (if s
+                      (if (.offer q (if (nil? x) NIL x))
+                        (recur xs)
+                        s)
+                      (.put q q))) ; q itself is eos sentinel
+                  (catch Exception e
+                    (.put q q)
+                    (throw e))))
+         drain (fn drain []
+                 (lazy-seq
+                  (let [x (.take q)]
+                    (if (identical? x q) ;q itself is eos sentinel
+                      (do @agt nil)  ;touch agent just to propagate errors
+                      (do
+                        (send-off agt fill)
+                        (cons (if (identical? x NIL) nil x) (drain)))))))]
+     (send-off agt fill)
+     (drain))))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
           epl-v10.html at the root of this distribution. By using this software
           in any fashion, you are agreeing to be bound by the terms of this 
           license. You must not remove this notice, or any other, from this 

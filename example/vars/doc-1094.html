@@ -1,7 +1,6 @@
-<div class="doc-item" id="doc-1094"><h2 class="doc-item-name">defn-<span class="namespace">(clojure.core)</span></h2><p class="macro">Macro</p><ul class="var-arglists"><li>(<span class="var-name">defn-</span> name &amp; decls)</li></ul><div class="var-docstring"><p>same as defn, yielding non-public def</p></div><div class="var-source"><pre>; core.clj:2873
-(defmacro defn-
-  [name &amp; decls]
-    (list* `defn (with-meta name (assoc (meta name) :private true)) decls))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
+<div class="doc-item" id="doc-1094"><h2 class="doc-item-name">vector?<span class="namespace">(clojure.core)</span></h2><ul class="var-arglists"><li>(<span class="var-name">vector?</span>  x)</li></ul><div class="var-docstring"><p>Return true if x implements IPersistentVector </p></div><div class="var-source"><pre>; clojure/core.clj:126
+(def
+ vector? (fn vector? [x] (instance? clojure.lang.IPersistentVector x)))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
           epl-v10.html at the root of this distribution. By using this software
           in any fashion, you are agreeing to be bound by the terms of this 
           license. You must not remove this notice, or any other, from this 

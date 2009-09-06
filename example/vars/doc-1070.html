@@ -1,21 +1,7 @@
-<div class="doc-item" id="doc-1070"><h2 class="doc-item-name">condt<span class="namespace">(clojure.contrib.condt)</span></h2><p class="macro">Macro</p><ul class="var-arglists"><li>(<span class="var-name">condt</span> expr &amp; clauses)</li></ul><div class="var-docstring"><p>expr is a template expression (see template), clauses are test/expr
-  pairs like cond.  Evalautes the template on each test value, one at
-  a time.  If a test returns logical true, condt evaluates the
-  corresponding expr and returns its value.  If none of the tests are
-  true, and there are an odd number of clauses, the last clause is
-  evaluated, otherwise returns nil.</p></div><div class="var-source"><pre>; condt.clj:28
-(defmacro condt
-  [expr &amp; clauses]
-  (let [test-fn-sym (gensym &quot;test_&quot;)
-        f (fn this [c]
-            (cond
-             (empty? c) nil
-             (= 1 (count c)) (first c)
-             :else (list 'if (list test-fn-sym (first c))
-                         (second c)
-                         (this (nthnext c 2)))))]
-    `(let [~test-fn-sym (clojure.contrib.template/template ~expr)]
-       ~(f clauses))))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
+<div class="doc-item" id="doc-1070"><h2 class="doc-item-name">unchecked-dec<span class="namespace">(clojure.core)</span></h2><ul class="var-arglists"><li>(<span class="var-name">unchecked-dec</span>  x)</li></ul><div class="var-docstring"><p>Returns a number one less than x, an int or long.
+  Note - uses a primitive operator subject to overflow.</p></div><div class="var-source"><pre>; clojure/core.clj:756
+(defn unchecked-dec
+  [x] (. clojure.lang.Numbers (unchecked_dec x)))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
           epl-v10.html at the root of this distribution. By using this software
           in any fashion, you are agreeing to be bound by the terms of this 
           license. You must not remove this notice, or any other, from this 

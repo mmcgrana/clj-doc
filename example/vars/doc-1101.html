@@ -1,11 +1,23 @@
-<div class="doc-item" id="doc-1101"><h2 class="doc-item-name">defvar<span class="namespace">(clojure.contrib.def)</span></h2><p class="macro">Macro</p><ul class="var-arglists"><li>(<span class="var-name">defvar</span>  name)</li><li>(<span class="var-name">defvar</span> name init)</li><li>(<span class="var-name">defvar</span> name init doc)</li></ul><div class="var-docstring"><p>Defines a var with an optional intializer and doc string</p></div><div class="var-source"><pre>; def.clj:19
-(defmacro defvar
-  ([name]
-     (list `def name))
-  ([name init]
-     (list `def name init))
-  ([name init doc]
-     (list `def (with-meta name (assoc (meta name) :doc doc)) init)))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
+<div class="doc-item" id="doc-1101"><h2 class="doc-item-name">with-bindings<span class="namespace">(clojure.main)</span></h2><p class="macro">Macro</p><ul class="var-arglists"><li>(<span class="var-name">with-bindings</span> &amp; body)</li></ul><div class="var-docstring"><p>Executes body in the context of thread-local bindings for several vars
+  that often need to be set!: *ns* *warn-on-reflection* *math-context*
+  *print-meta* *print-length* *print-level* *compile-path*
+  *command-line-args* *1 *2 *3 *e</p></div><div class="var-source"><pre>; clojure/main.clj:17
+(defmacro with-bindings
+  [&amp; body]
+  `(binding [*ns* *ns*
+             *warn-on-reflection* *warn-on-reflection*
+             *math-context* *math-context*
+             *print-meta* *print-meta*
+             *print-length* *print-length*
+             *print-level* *print-level*
+             *compile-path* (System/getProperty &quot;clojure.compile.path&quot; &quot;classes&quot;)
+             *command-line-args* *command-line-args*
+             *assert* *assert*
+             *1 nil
+             *2 nil
+             *3 nil
+             *e nil]
+     ~@body))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
           epl-v10.html at the root of this distribution. By using this software
           in any fashion, you are agreeing to be bound by the terms of this 
           license. You must not remove this notice, or any other, from this 

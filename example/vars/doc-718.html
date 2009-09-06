@@ -1,0 +1,10 @@
+<div class="doc-item" id="doc-718"><h2 class="doc-item-name">find-first<span class="namespace">(clojure.contrib.seq-utils)</span></h2><ul class="var-arglists"><li>(<span class="var-name">find-first</span> pred coll)</li></ul><div class="var-docstring"><p>Returns the first item of coll for which (pred item) returns logical true.
+  Consumes sequences up to the first match, will consume the entire sequence
+  and return nil if no match is found.</p></div><div class="var-source"><pre>; clojure/contrib/seq_utils.clj:168
+(defn find-first
+  [pred coll]
+  (first (filter pred coll)))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
+          epl-v10.html at the root of this distribution. By using this software
+          in any fashion, you are agreeing to be bound by the terms of this 
+          license. You must not remove this notice, or any other, from this 
+          software.</p></div></div>

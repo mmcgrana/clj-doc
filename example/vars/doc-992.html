@@ -1,18 +1,12 @@
-<div class="doc-item" id="doc-992"><h2 class="doc-item-name">add-watcher<span class="namespace">(clojure.core)</span></h2><ul class="var-arglists"><li>(<span class="var-name">add-watcher</span> reference send-type watcher-agent action-fn)</li></ul><div class="var-docstring"><p>Experimental.
-  Adds a watcher to an agent/atom/var/ref reference. The watcher must
-  be an Agent, and the action a function of the agent's state and one
-  additional arg, the reference. Whenever the reference's state
-  changes, any registered watchers will have their actions
-  sent. send-type must be one of :send or :send-off. The actions will
-  be sent after the reference's state is changed. Var watchers are
-  triggered only by root binding changes, not thread-local set!s</p></div><div class="var-source"><pre>; core.clj:1236
-(defn add-watcher
-  [#^clojure.lang.IRef reference send-type watcher-agent action-fn]
-  (add-watch reference watcher-agent
-    (fn [watcher-agent reference old-state new-state]
-      (when-not (identical? old-state new-state)
-        ((if (= send-type :send-off) send-off send)
-         watcher-agent action-fn reference)))))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
+<div class="doc-item" id="doc-992"><h2 class="doc-item-name">rotations<span class="namespace">(clojure.contrib.seq-utils)</span></h2><ul class="var-arglists"><li>(<span class="var-name">rotations</span>  x)</li></ul><div class="var-docstring"><p>Returns a lazy seq of all rotations of a seq</p></div><div class="var-source"><pre>; clojure/contrib/seq_utils.clj:123
+(defn rotations
+  [x]
+  (if (seq x)
+    (map
+     (fn [n _]
+       (lazy-cat (drop n x) (take n x)))
+     (iterate inc 0) x)
+    (list nil)))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
           epl-v10.html at the root of this distribution. By using this software
           in any fashion, you are agreeing to be bound by the terms of this 
           license. You must not remove this notice, or any other, from this 

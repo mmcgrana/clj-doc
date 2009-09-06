@@ -1,5 +1,25 @@
-<div class="doc-item" id="doc-953"><h2 class="doc-item-name">*current*<span class="namespace">(clojure.xml)</span></h2><div class="var-source"><pre>; xml.clj:14
-(def *current*)</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
+<div class="doc-item" id="doc-953"><h2 class="doc-item-name">ref<span class="namespace">(clojure.core)</span></h2><ul class="var-arglists"><li>(<span class="var-name">ref</span>  x)</li><li>(<span class="var-name">ref</span> x &amp; options)</li></ul><div class="var-docstring"><p>Creates and returns a Ref with an initial value of x and zero or
+  more options (in any order):</p><p>:meta metadata-map</p><p>:validator validate-fn</p><p>:min-history (default 0)
+  :max-history (default 10)</p><p>If metadata-map is supplied, it will be come the metadata on the
+  ref. validate-fn must be nil or a side-effect-free fn of one
+  argument, which will be passed the intended new state on any state
+  change. If the new state is unacceptable, the validate-fn should
+  return false or throw an exception. validate-fn will be called on
+  transaction commit, when all refs have their final values.</p><p>Normally refs accumulate history dynamically as needed to deal with
+  read demands. If you know in advance you will need history you can
+  set :min-history to ensure it will be available when first needed (instead
+  of after a read fault). History is limited, and the limit can be set
+  with :max-history.</p></div><div class="var-source"><pre>; clojure/core.clj:1312
+(defn ref
+  ([x] (new clojure.lang.Ref x))
+  ([x &amp; options] 
+   (let [r  #^clojure.lang.Ref (setup-reference (ref x) options)
+         opts (apply hash-map options)]
+    (when (:max-history opts)
+      (.setMaxHistory r (:max-history opts)))
+    (when (:min-history opts)
+      (.setMinHistory r (:min-history opts)))
+    r)))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
           epl-v10.html at the root of this distribution. By using this software
           in any fashion, you are agreeing to be bound by the terms of this 
           license. You must not remove this notice, or any other, from this 

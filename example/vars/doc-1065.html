@@ -1,12 +1,7 @@
-<div class="doc-item" id="doc-1065"><h2 class="doc-item-name">complement<span class="namespace">(clojure.core)</span></h2><ul class="var-arglists"><li>(<span class="var-name">complement</span>  f)</li></ul><div class="var-docstring"><p>Takes a fn f and returns a fn that takes the same arguments as f,
-  has the same effects, if any, and returns the opposite truth value.</p></div><div class="var-source"><pre>; core.clj:847
-(defn complement
-  [f] 
-  (fn 
-    ([] (not (f)))
-    ([x] (not (f x)))
-    ([x y] (not (f x y)))
-    ([x y &amp; zs] (not (apply f x y zs)))))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
+<div class="doc-item" id="doc-1065"><h2 class="doc-item-name">transient<span class="namespace">(clojure.core)</span></h2><ul class="var-arglists"><li>(<span class="var-name">transient</span>  coll)</li></ul><div class="var-docstring"><p>Returns a new, transient version of the collection, in constant time.</p></div><div class="var-source"><pre>; clojure/core.clj:4394
+(defn transient 
+  [#^clojure.lang.IEditableCollection coll] 
+  (.asTransient coll))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
           epl-v10.html at the root of this distribution. By using this software
           in any fashion, you are agreeing to be bound by the terms of this 
           license. You must not remove this notice, or any other, from this 

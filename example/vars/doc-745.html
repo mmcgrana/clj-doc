@@ -1,0 +1,69 @@
+<div class="doc-item" id="doc-745"><h2 class="doc-item-name">gen-class<span class="namespace">(clojure.core)</span></h2><p class="macro">Macro</p><ul class="var-arglists"><li>(<span class="var-name">gen-class</span> &amp; options)</li></ul><div class="var-docstring"><p>When compiling, generates compiled bytecode for a class with the
+  given package-qualified :name (which, as all names in these
+  parameters, can be a string or symbol), and writes the .class file
+  to the *compile-path* directory.  When not compiling, does
+  nothing. The gen-class construct contains no implementation, as the
+  implementation will be dynamically sought by the generated class in
+  functions in an implementing Clojure namespace. Given a generated
+  class org.mydomain.MyClass with a method named mymethod, gen-class
+  will generate an implementation that looks for a function named by 
+  (str prefix mymethod) (default prefix: &quot;-&quot;) in a
+  Clojure namespace specified by :impl-ns
+  (defaults to the current namespace). All inherited methods,
+  generated methods, and init and main functions (see :methods, :init,
+  and :main below) will be found similarly prefixed. By default, the
+  static initializer for the generated class will attempt to load the
+  Clojure support code for the class as a resource from the classpath,
+  e.g. in the example case, ``org/mydomain/MyClass__init.class``. This
+  behavior can be controlled by :load-impl-ns</p><p>Note that methods with a maximum of 18 parameters are supported.</p><p>In all subsequent sections taking types, the primitive types can be
+  referred to by their Java names (int, float etc), and classes in the
+  java.lang package can be used without a package qualifier. All other
+  classes must be fully qualified.</p><p>Options should be a set of key/value pairs, all except for :name are optional:</p><p>:name aname</p><p>The package-qualified name of the class to be generated</p><p>:extends aclass</p><p>Specifies the superclass, the non-private methods of which will be
+  overridden by the class. If not provided, defaults to Object.</p><p>:implements [interface ...]</p><p>One or more interfaces, the methods of which will be implemented by the class.</p><p>:init name</p><p>If supplied, names a function that will be called with the arguments
+  to the constructor. Must return [ [superclass-constructor-args] state] 
+  If not supplied, the constructor args are passed directly to
+  the superclass constructor and the state will be nil</p><p>:constructors {[param-types] [super-param-types], ...}</p><p>By default, constructors are created for the generated class which
+  match the signature(s) of the constructors for the superclass. This
+  parameter may be used to explicitly specify constructors, each entry
+  providing a mapping from a constructor signature to a superclass
+  constructor signature. When you supply this, you must supply an :init
+  specifier. </p><p>:post-init name</p><p>If supplied, names a function that will be called with the object as
+  the first argument, followed by the arguments to the constructor.
+  It will be called every time an object of this class is created,
+  immediately after all the inherited constructors have completed.
+  It's return value is ignored.</p><p>:methods [ [name [param-types] return-type], ...]</p><p>The generated class automatically defines all of the non-private
+  methods of its superclasses/interfaces. This parameter can be used
+  to specify the signatures of additional methods of the generated
+  class. Static methods can be specified with #^{:static true} in the
+  signature's metadata. Do not repeat superclass/interface signatures
+  here.</p><p>:main boolean</p><p>If supplied and true, a static public main function will be generated. It will
+  pass each string of the String[] argument as a separate argument to
+  a function called (str prefix main).</p><p>:factory name</p><p>If supplied, a (set of) public static factory function(s) will be
+  created with the given name, and the same signature(s) as the
+  constructor(s).
+  
+  :state name</p><p>If supplied, a public final instance field with the given name will be
+  created. You must supply an :init function in order to provide a
+  value for the state. Note that, though final, the state can be a ref
+  or agent, supporting the creation of Java objects with transactional
+  or asynchronous mutation semantics.</p><p>:exposes {protected-field-name {:get name :set name}, ...}</p><p>Since the implementations of the methods of the generated class
+  occur in Clojure functions, they have no access to the inherited
+  protected fields of the superclass. This parameter can be used to
+  generate public getter/setter methods exposing the protected field(s)
+  for use in the implementation.</p><p>:exposes-methods {super-method-name exposed-name, ...}</p><p>It is sometimes necessary to call the superclass' implementation of an
+  overridden method.  Those methods may be exposed and referred in 
+  the new method implementation by a local name.</p><p>:prefix string</p><p>Default: &quot;-&quot; Methods called e.g. Foo will be looked up in vars called
+  prefixFoo in the implementing ns.</p><p>:impl-ns name</p><p>Default: the name of the current ns. Implementations of methods will be looked up in this namespace.</p><p>:load-impl-ns boolean</p><p>Default: true. Causes the static initializer for the generated class
+  to reference the load code for the implementing namespace. Should be
+  true when implementing-ns is the default, false if you intend to
+  load the code via some other method.</p></div><div class="var-source"><pre>; clojure/genclass.clj:464
+(defmacro gen-class 
+  [&amp; options]
+    (when *compile-files*
+      (let [options-map (apply hash-map options)
+            [cname bytecode] (generate-class options-map)]
+        (clojure.lang.Compiler/writeClassFile cname bytecode))))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
+          epl-v10.html at the root of this distribution. By using this software
+          in any fashion, you are agreeing to be bound by the terms of this 
+          license. You must not remove this notice, or any other, from this 
+          software.</p></div></div>

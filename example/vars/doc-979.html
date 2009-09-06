@@ -1,12 +1,6 @@
-<div class="doc-item" id="doc-979"><h2 class="doc-item-name">-&gt;<span class="namespace">(clojure.core)</span></h2><p class="macro">Macro</p><ul class="var-arglists"><li>(<span class="var-name">-&gt;</span> x form)</li><li>(<span class="var-name">-&gt;</span> x form &amp; more)</li></ul><div class="var-docstring"><p>Threads the expr through the forms. Inserts x as the
-  second item in the first form, making a list of it if it is not a
-  list already. If there are more forms, inserts the first form as the
-  second item in second form, etc.</p></div><div class="var-source"><pre>; core.clj:1017
-(defmacro -&gt;
-  ([x form] (if (seq? form)
-              `(~(first form) ~x ~@(next form))
-              (list form x)))
-  ([x form &amp; more] `(-&gt; (-&gt; ~x ~form) ~@more)))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
+<div class="doc-item" id="doc-979"><h2 class="doc-item-name">replicate<span class="namespace">(clojure.core)</span></h2><ul class="var-arglists"><li>(<span class="var-name">replicate</span> n x)</li></ul><div class="var-docstring"><p>Returns a lazy seq of n xs.</p></div><div class="var-source"><pre>; clojure/core.clj:1727
+(defn replicate
+  [n x] (take n (repeat x)))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
           epl-v10.html at the root of this distribution. By using this software
           in any fashion, you are agreeing to be bound by the terms of this 
           license. You must not remove this notice, or any other, from this 

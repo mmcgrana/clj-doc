@@ -1,0 +1,18 @@
+<div class="doc-item" id="doc-762"><h2 class="doc-item-name">import<span class="namespace">(clojure.core)</span></h2><p class="macro">Macro</p><ul class="var-arglists"><li>(<span class="var-name">import</span> &amp; import-symbols-or-lists)</li></ul><div class="var-docstring"><p>import-list =&gt; (package-symbol class-name-symbols*)</p><p>For each name in class-name-symbols, adds a mapping from name to the
+  class named by package.name to the current namespace. Use :import in the ns
+  macro in preference to calling this directly.</p></div><div class="var-source"><pre>; clojure/core.clj:2002
+(defmacro import 
+  [&amp; import-symbols-or-lists]
+  (let [specs (map #(if (and (seq? %) (= 'quote (first %))) (second %) %) 
+                   import-symbols-or-lists)]
+    `(do ~@(map #(list 'clojure.core/import* %)
+                (reduce (fn [v spec] 
+                          (if (symbol? spec)
+                            (conj v (name spec))
+                            (let [p (first spec) cs (rest spec)]
+                              (into v (map #(str p &quot;.&quot; %) cs)))))
+                        [] specs)))))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
+          epl-v10.html at the root of this distribution. By using this software
+          in any fashion, you are agreeing to be bound by the terms of this 
+          license. You must not remove this notice, or any other, from this 
+          software.</p></div></div>

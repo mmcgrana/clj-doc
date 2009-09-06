@@ -1,15 +1,12 @@
-<div class="doc-item" id="doc-1117"><h2 class="doc-item-name">dorun<span class="namespace">(clojure.core)</span></h2><ul class="var-arglists"><li>(<span class="var-name">dorun</span>  coll)</li><li>(<span class="var-name">dorun</span> n coll)</li></ul><div class="var-docstring"><p>When lazy sequences are produced via functions that have side
-  effects, any effects other than those needed to produce the first
-  element in the seq do not occur until the seq is consumed. dorun can
-  be used to force any effects. Walks through the successive nexts of
-  the seq, does not retain the head and returns nil.</p></div><div class="var-source"><pre>; core.clj:1763
-(defn dorun
-  ([coll]
-   (when (seq coll)
-     (recur (next coll))))
-  ([n coll]
-   (when (and (seq coll) (pos? n))
-     (recur (dec n) (next coll)))))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
+<div class="doc-item" id="doc-1117"><h2 class="doc-item-name">xml-zip<span class="namespace">(clojure.zip)</span></h2><ul class="var-arglists"><li>(<span class="var-name">xml-zip</span>  root)</li></ul><div class="var-docstring"><p>Returns a zipper for xml elements (as from xml/parse),
+  given a root element</p></div><div class="var-source"><pre>; clojure/zip.clj:47
+(defn xml-zip
+  [root]
+    (zipper (complement string?) 
+            (comp seq :content)
+            (fn [node children]
+              (assoc node :content (and children (apply vector children))))
+            root))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
           epl-v10.html at the root of this distribution. By using this software
           in any fashion, you are agreeing to be bound by the terms of this 
           license. You must not remove this notice, or any other, from this 

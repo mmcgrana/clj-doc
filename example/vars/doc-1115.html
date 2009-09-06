@@ -1,16 +1,24 @@
-<div class="doc-item" id="doc-1115"><h2 class="doc-item-name">doall<span class="namespace">(clojure.core)</span></h2><ul class="var-arglists"><li>(<span class="var-name">doall</span>  coll)</li><li>(<span class="var-name">doall</span> n coll)</li></ul><div class="var-docstring"><p>When lazy sequences are produced via functions that have side
-  effects, any effects other than those needed to produce the first
-  element in the seq do not occur until the seq is consumed. doall can
-  be used to force any effects. Walks through the successive nexts of
-  the seq, retains the head and returns it, thus causing the entire
-  seq to reside in memory at one time.</p></div><div class="var-source"><pre>; core.clj:1776
-(defn doall
-  ([coll]
-   (dorun coll)
-   coll)
-  ([n coll]
-   (dorun n coll)
-   coll))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
+<div class="doc-item" id="doc-1115"><h2 class="doc-item-name">writer<span class="namespace">(clojure.contrib.duck-streams)</span></h2><ul class="var-arglists"><li>(<span class="var-name">writer</span>  x)</li></ul><div class="var-docstring"><p>Attempts to coerce its argument into an open java.io.PrintWriter
+  wrapped around a java.io.BufferedWriter.  Argument may be an
+  instance of Writer, PrintWriter, BufferedWriter, OutputStream, File,
+  URI, URL, or String.</p><p>If argument is a String, it tries to resolve it first as a URI, then
+  as a local file name.  URIs with a 'file' protocol are converted to
+  local file names.</p><p>Should be used inside with-open to ensure the Writer is properly
+  closed.</p></div><div class="var-source"><pre>; clojure/contrib/duck_streams.clj:146
+(defmulti #^{:tag PrintWriter
+             :doc &quot;Attempts to coerce its argument into an open java.io.PrintWriter
+  wrapped around a java.io.BufferedWriter.  Argument may be an
+  instance of Writer, PrintWriter, BufferedWriter, OutputStream, File,
+  URI, URL, or String.
+
+  If argument is a String, it tries to resolve it first as a URI, then
+  as a local file name.  URIs with a 'file' protocol are converted to
+  local file names.
+
+  Should be used inside with-open to ensure the Writer is properly
+  closed.&quot;
+             :arglists '([x])}
+  writer class)</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
           epl-v10.html at the root of this distribution. By using this software
           in any fashion, you are agreeing to be bound by the terms of this 
           license. You must not remove this notice, or any other, from this 

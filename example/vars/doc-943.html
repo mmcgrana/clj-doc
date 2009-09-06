@@ -1,0 +1,20 @@
+<div class="doc-item" id="doc-943"><h2 class="doc-item-name">re-sub<span class="namespace">(clojure.contrib.str-utils)</span></h2><ul class="var-arglists"><li>(<span class="var-name">re-sub</span> regex replacement string)</li></ul><div class="var-docstring"><p>Replaces the first instance of 'pattern' in 'string' with
+  'replacement'.  Like Ruby's 'String#sub'.
+  
+  If (ifn? replacement) is true, the replacement is called with
+  the match.
+  </p></div><div class="var-source"><pre>; clojure/contrib/str_utils.clj:66
+(defn re-sub
+  [#^Pattern regex replacement #^String string]
+  (if (ifn? replacement)
+    (let [m (re-matcher regex string)]
+      (if (.find m)
+        (str (.subSequence string 0 (.start m))
+             (replacement (re-groups m))
+             (.subSequence string (.end m) (.length string)))
+        string))
+    (.. regex (matcher string) (replaceFirst replacement))))</pre></div><div class="license"><p>Copyright (c) Rich Hickey. All rights reserved.</p><p>The use and distribution terms for this software are covered by the <a href="http://opensource.org/licenses/eclipse-1.0.php">Eclipse Public License 1.0</a>, which can be found in the file
+          epl-v10.html at the root of this distribution. By using this software
+          in any fashion, you are agreeing to be bound by the terms of this 
+          license. You must not remove this notice, or any other, from this 
+          software.</p></div></div>
